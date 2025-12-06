@@ -1,7 +1,7 @@
-return {{
-    "tpope/vim-sleuth",
-},
-     { "folke/todo-comments.nvim", opts = {} },
+return {
+    { "tpope/vim-sleuth", },
+    { 'jinh0/eyeliner.nvim',      opts = { highlight_on_key = true, } },
+    { "folke/todo-comments.nvim", opts = {} },
     {
         "numToStr/Comment.nvim",
         dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },

@@ -7,6 +7,10 @@
 local servers = {
     "lua_ls",        -- Lua language server
     "rust_analyzer", -- Rust language server
+    "jsonls",        -- JSON language server
+    "svelte",        -- Svelte language server
+    "typescript",
+    "gopls"
 }
 
 -- ============================================================================
@@ -24,7 +28,6 @@ local function get_capabilities()
             vim.lsp.protocol.make_client_capabilities(),
             blink.get_lsp_capabilities(),
             {
-                -- Additional capabilities can be added here
                 workspace = {
                     fileOperations = {
                         didRename = true,
@@ -117,35 +120,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
             })
         end
     end,
-})
-
--- ============================================================================
--- Diagnostic Configuration
--- ============================================================================
-
-vim.diagnostic.config({
-    virtual_text = true,
-    underline = true,
-    update_in_insert = false,
-    severity_sort = true,
-    float = {
-        border = "rounded",
-        source = true,
-        header = "",
-        prefix = "",
-    },
-    signs = {
-        text = {
-            [vim.diagnostic.severity.ERROR] = "󰅚 ",
-            [vim.diagnostic.severity.WARN] = "󰀪 ",
-            [vim.diagnostic.severity.INFO] = "󰋽 ",
-            [vim.diagnostic.severity.HINT] = "󰌶 ",
-        },
-        numhl = {
-            [vim.diagnostic.severity.ERROR] = "ErrorMsg",
-            [vim.diagnostic.severity.WARN] = "WarningMsg",
-        },
-    },
 })
 
 -- ============================================================================
@@ -308,7 +282,7 @@ vim.api.nvim_create_user_command("LspDiagnostics", function()
 end, { desc = "Show diagnostic counts for current buffer" })
 
 -- LspInfo: Comprehensive LSP information
-vim.api.nvim_create_user_command("LspInfo", function()
+vim.api.nvim_create_user_command("LspDetails", function()
     local bufnr = vim.api.nvim_get_current_buf()
     local clients = vim.lsp.get_clients({ bufnr = bufnr })
 
@@ -402,26 +376,82 @@ vim.api.nvim_create_user_command("LspInfo", function()
     print("Use :LspCapabilities for full capability list")
 end, { desc = "Show comprehensive LSP information" })
 
-vim.diagnostic.config({
-    virtual_lines = true,
-    --   virtual_text = false,
-    underline = true,
-    update_in_insert = true,
-    severity_sort = true,
-    float = {
-        border = "rounded",
-        source = true,
-    },
-    signs = {
-        text = {
-            [vim.diagnostic.severity.ERROR] = "󰅚 ",
-            [vim.diagnostic.severity.WARN] = "󰀪 ",
-            [vim.diagnostic.severity.INFO] = "󰋽 ",
-            [vim.diagnostic.severity.HINT] = "󰌶 ",
-        },
-        numhl = {
-            [vim.diagnostic.severity.ERROR] = "ErrorMsg",
-            [vim.diagnostic.severity.WARN] = "WarningMsg",
-        },
-    },
-})
+vim.api.nvim_create_user_command("LspInstalled", function()
+    print("═══════════════════════════════════")
+    print("      INSTALLED LSP SERVERS        ")
+    print("═══════════════════════════════════")
+    print("")
+
+    local registered = vim.lsp._config_clients or {}
+    local names = vim.tbl_keys(registered)
+
+    print("󰒋 Installed servers (" .. #names .. "):")
+    if #names == 0 then
+        print("  • No servers installed via vim.lsp.enable()")
+    else
+        for _, name in ipairs(names) do
+            print("  • " .. name)
+        end
+    end
+
+    print("")
+    print("═══════════════════════════════════")
+end, { desc = "List all installed LSP servers" })
+
+
+vim.api.nvim_create_user_command("LspList", function()
+    print("═══════════════════════════════════")
+    print("            LSP DETAILS             ")
+    print("═══════════════════════════════════")
+    print("")
+
+    -------------------------------------------------------------------------
+    -- 1. Active clients for current buffer
+    -------------------------------------------------------------------------
+    local bufnr = vim.api.nvim_get_current_buf()
+    local active = vim.lsp.get_clients({ bufnr = bufnr })
+
+    print("󰄬 Active clients for current buffer (" .. #active .. "):")
+    if #active == 0 then
+        print("  • No LSP clients attached")
+    else
+        for _, client in ipairs(active) do
+            print("  • " .. client.name .. " (ID " .. client.id .. ")")
+        end
+    end
+    print("")
+
+    -------------------------------------------------------------------------
+    -- 2. All active LSP clients (global)
+    -------------------------------------------------------------------------
+    local global_clients = vim.lsp.get_clients()
+
+    print("󰒇 Globally active LSP clients (" .. #global_clients .. "):")
+    if #global_clients == 0 then
+        print("  • None loaded")
+    else
+        for _, client in ipairs(global_clients) do
+            print("  • " .. client.name .. " (ID " .. client.id .. ")")
+        end
+    end
+    print("")
+
+    -------------------------------------------------------------------------
+    -- 3. Registered LSP servers (via vim.lsp._config_clients)
+    -------------------------------------------------------------------------
+    local registered = vim.tbl_keys(vim.lsp._config_clients or {})
+
+    print("󰒋 Registered LSP server configs (" .. #registered .. "):")
+    if #registered == 0 then
+        print("  • No servers registered via vim.lsp.enable()")
+    else
+        for _, name in ipairs(registered) do
+            print("  • " .. name)
+        end
+    end
+    print("")
+
+    print("═══════════════════════════════════")
+    print(" Use :LspInfo for full diagnostics  ")
+    print("═══════════════════════════════════")
+end, { desc = "List installed / active / registered LSP servers" })

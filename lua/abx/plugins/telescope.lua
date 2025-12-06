@@ -11,7 +11,7 @@ return {
             defaults = {
                 layout_strategy = 'bottom_pane',
             },
-            file_ignore_patterns = { "node_modules", ".git/" },
+            file_ignore_patterns = { "node_modules", ".git/", "target" },
         })
 
         -- Find Files from parent directory

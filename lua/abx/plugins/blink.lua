@@ -60,7 +60,7 @@ return {
                         draw = {
                             columns = {
                                 { "kind_icon" },
-                                { "label", "label_description", gap = 1 },
+                                { "label",      "label_description", gap = 1 },
                                 { "kind" },
                                 { "source_name" },
                             },
@@ -81,11 +81,4 @@ return {
             require("luasnip.loaders.from_vscode").lazy_load()
         end,
     },
-
-    {
-        "windwp/nvim-ts-autotag",
-        ft = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
-        config = true,
-    }
 }
-
