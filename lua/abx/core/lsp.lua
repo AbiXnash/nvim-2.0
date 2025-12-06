@@ -9,8 +9,8 @@ local servers = {
     "rust_analyzer", -- Rust language server
     "jsonls",        -- JSON language server
     "svelte",        -- Svelte language server
-    "typescript",
-    "gopls"
+    "gopls",
+    "basedpyright"
 }
 
 -- ============================================================================
@@ -146,6 +146,7 @@ for _, server_name in ipairs(servers) do
 
             -- Enable the LSP with the loaded config
             vim.lsp.enable(server_name, server_config)
+            vim.lsp.enable(server_name)
         else
             -- If config load failed, enable with default config
             vim.notify(
@@ -153,10 +154,12 @@ for _, server_name in ipairs(servers) do
                 vim.log.levels.WARN
             )
             vim.lsp.enable(server_name, { capabilities = capabilities })
+            vim.lsp.enable(server_name)
         end
     else
         -- No config file, use default config
         vim.lsp.enable(server_name, { capabilities = capabilities })
+        vim.lsp.enable(server_name)
     end
 end
 

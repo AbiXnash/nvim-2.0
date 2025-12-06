@@ -9,7 +9,7 @@ return {
   {
     'prettier/vim-prettier',
     run = 'yarn install --frozen-lockfile --production',
-    ft = { 'javascript', 'typescript', 'css', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html' }
+    ft = { 'javascript', 'typescript', 'css', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html', 'python' }
   },
   -- Formatting
   {
@@ -21,6 +21,7 @@ return {
           typescript = { "prettierd" },
           javascriptreact = { "prettierd" },
           typescriptreact = { "prettierd" },
+          python = { "black" }
         },
         format_on_save = { timeout_ms = 500, lsp_fallback = true },
       })
@@ -37,12 +38,9 @@ return {
     local null_ls = require("null-ls")
     null_ls.setup({
       sources = {
-        -- Diagnostics (now from extras)
         require("none-ls.diagnostics.eslint_d"),
-        -- Formatting (retain built-ins if available)
         null_ls.builtins.formatting.prettierd,
       },
-      -- Optional: Debug mode for troubleshooting
       debug = true,
     })
   end,

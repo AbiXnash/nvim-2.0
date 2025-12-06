@@ -87,3 +87,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 
 })
+
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = vim.api.nvim_create_augroup("ConformAutoFormat", { clear = true }),
+    pattern = "*.py",
+    callback = function(args)
+        require("conform").format({ bufnr = args.buf })
+    end,
+})
