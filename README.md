@@ -322,4 +322,3 @@ This configuration is provided as-is for educational and personal use.
 **Happy Coding! 🎉**
 
 Built with ❤️ for the Neovim community
-
