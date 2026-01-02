@@ -9,7 +9,6 @@ return {
   {
     'prettier/vim-prettier',
     run = 'yarn install --frozen-lockfile --production',
-    ft = { 'javascript', 'typescript', 'css', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html', 'python' }
   },
   -- Formatting
   {
@@ -17,11 +16,20 @@ return {
     config = function()
       require("conform").setup({
         formatters_by_ft = {
+          lua = { "prettierd" },
           javascript = { "prettierd" },
           typescript = { "prettierd" },
+          svelte = { "prettierd" },
           javascriptreact = { "prettierd" },
           typescriptreact = { "prettierd" },
-          python = { "black" }
+          python = { "black" },
+          go = { "gofumpt" },
+          json = { "prettierd" },
+          jsonc = { "prettierd" },
+          markdown = { "prettierd" },
+          html = { "prettierd" },
+          css = { "prettierd" },
+          yaml = { "prettierd" },
         },
         format_on_save = { timeout_ms = 500, lsp_fallback = true },
       })
