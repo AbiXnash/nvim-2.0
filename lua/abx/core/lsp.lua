@@ -1,17 +1,12 @@
-vim.lsp.enable({
-    "clangd",
-    "bashls",
-    "lua_ls",
+local servers = {
+    "lua_ls",        -- Lua language server
+    "rust_analyzer", -- Rust language server
+    "jsonls",        -- JSON language server
+    "svelte",        -- Svelte language server
     "gopls",
-    "html",
-    "cssls",
-    "ts_ls",
-    "svelte",
-    "tailwindcss",
-    "pyright",
-    "yamlls",
-    "jsonls",
-})
+    "basedpyright"
+    "astro-language-server",
+}
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities({}, false))
