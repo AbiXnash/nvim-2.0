@@ -34,20 +34,7 @@ return {
             require('telescope.builtin').buffers()
         end)
 
-        -- LSP-based Code Actions
-        vim.api.nvim_create_autocmd("LspAttach", {
-            group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
-            callback = function()
-                vim.keymap.set("n", "gd", [[:lua pcall(vim.lsp.buf.definition)<CR>]], { noremap = true, silent = true })
-                vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references)
-                vim.keymap.set("n", "<leader>D", require("telescope.builtin").lsp_type_definitions)
-                vim.keymap.set("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols)
-                vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
-                vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
-                vim.keymap.set("x", "<leader>ca", vim.lsp.buf.code_action)
-                vim.keymap.set("n", "gD", vim.lsp.buf.declaration)
-            end
-        })
+        
     end
 
 

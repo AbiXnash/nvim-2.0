@@ -79,6 +79,7 @@ local function setup_keymaps(bufnr)
     map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
     map("n", "<leader>cd", vim.diagnostic.open_float, "Show diagnostic")
     map("n", "<leader>cl", vim.diagnostic.setloclist, "Diagnostics to loclist")
+    map("n", "gl", vim.diagnostic.open_float, "Open Diagnostic Float")
 
     -- Workspace
     map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, "Add workspace folder")
@@ -86,10 +87,24 @@ local function setup_keymaps(bufnr)
     map("n", "<leader>wl", function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, "List workspace folders")
+
+    -- Additional mappings from autocmd.lua
+    map("n", "gs", vim.lsp.buf.signature_help, "Signature Documentation")
+    map("n", "<leader>la", vim.lsp.buf.code_action, "Code Action")
+    map("n", "<leader>lr", vim.lsp.buf.rename, "Rename all references")
+    map("n", "<leader>lf", vim.lsp.buf.format, "Format")
+    map("n", "<leader>v", "<cmd>vsplit | lua vim.lsp.buf.definition()<cr>", "Goto Definition in Vertical Split")
+
+    -- Telescope-specific LSP mappings (if telescope is available)
+    local ok, telescope = pcall(require, 'telescope.builtin')
+    if ok then
+        map("n", "<leader>D", telescope.lsp_type_definitions, "Type definitions")
+        map("n", "<leader>ds", telescope.lsp_document_symbols, "Document symbols")
+    end
 end
 
 -- ============================================================================
--- LSP Attach Handler
+-- LSP Attach Handler (Consolidated)
 -- ============================================================================
 
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -111,18 +126,41 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
         end
 
+        -- Format on save setup (consolidated from autocmd.lua)
+        if client:supports_method('textDocument/formatting') then
+            vim.api.nvim_create_autocmd('BufWritePre', {
+                buffer = bufnr,
+                group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = true }),
+                callback = function()
+                    vim.lsp.buf.format({ bufnr = bufnr, id = client.id })
+                end
+            })
+        end
+
         -- Document highlight on cursor hold
         if client.server_capabilities.documentHighlightProvider then
-            local highlight_group = vim.api.nvim_create_augroup("LspDocumentHighlight_" .. bufnr, { clear = true })
-            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+            local highlight_augroup = vim.api.nvim_create_augroup('lsp-highlight', { clear = false })
+
+            -- When cursor stops moving: Highlights all instances of the symbol under the cursor
+            -- When cursor moves: Clears the highlighting
+            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
                 buffer = bufnr,
-                group = highlight_group,
+                group = highlight_augroup,
                 callback = vim.lsp.buf.document_highlight,
             })
-            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
                 buffer = bufnr,
-                group = highlight_group,
+                group = highlight_augroup,
                 callback = vim.lsp.buf.clear_references,
+            })
+
+            -- When LSP detaches: Clears the highlighting
+            vim.api.nvim_create_autocmd('LspDetach', {
+                group = vim.api.nvim_create_augroup('lsp-detach', { clear = true }),
+                callback = function(event2)
+                    vim.lsp.buf.clear_references()
+                    vim.api.nvim_clear_autocmds { group = 'lsp-highlight', buffer = event2.buf }
+                end,
             })
         end
     end,
