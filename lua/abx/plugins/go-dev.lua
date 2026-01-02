@@ -1,12 +1,12 @@
 return {
     -- Enhanced Go development
     {
-        "crusj/structr.nvim",
+        "crusj/structrue-go.nvim",
         ft = "go",
         config = function()
             require('structr').setup({
                 -- Go struct generation options
-                case_type = "camel", -- camel, snake, pascal
+                case_type = "camel",          -- camel, snake, pascal
                 filename_case_type = "snake", -- camel, snake, pascal
                 auto_save = true,
             })
@@ -28,7 +28,7 @@ return {
                     require('neotest-go'),
                 },
             })
-            
+
             -- Go test keymaps
             vim.keymap.set('n', '<leader>gt', '<cmd>Neotest run<CR>', { desc = 'Run nearest test' })
             vim.keymap.set('n', '<leader>gT', '<cmd>Neotest run file<CR>', { desc = 'Run all tests in file' })
@@ -37,3 +37,4 @@ return {
         end,
     },
 }
+
