@@ -1,48 +1,59 @@
+vim.lsp.enable({
+    "clangd",
+    "bashls",
+    "lua_ls",
+    "gopls",
+    "html",
+    "cssls",
+    "ts_ls",
+    "svelte",
+    "tailwindcss",
+    "pyright",
+    "yamlls",
+    "jsonls",
+})
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities({}, false))
+capabilities = vim.tbl_deep_extend("force", capabilities, {
+    textDocument = {
+        foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+        },
+    },
+})
+
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(env)
+        local client = vim.lsp.get_client_by_id(env.data.client_id)
+        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
+            vim.opt.completeopt = { "menu", "menuone", "noinsert", "fuzzy", "popup" }
+            vim.lsp.completion.enable(true, client.id, env.buf, { autotrigger = true })
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = true }),
+    callback = function()
+        vim.lsp.buf.format({ async = false })
+    end,
+})
+
+vim.diagnostic.config({
+    signs = true,
+    severity_sort = true,
+})
+
 -- ============================================================================
 -- LSP Server Definitions
 -- ============================================================================
 -- Each server config is loaded from lsp/<server-name>.lua
 -- These configs are automatically managed by Mason (see lua/plugins/mason.lua)
 
-local servers = {
-    "lua_ls",        -- Lua language server
-    "rust_analyzer", -- Rust language server
-    "jsonls",        -- JSON language server
-    "svelte",        -- Svelte language server
-    "gopls",
-    "basedpyright"
-}
-
 -- ============================================================================
--- LSP Capabilities Setup (blink.cmp integration)
--- ============================================================================
-
-local function get_capabilities()
-    -- Check if blink.cmp is available
-    local has_blink, blink = pcall(require, "blink.cmp")
-
-    if has_blink and blink.get_lsp_capabilities then
-        -- Merge default capabilities with blink.cmp capabilities
-        return vim.tbl_deep_extend(
-            "force",
-            vim.lsp.protocol.make_client_capabilities(),
-            blink.get_lsp_capabilities(),
-            {
-                workspace = {
-                    fileOperations = {
-                        didRename = true,
-                        willRename = true,
-                    },
-                },
-            }
-        )
-    else
-        -- Fallback to default capabilities if blink.cmp is not available
-        return vim.lsp.protocol.make_client_capabilities()
-    end
-end
-
--- ============================================================================
+--
 -- LSP Keymaps (set on attach)
 -- ============================================================================
 
@@ -121,47 +132,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
     end,
 })
-
--- ============================================================================
--- LSP Server Setup
--- ============================================================================
-
-local capabilities = get_capabilities()
-
-for _, server_name in ipairs(servers) do
-    -- Load server-specific config from lsp/<server-name>.lua
-    local config_path = vim.fn.stdpath("config") .. "/lsp/" .. server_name .. ".lua"
-
-    if vim.fn.filereadable(config_path) == 1 then
-        -- Load the config file
-        local ok, server_config = pcall(dofile, config_path)
-
-        if ok and type(server_config) == "table" then
-            -- Merge capabilities with server config
-            server_config.capabilities = vim.tbl_deep_extend(
-                "force",
-                capabilities,
-                server_config.capabilities or {}
-            )
-
-            -- Enable the LSP with the loaded config
-            vim.lsp.enable(server_name, server_config)
-            vim.lsp.enable(server_name)
-        else
-            -- If config load failed, enable with default config
-            vim.notify(
-                string.format("Failed to load config for %s, using defaults", server_name),
-                vim.log.levels.WARN
-            )
-            vim.lsp.enable(server_name, { capabilities = capabilities })
-            vim.lsp.enable(server_name)
-        end
-    else
-        -- No config file, use default config
-        vim.lsp.enable(server_name, { capabilities = capabilities })
-        vim.lsp.enable(server_name)
-    end
-end
 
 -- ============================================================================
 -- Utility Commands
