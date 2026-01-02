@@ -49,7 +49,6 @@ return {
         require("none-ls.diagnostics.eslint_d"),
         null_ls.builtins.formatting.prettierd,
       },
-      debug = true,
     })
   end,
 }

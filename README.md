@@ -10,7 +10,6 @@ A modern, well-organized Neovim configuration optimized for productivity and mai
 - **Lazy Plugin Manager**: Fast, efficient plugin management with lazy.nvim
 - **Comprehensive LSP**: Full language server support with intelligent keymaps
 - **Modern Completion**: `blink.cmp` for fast, accurate code completion
-- **Which-Key**: Keybinding discovery and help system
 
 ### 🛠️ Language Support
 - **Lua** - `lua_ls`
@@ -48,13 +47,15 @@ A modern, well-organized Neovim configuration optimized for productivity and mai
 │   └── typescript.lua
 └── lua/abx/                   # Main configuration namespace
     ├── init.lua               # Core setup and lazy.nvim initialization
-    ├── configs/               # Basic Neovim configurations
-    │   ├── autocmd.lua        # Auto commands
-    │   ├── options.lua        # Editor options and settings
-    │   ├── remaps.lua         # Key mappings
-    │   └── whichkey.lua       # Which-key configuration
-    ├── core/                  # Core functionality
-    │   └── lsp.lua            # Comprehensive LSP setup
+├── configs/               # Basic Neovim configurations
+│   ├── autocmd.lua        # Auto commands
+│   ├── options.lua        # Editor options and settings
+│   └── remaps.lua         # Key mappings
+├── core/                  # Core functionality
+│   ├── lsp.lua            # Main LSP configuration
+│   ├── lsp-attach.lua     # LSP attach handler
+│   ├── lsp-keymaps.lua    # LSP keymap definitions
+│   └── lsp-commands.lua   # Custom LSP commands
     └── plugins/               # Plugin specifications
         ├── blink.lua          # Completion engine
         ├── colorscheme.lua    # Theme configuration
@@ -63,7 +64,6 @@ A modern, well-organized Neovim configuration optimized for productivity and mai
         ├── git.lua            # Git integration
         ├── lsp.lua            # LSP plugin specification
         ├── mason.lua          # LSP server manager
-        ├── misc.lua           # Miscellaneous plugins
         ├── python.lua         # Python-specific plugins
         ├── telescope.lua      # Fuzzy finder
         ├── treesitter.lua     # Syntax highlighting
@@ -183,14 +183,14 @@ The configuration uses **Mason** to manage language servers. Most common servers
 
 1. **Choose appropriate category** in `lua/abx/plugins/`
 2. **Add plugin specification** following lazy.nvim format:
-   ```lua
-   return {
-       "author/plugin-name",
-       config = function()
-           -- Plugin configuration
-       end,
-   }
-   ```
+    ```lua
+    return {
+        "author/plugin-name",
+        config = function()
+            -- Plugin configuration
+        end,
+    }
+    ```
 
 ### Custom Keymaps
 
@@ -201,13 +201,7 @@ vim.keymap.set("n", "<leader>your_key", "<cmd>YourCommand<CR>", {
 })
 ```
 
-Then add to which-key in `lua/abx/configs/whichkey.lua`:
-```lua
-wk.add({
-    { "<leader>y", group = "Your Group" },
-    { "<leader>yk", desc = "Your command", mode = "n" },
-})
-```
+For LSP-specific keymaps, modify `lua/abx/core/lsp-keymaps.lua`.
 
 ## 🛠️ Maintenance
 
@@ -254,7 +248,6 @@ vim.opt.tabstop = 4            -- Tab width
 - [Neovim Documentation](https://neovim.io/doc/)
 - [Lazy.nvim Guide](https://github.com/folke/lazy.nvim)
 - [LSP Configuration](https://neovim.io/doc/user/lsp.html)
-- [Which-Key Documentation](https://github.com/folke/which-key.nvim)
 
 ### Community
 - [Neovim Discord](https://discord.gg/neovim)
