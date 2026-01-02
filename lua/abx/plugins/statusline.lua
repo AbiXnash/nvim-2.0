@@ -24,7 +24,7 @@ return {
                     tabline = 100,
                 },
                 sections = {
-                    lualine_a = {
+                        lualine_a = {
                         {
                             -- Mode indicator
                             function()
@@ -36,9 +36,21 @@ return {
                                     r = 'REPLACE',
                                     t = 'TERMINAL',
                                 }
-                                return mode_map[vim.fn.mode()] or vim.fn.mode()
+                                local mode = vim.fn.mode()
+                                
+                                -- Different colors per mode
+                                local colors = {
+                                    NORMAL = { fg = '#8ec07c', bg = '#1a1b1d' },
+                                    INSERT = { fg = '#ffffff', bg = '#1a1b1d' },
+                                    VISUAL = { fg = '#ffa500', bg = '#1a1b1d' },
+                                    COMMAND = { fg = '#ff61a8', bg = '#1a1b1d' },
+                                    REPLACE = { fg = '#ffaa33', bg = '#1a1b1d' },
+                                    TERMINAL = { fg = '#4b5563', bg = '#1a1b1d' },
+                                }
+                                
+                                return mode_map[mode] or mode
                             end,
-                            color = { fg = '#ffffff', bg = '#ff6e6e' },
+                            color = colors[mode] or { fg = '#ffffff', bg = '#ff6e6e' },
                         },
                     },
                     lualine_b = {
@@ -51,7 +63,7 @@ return {
                                 end
                                 return ''
                             end,
-                            color = { fg = '#98c379', gui = 'bold' },
+                            color = { fg = '#8ec07c', gui = 'bold' },
                         },
                         {
                             -- Git changes
@@ -67,7 +79,7 @@ return {
                                 end
                                 return ''
                             end,
-                            color = { fg = '#e06c75' },
+                            color = { fg = '#ffaa00' },
                         },
                     },
                     lualine_c = {
@@ -84,7 +96,7 @@ return {
                                 end
                                 return ''
                             end,
-                            color = { fg = '#61afef' },
+                            color = { fg = '#00aaff' },
                         },
                         {
                             -- Diagnostics count
@@ -101,7 +113,7 @@ return {
                                 end
                                 return ''
                             end,
-                            color = { fg = '#fbbf24', gui = 'bold' },
+                            color = { fg = '#00ffcc' },
                         },
                     },
                     lualine_x = {
@@ -113,7 +125,7 @@ return {
                                 local total_lines = vim.fn.line('$')
                                 return string.format(' %d:%d', line, col, total_lines)
                             end,
-                            color = { fg = '#9ca0af' },
+                            color = { fg = '#00ffcc' },
                         },
                     },
                     lualine_z = {
