@@ -8,22 +8,20 @@ return {
         },
         config = function()
             require('lualine').setup({
-                options = {
-                    theme = 'auto',
-                    component_separators = { left = '', right = '' },
-                    section_separators = { left = '', right = '' },
-                    disabled_filetypes = {
-                        'NvimTree',
-                        'Trouble',
-                        'qf',
-                        'help',
-                    },
-                    always_divide_middle = true,
-                    globalstatus = true,
-                    refresh = {
-                        statusline = 100, -- Refresh every 100ms
-                        tabline = 100,
-                    },
+                theme = 'auto',
+                component_separators = { left = '', right = '' },
+                section_separators = { left = '', right = '' },
+                disabled_filetypes = {
+                    'NvimTree',
+                    'Trouble',
+                    'qf',
+                    'help',
+                },
+                always_divide_middle = true,
+                globalstatus = true,
+                refresh = {
+                    statusline = 100, -- Refresh every 100ms
+                    tabline = 100,
                 },
                 sections = {
                     lualine_a = {
@@ -34,19 +32,18 @@ return {
                                     n = 'NORMAL',
                                     i = 'INSERT',
                                     v = 'VISUAL',
-                                    V = 'V-LINE',
                                     c = 'COMMAND',
                                     r = 'REPLACE',
                                     t = 'TERMINAL',
                                 }
                                 return mode_map[vim.fn.mode()] or vim.fn.mode()
                             end,
-                            color = { fg = '#ffffff', bg = '#ff6e6e6' },
+                            color = { fg = '#ffffff', bg = '#ff6e6e' },
                         },
                     },
                     lualine_b = {
                         {
-                            -- Git branch and status
+                            -- Git branch
                             function()
                                 local git_branch = vim.b.gitsigns_head
                                 if git_branch then
@@ -74,26 +71,6 @@ return {
                         },
                     },
                     lualine_c = {
-                        {
-                            -- File info
-                            function()
-                                local file = vim.fn.expand('%:t')
-                                local readonly = vim.fn.readonly('%') == 1 and ' ' or ''
-                                local modified = vim.fn.modified('%') == 1 and ' +' or ''
-                                return file .. readonly .. modified
-                            end,
-                            color = { fg = '#abb2bf', gui = 'bold' },
-                        },
-                        {
-                            -- File type
-                            function()
-                                local ft = vim.bo.filetype
-                                return ft ~= '' and ' [' .. ft .. ']' or ''
-                            end,
-                            color = { fg = '#7c3aed', gui = 'bold' },
-                        },
-                    },
-                    lualine_x = {
                         {
                             -- LSP status
                             function()
@@ -127,34 +104,38 @@ return {
                             color = { fg = '#fbbf24', gui = 'bold' },
                         },
                     },
-                    lualine_y = {
+                    lualine_x = {
                         {
                             -- Cursor position
                             function()
                                 local line = vim.fn.line('.')
                                 local col = vim.fn.col('.')
                                 local total_lines = vim.fn.line('$')
-                                return string.format(' %d:%d/%d', line, col, total_lines)
+                                return string.format(' %d:%d', line, col, total_lines)
                             end,
                             color = { fg = '#9ca0af' },
                         },
                     },
                     lualine_z = {
                         {
-                            -- File encoding and format
+                            -- File info
                             function()
-                                local encoding = vim.bo.fileencoding or vim.bo.encoding
-                                local format = vim.bo.fileformat
-                                return (encoding or 'utf-8') .. '[' .. (format or 'unix') .. ']'
+                                local file = vim.fn.expand('%:t')
+                                local readonly = vim.fn.readonly('%') == 1 and ' ' or ''
+                                local modified = vim.fn.modified('%') == 1 and ' +' or ''
+                                return file .. readonly .. modified
                             end,
-                            color = { fg = '#a9b1d6' },
+                            color = { fg = '#abb2bf', gui = 'bold' },
                         },
+                    },
+                    lualine_y = {
                         {
-                            -- Time
+                            -- File type
                             function()
-                                return '  ' .. os.date('%H:%M')
+                                local ft = vim.bo.filetype
+                                return ft ~= '' and ' [' .. ft .. ']' or ''
                             end,
-                            color = { fg = '#b4befe' },
+                            color = { fg = '#7c3aed', gui = 'bold' },
                         },
                     },
                 },
@@ -165,18 +146,6 @@ return {
                                 return vim.fn.expand('%:t')
                             end,
                             color = { fg = '#6c7086', gui = 'bold' },
-                        },
-                    },
-                    lualine_b = {},
-                    lualine_c = {},
-                    lualine_x = {},
-                    lualine_y = {},
-                    lualine_z = {
-                        {
-                            function()
-                                return 'inactive'
-                            end,
-                            color = { fg = '#6c7086' },
                         },
                     },
                 },
