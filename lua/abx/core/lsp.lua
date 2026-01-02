@@ -4,9 +4,9 @@ vim.lsp.enable({
     "rust_analyzer", -- Rust language server
     "jsonls",        -- JSON language server
     "svelte",        -- Svelte language server
-    "gopls",
+    "astro",         -- Astro language server
+    "gopls",         -- Go language server
     "basedpyright",
-    "astro",
 })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

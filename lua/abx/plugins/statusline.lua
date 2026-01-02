@@ -1,0 +1,186 @@
+return {
+    -- Minimal but informative statusline
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons',
+            'lewis6991/gitsigns.nvim',
+        },
+        config = function()
+            require('lualine').setup({
+                options = {
+                    theme = 'auto',
+                    component_separators = { left = '', right = '' },
+                    section_separators = { left = '', right = '' },
+                    disabled_filetypes = {
+                        'NvimTree',
+                        'Trouble',
+                        'qf',
+                        'help',
+                    },
+                    always_divide_middle = true,
+                    globalstatus = true,
+                    refresh = {
+                        statusline = 100, -- Refresh every 100ms
+                        tabline = 100,
+                    },
+                },
+                sections = {
+                    lualine_a = {
+                        {
+                            -- Mode indicator
+                            function()
+                                local mode_map = {
+                                    n = 'NORMAL',
+                                    i = 'INSERT',
+                                    v = 'VISUAL',
+                                    V = 'V-LINE',
+                                    c = 'COMMAND',
+                                    r = 'REPLACE',
+                                    t = 'TERMINAL',
+                                }
+                                return mode_map[vim.fn.mode()] or vim.fn.mode()
+                            end,
+                            color = { fg = '#ffffff', bg = '#ff6e6e6' },
+                        },
+                    },
+                    lualine_b = {
+                        {
+                            -- Git branch and status
+                            function()
+                                local git_branch = vim.b.gitsigns_head
+                                if git_branch then
+                                    return '  ' .. git_branch
+                                end
+                                return ''
+                            end,
+                            color = { fg = '#98c379', gui = 'bold' },
+                        },
+                        {
+                            -- Git changes
+                            function()
+                                local gitsigns = vim.b.gitsigns_status_dict
+                                if gitsigns then
+                                    local added = gitsigns.added or 0
+                                    local changed = gitsigns.changed or 0
+                                    local removed = gitsigns.removed or 0
+                                    if added + changed + removed > 0 then
+                                        return string.format(' +%s ~%s -%s', added, changed, removed)
+                                    end
+                                end
+                                return ''
+                            end,
+                            color = { fg = '#e06c75' },
+                        },
+                    },
+                    lualine_c = {
+                        {
+                            -- File info
+                            function()
+                                local file = vim.fn.expand('%:t')
+                                local readonly = vim.fn.readonly('%') == 1 and ' ' or ''
+                                local modified = vim.fn.modified('%') == 1 and ' +' or ''
+                                return file .. readonly .. modified
+                            end,
+                            color = { fg = '#abb2bf', gui = 'bold' },
+                        },
+                        {
+                            -- File type
+                            function()
+                                local ft = vim.bo.filetype
+                                return ft ~= '' and ' [' .. ft .. ']' or ''
+                            end,
+                            color = { fg = '#7c3aed', gui = 'bold' },
+                        },
+                    },
+                    lualine_x = {
+                        {
+                            -- LSP status
+                            function()
+                                local lsp_clients = vim.lsp.get_clients({ bufnr = 0 })
+                                if #lsp_clients > 0 then
+                                    local client_names = {}
+                                    for _, client in ipairs(lsp_clients) do
+                                        table.insert(client_names, client.name)
+                                    end
+                                    return '  ' .. table.concat(client_names, ', ')
+                                end
+                                return ''
+                            end,
+                            color = { fg = '#61afef' },
+                        },
+                        {
+                            -- Diagnostics count
+                            function()
+                                local diagnostics = vim.diagnostic.count(0)
+                                if diagnostics.errors > 0 then
+                                    return '  ' .. diagnostics.errors
+                                elseif diagnostics.warnings > 0 then
+                                    return '  ' .. diagnostics.warnings
+                                elseif diagnostics.hints > 0 then
+                                    return ' 󰛶 ' .. diagnostics.hints
+                                elseif diagnostics.info > 0 then
+                                    return ' 󰋽 ' .. diagnostics.info
+                                end
+                                return ''
+                            end,
+                            color = { fg = '#fbbf24', gui = 'bold' },
+                        },
+                    },
+                    lualine_y = {
+                        {
+                            -- Cursor position
+                            function()
+                                local line = vim.fn.line('.')
+                                local col = vim.fn.col('.')
+                                local total_lines = vim.fn.line('$')
+                                return string.format(' %d:%d/%d', line, col, total_lines)
+                            end,
+                            color = { fg = '#9ca0af' },
+                        },
+                    },
+                    lualine_z = {
+                        {
+                            -- File encoding and format
+                            function()
+                                local encoding = vim.bo.fileencoding or vim.bo.encoding
+                                local format = vim.bo.fileformat
+                                return (encoding or 'utf-8') .. '[' .. (format or 'unix') .. ']'
+                            end,
+                            color = { fg = '#a9b1d6' },
+                        },
+                        {
+                            -- Time
+                            function()
+                                return '  ' .. os.date('%H:%M')
+                            end,
+                            color = { fg = '#b4befe' },
+                        },
+                    },
+                },
+                inactive_sections = {
+                    lualine_a = {
+                        {
+                            function()
+                                return vim.fn.expand('%:t')
+                            end,
+                            color = { fg = '#6c7086', gui = 'bold' },
+                        },
+                    },
+                    lualine_b = {},
+                    lualine_c = {},
+                    lualine_x = {},
+                    lualine_y = {},
+                    lualine_z = {
+                        {
+                            function()
+                                return 'inactive'
+                            end,
+                            color = { fg = '#6c7086' },
+                        },
+                    },
+                },
+            })
+        end,
+    },
+}

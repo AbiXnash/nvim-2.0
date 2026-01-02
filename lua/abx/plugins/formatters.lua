@@ -23,13 +23,14 @@ return {
           javascriptreact = { "prettierd" },
           typescriptreact = { "prettierd" },
           python = { "black" },
-          go = { "gofumpt" },
+          go = { "gofumpt", "goimports" },
           json = { "prettierd" },
           jsonc = { "prettierd" },
           markdown = { "prettierd" },
           html = { "prettierd" },
           css = { "prettierd" },
           yaml = { "prettierd" },
+          astro = { "prettierd" },
         },
         format_on_save = { timeout_ms = 500, lsp_fallback = true },
       })
@@ -47,7 +48,10 @@ return {
     null_ls.setup({
       sources = {
         require("none-ls.diagnostics.eslint_d"),
+        require("none-ls.diagnostics.golangci_lint"),
         null_ls.builtins.formatting.prettierd,
+        null_ls.builtins.formatting.gofumpt,
+        null_ls.builtins.formatting.goimports,
       },
     })
   end,
