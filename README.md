@@ -1,432 +1,400 @@
 # 🚀 ABX Neovim Configuration
 
-A modern, well-organized Neovim configuration optimized for productivity and maintainability. This configuration features comprehensive LSP support, modern tooling, and a clean modular architecture built for Neovim 0.10+.
+A modern, production-ready Neovim configuration featuring comprehensive language support, smart tooling, and a clean modular architecture.
 
 ## ✨ Features
 
-### 🎯 Core Features
+### Core
+- **Neovim 0.10+** - Built with latest Neovim APIs
+- **Lazy.nvim** - Fast plugin manager with lazy loading
+- **Modular Structure** - Organized `lua/abx/` namespace
+- **blink.cmp** - Blazing fast code completion with snippets
 
-- **Modern Neovim Setup**: Built for Neovim 0.10+ with latest APIs and capabilities
-- **Modular Architecture**: Clean, organized structure with `lua/abx/` namespace
-- **Lazy Plugin Manager**: Fast, efficient plugin management with lazy.nvim
-- **Comprehensive LSP**: Full language server support with intelligent keymaps and capabilities
-- **Modern Completion**: `blink.cmp` for fast, accurate code completion with snippets
-- **Session Persistence**: Auto-save/restore workspace sessions with persistence.nvim
-- **Performance Monitoring**: Built-in profiling and performance optimization
+### Language Support
+| Language | Server | Features |
+|----------|--------|----------|
+| Go | gopls | Debugging, tests, formatting |
+| Python | basedpyright, pylsp | DAP, Jupyter, type checking |
+| Java | jdtls | Debugging, tests, autocomplete |
+| TypeScript | typescript-language-server | Organize imports, inlay hints |
+| Svelte | svelte-language-server | Component support |
+| Astro | astro-language-server | HTML templates |
+| Rust | rust_analyzer | Cargo integration |
+| Lua | lua_ls | LazyDev integration |
 
-### 🛠️ Language Support
+### Development Tools
+- **Telescope** - Fuzzy finder (files, grep, buffers)
+- **Trouble** - Diagnostics panel
+- **Git** - Gitsigns, Fugitive, diffview
+- **Treesitter** - Syntax highlighting
+- **Conform** - Auto-format on save
+- **Neotest** - Test runner (Go, Python, Java)
+- **nvim-dap** - Debugger support
+- **Sessions** - Auto-save/restore workspace
 
-- **Lua** - `lua_ls` with enhanced completion and documentation
-- **Rust** - `rust_analyzer` with rustfmt integration
-- **Python** - `basedpyright` with advanced type checking and debugging support
-- **TypeScript/JavaScript** - Enhanced `typescript-tools.nvim` with JSDoc support
-- **Go** - `gopls` with gofumpt formatting, inlay hints, and advanced analysis
-- **Svelte** - `svelte` language server with component support
-- **Astro** - `astro` language server with HTML template parsing
-- **JSON** - `jsonls` with schema validation
+---
 
-### 🔥 Enhanced Go Development
-
-- **gopls Integration**: Advanced LSP with gofumpt formatting, inlay hints, and comprehensive static analysis
-- **Struct Generation**: `structrue-go.nvim` for automatic struct generation with case conversion (camel/snake/pascal)
-- **Test Runner**: `neotest` with Go adapter for comprehensive test management
-- **Code Quality**: golangci-lint integration with custom rules and auto-format on save
-- **Debugging**: Delve debugger integration through nvim-dap-go
-- **Key Features**:
-  - Auto-import completion and organization
-  - Interface implementation suggestions
-  - Fill struct fields automatically
-  - Generate unit tests and benchmarks
-
-### 🌟 Enhanced Framework Support
-
-- **TypeScript Tools**: Enhanced TS/JS experience with `typescript-tools.nvim`
-  - JSDoc support with full documentation generation
-  - Inlay hints for parameter names, types, and return values
-  - Auto-import organization and unused import removal
-  - JSX close tag completion
-- **Svelte Integration**: Full component development support
-  - Auto-imports for components and stores
-  - Language server integration with TypeScript compilation
-  - Component creation templates and props hints
-- **Astro Support**: HTML template parsing and props hints
-- **Auto-tagging**: `nvim-ts-autotag` for HTML-like frameworks (JSX, TSX, Vue)
-- **CSS Colorizer**: `nvim-highlight-colors` with Tailwind support
-
-### 🎨 User Experience Improvements
-
-- **Premium Statusline**: Custom transparent statusline with developer-friendly colors
-  - Mode indicator with bold styling
-  - Git branch status
-  - Current filename and diagnostics count
-  - Filetype and cursor position
-  - Transparent background matching theme
-- **Session Persistence**: Automatic session management with persistence.nvim
-  - Auto-save on exit and auto-load on startup
-  - Session commands: `<leader>ss` (save), `<leader>sl` (load), `<leader>sd` (delete)
-  - Preserves buffers, folds, tabpages, and window sizes
-- **Inline Diagnostics**: Clean inline diagnostics with `tiny-inline-diagnostic.nvim`
-  - Replaces virtual text with elegant inline messages
-  - Color-coded by severity with icons
-- **Code Snapshots**: `codesnap.nvim` for beautiful code screenshots
-  - Save to clipboard (`<leader>cc`) or Pictures folder (`<leader>cs`)
-  - Breadcrumb navigation and custom themes
-
-### 🎨 Editor Features
-
-- **Syntax Highlighting**: Treesitter with 20+ languages and auto-install
-- **Git Integration**: Fugitive for Git operations and Gitsigns for inline diffs
-- **File Navigation**: Telescope fuzzy finder with multiple sources
-- **Code Formatting**: Automatic format-on-save with conform.nvim for 15+ languages
-- **Diagnostics**: Enhanced with Trouble.nvim for comprehensive error management
-- **Undo Tree**: Visual undo history with Undotree
-- **Smart Comments**: Context-aware commenting with Comment.nvim
-- **Todo Management**: TODO highlighting with todo-comments.nvim
-
-## 📁 Configuration Structure
+## 📁 Structure
 
 ```
-~/.config/nvim/
-├── init.lua                    # Entry point (require "abx")
-├── lazy-lock.json             # Plugin lock file with pinned versions
-├── lsp/                        # Individual LSP server configurations
-│   ├── astro.lua              # Astro language server setup
-│   ├── basedpyright.lua       # Python type checker
-│   ├── gopls.lua              # Go language server with advanced settings
-│   ├── json_ls.lua            # JSON language server
-│   ├── lua_ls.lua             # Lua language server
-│   ├── pylsp.lua              # Alternative Python LSP
-│   ├── rust_analyzer.lua      # Rust language server
-│   ├── svelte.lua             # Svelte language server
-│   └── typescript.lua         # TypeScript language server
-└── lua/abx/                   # Main configuration namespace
-    ├── init.lua               # Core setup and lazy.nvim initialization
-    ├── configs/               # Basic Neovim configurations
-    │   ├── autocmd.lua        # Auto commands (yank highlight, Python format)
-    │   ├── options.lua        # Editor options and settings (60 lines)
-    │   └── remaps.lua         # Key mappings (46 lines)
-    ├── core/                  # Core LSP functionality
-    │   ├── lsp.lua            # Main LSP configuration with enabled servers
-    │   ├── lsp-attach.lua     # LSP attach handler with inlay hints and formatting
-    │   ├── lsp-keymaps.lua    # Comprehensive LSP keymap definitions (53 lines)
-    │   └── lsp-commands.lua   # Custom LSP commands (292 lines of utilities)
-    └── plugins/               # Plugin specifications (20+ plugin files)
-        ├── blink.lua          # Modern completion engine
-        ├── colorscheme.lua    # Dual theme setup (Kanagawa + Catppuccin)
-        ├── comments.lua       # Smart commenting with context awareness
-        ├── formatters.lua     # Multi-language formatting (conform.nvim)
-        ├── lsp.lua            # LSP base plugins (nvim-lspconfig, fidget.nvim)
-        ├── mason.lua          # LSP server manager with auto-install
-        ├── statusline.lua     # Custom transparent statusline
-        ├── sessions.lua       # Session persistence with auto-save
-        ├── python.lua         # Python-specific plugins (DAP, Jupytnium)
-        ├── web.lua            # Web development (TypeScript tools, autotag)
-        ├── telescope.lua      # Fuzzy finder with custom mappings
-        ├── treesitter.lua     # Syntax highlighting with smart disable
-        ├── trouble.lua        # Diagnostics viewer
-        ├── undotree.lua       # Visual undo history
-        ├── go-dev.lua         # Go development tools
-        ├── git.lua            # Git integration
-        ├── inline-diagnostics.lua # Clean inline diagnostics
-        └── codesnap.lua       # Code screenshot utility
+nvim/
+├── init.lua                    # Entry point
+├── README.md                   # This file
+├── lazy-lock.json              # Pinned plugin versions
+│
+├── lsp/                        # LSP server configurations
+│   ├── astro.lua              # Astro
+│   ├── basedpyright.lua       # Python
+│   ├── gopls.lua              # Go
+│   ├── jdtls.lua              # Java
+│   ├── json_ls.lua            # JSON
+│   ├── lua_ls.lua             # Lua
+│   ├── pylsp.lua              # Python (alternative)
+│   ├── rust_analyzer.lua      # Rust
+│   ├── svelte.lua             # Svelte
+│   └── typescript.lua         # TypeScript
+│
+└── lua/abx/                   # Main configuration
+    ├── init.lua               # Bootstrap & lazy.nvim setup
+    │
+    ├── configs/               # Core editor settings
+    │   ├── options.lua        # vim.opt settings
+    │   ├── remaps.lua         # Key mappings
+    │   └── autocmd.lua        # Autocommands
+    │
+    ├── core/                  # LSP & core functionality
+    │   ├── lsp.lua            # LSP configuration
+    │   ├── lsp-attach.lua     # LSP attach handlers
+    │   ├── lsp-keymaps.lua    # LSP keymaps
+    │   └── lsp-commands.lua   # LSP commands
+    │
+    └── plugins/               # Plugin configurations (by category)
+        ├── lang/              # Language-specific
+        │   ├── java.lua       # Java (JDTLS, dap, neotest)
+        │   ├── python.lua     # Python (pylsp, dap-python, jupytext)
+        │   ├── go-dev.lua     # Go (gopls, neotest-go, structrue-go)
+        │   ├── jupytxt.lua    # Jupyter notebooks
+        │   └── web.lua        # Web (TS, Svelte, Astro)
+        │
+        ├── ui/                # User interface
+        │   ├── blink.lua      # Code completion
+        │   ├── colorscheme.lua# Theme (catppuccin)
+        │   ├── comments.lua   # Comment toggling
+        │   ├── codesnap.lua   # Code screenshots
+        │   └── statusline.lua # Status bar
+        │
+        └── tools/             # Development utilities
+            ├── telescope.lua  # Fuzzy finder
+            ├── git.lua        # Git integration
+            ├── trouble.lua    # Diagnostics viewer
+            ├── treesitter.lua # Syntax highlighting
+            ├── formatters.lua # Code formatting
+            ├── lsp.lua        # LSP plugins
+            ├── mason.lua      # LSP package manager
+            ├── sessions.lua   # Session persistence
+            ├── inline-diagnostics.lua # Inline errors
+            └── undotree.lua   # Undo history
 ```
 
-## ⌨️ Key Mappings
+### Category Guide
 
-### 🔍 Navigation & Search (Telescope)
+| Folder | Purpose | Examples |
+|--------|---------|----------|
+| `lang/` | Language tools | LSPs, debuggers, test runners |
+| `ui/` | Visual plugins | Colors, completion, comments |
+| `tools` | Dev utilities | Search, git, format, diagnostics |
+| `configs` | Core config | Options, keymaps, autocmds |
+| `core` | LSP functionality | Attach, keymaps, commands |
+| `lsp/` | Server configs | Server-specific settings |
 
-| Key                | Mode   | Description        |
-| ------------------ | ------ | ------------------ |
-| `<leader><leader>` | Normal | Find files         |
-| `<leader>fg`       | Normal | Find git files     |
-| `<leader>fs`       | Normal | Live grep (search) |
-| `<leader>fb`       | Normal | Find buffers       |
+---
 
-### 💻 LSP (Language Server Protocol)
+## ⌨️ Keybindings
 
-| Key          | Mode          | Description                       |
-| ------------ | ------------- | --------------------------------- |
-| `gd`         | Normal        | Go to definition                  |
-| `gD`         | Normal        | Go to declaration                 |
-| `gi`         | Normal        | Go to implementation              |
-| `gr`         | Normal        | Go to references                  |
-| `gt`         | Normal        | Go to type definition             |
-| `K`          | Normal        | Hover documentation               |
-| `<C-k>`      | Normal/Insert | Signature help                    |
-| `<leader>ca` | Normal/Visual | Code action                       |
-| `<leader>rn` | Normal        | Rename symbol                     |
-| `<leader>cf` | Normal        | Format buffer                     |
-| `<leader>v`  | Normal        | Goto Definition in Vertical Split |
+### General
 
-### 🔧 Diagnostics
+| Key | Mode | Description |
+|-----|------|-------------|
+| `jk` | Insert | Exit insert mode |
+| `<Esc>` | Normal | Clear search highlight |
+| `<C-c>` | Visual | Copy to system clipboard |
+| `<leader>pv` | Normal | File tree (netrw) |
 
-| Key          | Mode   | Description                 |
-| ------------ | ------ | --------------------------- |
-| `[d`         | Normal | Previous diagnostic         |
-| `]d`         | Normal | Next diagnostic             |
-| `<leader>cd` | Normal | Show diagnostic float       |
-| `<leader>cl` | Normal | Diagnostic to location list |
-| `gl`         | Normal | Open diagnostic float       |
+### Window Navigation
 
-### 🧪 Go Development
+| Key | Description |
+|-----|-------------|
+| `<C-h>` | Window left |
+| `<C-j>` | Window down |
+| `<C-k>` | Window up |
+| `<C-l>` | Window right |
+| `<C-up>` | Split above |
+| `<C-down>` | Split below |
+| `<C-left>` | Split left |
 
-| Key          | Mode   | Description           |
-| ------------ | ------ | --------------------- |
-| `<leader>gt` | Normal | Run nearest test      |
-| `<leader>gT` | Normal | Run all tests in file |
-| `<leader>gs` | Normal | Test summary panel    |
-| `<leader>go` | Normal | Test output panel     |
+### LSP
 
-### 📂 File & Window Management
+| Key | Mode | Description |
+|-----|------|-------------|
+| `gd` | Normal | Go to definition |
+| `gD` | Normal | Go to declaration |
+| `gi` | Normal | Go to implementation |
+| `gr` | Normal | Go to references |
+| `gt` | Normal | Go to type definition |
+| `K` | Normal | Hover documentation |
+| `<C-k>` | Normal/Insert | Signature help |
+| `<leader>ca` | Normal/Visual | Code action |
+| `<leader>rn` | Normal | Rename symbol |
+| `<leader>cf` | Normal | Format buffer |
 
-| Key          | Mode   | Description              |
-| ------------ | ------ | ------------------------ |
-| `<leader>pv` | Normal | File tree (netrw)        |
-| `<C-h>`      | Normal | Window left              |
-| `<C-j>`      | Normal | Window down              |
-| `<C-k>`      | Normal | Window up                |
-| `<C-l>`      | Normal | Window right             |
-| `<C-up>`     | Normal | Split explore above      |
-| `<C-down>`   | Normal | Horizontal explore below |
-| `<C-left>`   | Normal | Vertical explore left    |
+### Telescope
 
-### ✏️ Editing
+| Key | Description |
+|-----|-------------|
+| `<leader><leader>` | Find files |
+| `<leader>fg` | Find git files |
+| `<leader>fs` | Live grep |
+| `<leader>fb` | Find buffers |
 
-| Key         | Mode          | Description              |
-| ----------- | ------------- | ------------------------ |
-| `jk`        | Insert        | Escape to normal mode    |
-| `","`       | Visual        | Move line down           |
-| `"."`       | Visual        | Move line up             |
-| `<C-c>`     | Visual        | Copy to system clipboard |
-| `<Esc>`     | Normal        | Clear search highlight   |
-| `gcc`       | Normal        | Toggle comment line      |
-| `gbc`       | Normal        | Toggle comment block     |
-| `<leader>/` | Normal/Visual | Toggle comment (leader)  |
+### Diagnostics
 
-### 🎯 Git & Sessions
+| Key | Description |
+|-----|-------------|
+| `[d` | Previous diagnostic |
+| `]d` | Next diagnostic |
+| `<leader>cd` | Show diagnostic float |
+| `<leader>xx` | Open Trouble panel |
 
-| Key          | Mode   | Description                     |
-| ------------ | ------ | ------------------------------- |
-| `<leader>g`  | Normal | Git status (Fugitive)           |
-| `<leader>ss` | Normal | Save session                    |
-| `<leader>sl` | Normal | Load last session               |
-| `<leader>sd` | Normal | Delete session                  |
-| `<leader>sp` | Normal | Load last session (persistence) |
+### Git
 
-### 🛠️ Utilities
+| Key | Description |
+|-----|-------------|
+| `<leader>g` | Git status (Fugitive) |
 
-| Key          | Mode   | Description                  |
-| ------------ | ------ | ---------------------------- |
-| `<leader>U`  | Normal | Toggle undo tree             |
-| `<leader>cc` | Visual | Code snap to clipboard       |
-| `<leader>cs` | Visual | Code snap to Pictures        |
-| `<leader>xx` | Normal | Open Trouble diagnostics     |
-| `<leader>xX` | Normal | Buffer diagnostics (Trouble) |
-| `<leader>cs` | Normal | Symbols (Trouble)            |
-| `<leader>cl` | Normal | LSP references (Trouble)     |
+### Sessions
 
-### 🌐 TypeScript/JavaScript Tools
+| Key | Description |
+|-----|-------------|
+| `<leader>ss` | Save session |
+| `<leader>sl` | Load session |
+| `<leader>sd` | Delete session |
 
-| Key          | Mode   | Description           |
-| ------------ | ------ | --------------------- |
-| `<leader>oi` | Normal | Organize imports      |
-| `<leader>ai` | Normal | Add missing imports   |
-| `<leader>ru` | Normal | Remove unused imports |
+### Utilities
+
+| Key | Description |
+|-----|-------------|
+| `<leader>U` | Toggle undo tree |
+| `<leader>cc` | Code snap (clipboard) |
+| `<leader>cs` | Code snap (Pictures) |
+
+### Go Development
+
+| Key | Description |
+|-----|-------------|
+| `<leader>gt` | Run nearest test |
+| `<leader>gT` | Run all tests in file |
+| `<leader>gs` | Test summary |
+| `<leader>go` | Test output |
+
+### Java Development
+
+| Key | Description |
+|-----|-------------|
+| `<leader>dc` | Continue debugging |
+| `<leader>db` | Toggle breakpoint |
+| `<leader>ds` | Step over |
+| `<leader>di` | Step into |
+| `<leader>jt` | Run test |
+| `<leader>jT` | Run all tests |
+
+### TypeScript/Web
+
+| Key | Description |
+|-----|-------------|
+| `<leader>oi` | Organize imports |
+| `<leader>ai` | Add missing imports |
+| `<leader>ru` | Remove unused |
+
+---
+
+## 🛠️ Commands
+
+### LSP
+| Command | Description |
+|---------|-------------|
+| `:LspRestart` | Restart all LSP servers |
+| `:LspInfo` | Show LSP status |
+| `:Mason` | Open Mason UI |
+
+### Sessions
+| Command | Description |
+|---------|-------------|
+| `:SessionSave` | Save current session |
+| `:SessionLoad` | Load last session |
+
+### Tests
+| Command | Description |
+|---------|-------------|
+| `:Neotest run` | Run nearest test |
+| `:Neotest run file` | Run all file tests |
+| `:Neotest summary` | Show test summary |
+
+### Debugging
+| Command | Description |
+|---------|-------------|
+| `:DapContinue` | Start/continue debug |
+| `:DapToggleBreakpoint` | Toggle breakpoint |
+| `:DapTerminate` | End debug session |
+
+---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-
-- **Neovim 0.10+** (recommended latest stable)
-- **Git** for plugin management
-- **Ripgrep** (`rg`) for Telescope search functionality
-- **Language servers** (automatically installed by Mason)
-- **Node.js & npm** for web development tools
-- **Python 3+** with debugpy for Python debugging
-- **Go** for Go development support
+- Neovim 0.10+
+- Git
+- Ripgrep (`rg`)
+- Language-specific tools (Go, Python, Java, etc.)
 
 ### Installation
 
-1. **Backup existing configuration**
+```bash
+# Backup existing config
+mv ~/.config/nvim ~/.config/nvim.backup
+mv ~/.local/share/nvim ~/.local/share/nvim.backup
 
-   ```bash
-   mv ~/.config/nvim ~/.config/nvim.backup
-   mv ~/.local/share/nvim ~/.local/share/nvim.backup
-   ```
+# Clone this config
+git clone <repo-url> ~/.config/nvim
 
-2. **Clone this configuration**
+# Launch Neovim (plugins auto-install)
+nvim
+```
 
-   ```bash
-   git clone <repository-url> ~/.config/nvim
-   ```
+### Install Language Servers
 
-3. **Launch Neovim**
+```bash
+# In Neovim
+:Mason
 
-   ```bash
-   nvim
-   ```
+# Or via command line
+nvim --headless -c "MasonInstall jdtls gopls basedpyright" -c "qa"
+```
 
-   Lazy.nvim will automatically install all plugins and language servers.
-
-### Language Server Setup
-
-The configuration uses **Mason** to manage language servers. Most common servers are automatically configured:
-
-**Auto-installed servers:**
-
-- Go: `gopls`, `gofumpt`, `golangci-lint`, `delve`
-- Web: `typescript-language-server`, `svelte-language-server`, `astro-language-server`
-- Others: `prettierd`, `eslint_d`
-
-To manually add servers:
-
-1. Open Neovim
-2. Run `:Mason` to see available servers
-3. Install desired servers interactively
+---
 
 ## 🔧 Customization
 
-### Adding New Language Servers
+### Add New Language Server
 
-1. **Install with Mason**: `:Mason` → select server
-2. **Add to LSP config**: Edit `lua/abx/core/lsp.lua`:
-   ```lua
-   vim.lsp.enable({
-       "lua_ls",
-       "rust_analyzer",
-       "your_new_server",
-   })
-   ```
-3. **Create server config** (optional): Add file in `lsp/your_new_server.lua`
-
-### Adding New Plugins
-
-1. **Choose appropriate category** in `lua/abx/plugins/`
-2. **Add plugin specification** following lazy.nvim format:
-   ```lua
-   return {
-       "author/plugin-name",
-       config = function()
-           -- Plugin configuration
-       end,
-   }
-   ```
-
-### Custom Keymaps
-
-Add custom keymaps to `lua/abx/configs/remaps.lua`:
-
+1. Install: `:Mason` → select server
+2. Enable: Edit `lua/abx/core/lsp.lua`:
 ```lua
-vim.keymap.set("n", "<leader>your_key", "<cmd>YourCommand<CR>", {
+vim.lsp.enable({
+    "existing_servers",
+    "your_new_server",
+})
+```
+3. Configure: Create `lsp/your_server.lua`
+
+### Add New Plugin
+
+1. Choose category: `lang/`, `ui/`, or `tools/`
+2. Create file in appropriate folder:
+```lua
+-- lua/abx/plugins/your-category/plugin-name.lua
+return {
+    "author/plugin-name",
+    event = "BufEnter",
+    config = function()
+        -- Your configuration
+    end,
+}
+```
+
+### Add Keymaps
+
+Edit `lua/abx/configs/remaps.lua`:
+```lua
+vim.keymap.set("n", "<leader>key", "<cmd>Command<CR>", {
     desc = "Your description"
 })
 ```
 
-For LSP-specific keymaps, modify `lua/abx/core/lsp-keymaps.lua`.
+### Change Theme
 
-## 🛠️ Maintenance
-
-### Updating Plugins
-
-- **All plugins**: `:Lazy sync`
-- **Specific plugin**: `:Lazy update plugin-name`
-
-### LSP Management
-
-- **List servers**: `:LspInstalled`
-- **Show status**: `:LspStatus`
-- **Show details**: `:LspDetails`
-- **Restart LSP**: `:LspRestart`
-- **Show capabilities**: `:LspCapabilities`
-- **Show diagnostics**: `:LspDiagnostics`
-- **Comprehensive info**: `:LspDetails`
-
-### Session Management
-
-- **Save session**: `:SessionSave` or `<leader>ss`
-- **Load session**: `:SessionLoad` or `<leader>sl`
-- **Delete session**: `:SessionDelete` or `<leader>sd`
-- **Auto-save/load**: Automatically configured
-
-### Troubleshooting
-
-- **Check config**: Run `nvim --headless -c "lua require('abx')" -c "qa"`
-- **Plugin issues**: `:Lazy` → check plugin status
-- **LSP issues**: `:LspDetails` or `:LspLog`
-- **Performance**: Check startup time with `nvim --startuptime`
-
-## 🎨 Customization Tips
-
-### Theme
-
-The configuration includes dual theme support:
-
-- **Primary**: Catppuccin (mocha flavor) with transparent background
-- **Alternative**: Kanagawa (dragon theme) for variety
-
-Edit `lua/abx/plugins/colorscheme.lua` to change:
-
+Edit `lua/abx/plugins/ui/colorscheme.lua`:
 ```lua
 vim.cmd.colorscheme "catppuccin"  -- or "kanagawa"
 ```
 
-### Options
+---
 
-Modify `lua/abx/configs/options.lua` for editor preferences:
+## 📚 File Reference
 
-```lua
-vim.opt.number = true          -- Line numbers
-vim.opt.relativenumber = true   -- Relative numbers
-vim.opt.tabstop = 4            -- Tab width
-vim.opt.scrolloff = 20         -- Keep 20 lines visible
--- ... more options (60 total)
+### Core Files
+
+| File | Purpose |
+|------|---------|
+| `init.lua` | Entry point, bootstrap |
+| `lua/abx/init.lua` | Lazy setup, config loading |
+| `lua/abx/configs/options.lua` | vim.opt settings |
+| `lua/abx/configs/remaps.lua` | Key mappings |
+| `lua/abx/configs/autocmd.lua` | Autocommands |
+
+### LSP Files
+
+| File | Purpose |
+|------|---------|
+| `lua/abx/core/lsp.lua` | Main LSP config |
+| `lua/abx/core/lsp-attach.lua` | Attach handlers |
+| `lua/abx/core/lsp-keymaps.lua` | LSP keymaps |
+| `lsp/*.lua` | Server-specific settings |
+
+### Plugin Categories
+
+| Category | Path | Contents |
+|----------|------|----------|
+| Language | `plugins/lang/` | LSPs, debuggers, test runners |
+| UI | `plugins/ui/` | Colors, completion, comments |
+| Tools | `plugins/tools/` | Search, git, format, diagnostics |
+
+---
+
+## 🧪 Testing
+
+### Run Tests
+```bash
+# Go tests
+cd project && go test ./...
+
+# Python tests
+pytest
+
+# Java tests
+mvn test
 ```
 
-### Formatters
+### Debugging
+```bash
+# Start debug session
+:DapContinue
 
-Edit `lua/abx/plugins/formatters.lua` for formatting preferences:
-
-```lua
-formatters_by_ft = {
-  go = { "gofumpt", "goimports" },
-  python = { "black" },
-  typescript = { "prettierd" },
-  -- Add your formatters here
-}
+# Toggle breakpoint
+:DapToggleBreakpoint
 ```
 
-## 📚 Resources
+---
 
-### Learning Resources
+## 📖 Resources
 
-- [Neovim Documentation](https://neovim.io/doc/)
-- [Lazy.nvim Guide](https://github.com/folke/lazy.nvim)
-- [LSP Configuration](https://neovim.io/doc/user/lsp.html)
-- [Blink.cmp Completion](https://github.com/Saghen/blink.cmp)
-
-### Community
-
-- [Neovim Discord](https://discord.gg/neovim)
-- [Reddit r/neovim](https://reddit.com/r/neovim)
-- [Stack Overflow Neovim tag](https://stackoverflow.com/questions/tagged/neovim)
-
-## 🤝 Contributing
-
-Feel free to:
-
-- Report issues with configuration
-- Suggest improvements
-- Share optimizations
-- Contribute better configurations
-
-## 📄 License
-
-This configuration is provided as-is for educational and personal use.
+- [Neovim Docs](https://neovim.io/doc/)
+- [Lazy.nvim](https://github.com/folke/lazy.nvim)
+- [blink.cmp](https://github.com/Saghen/blink.cmp)
+- [Neovim LSP](https://neovim.io/doc/user/lsp.html)
+- [Mason](https://github.com/williamboman/mason.nvim)
 
 ---
 
 **Happy Coding! 🎉**
 
-Built with ❤️ for the Neovim community
-
-Configuration contains 2000+ lines of carefully crafted Lua code with comprehensive documentation and intelligent defaults.
+Built with ❤️ using Neovim
