@@ -7,7 +7,7 @@
 ![Lazy.nvim](https://img.shields.io/badge/Lazy.nvim-Plugin_Manager-purple?style=for-the-badge)
 ![Blink.cmp](https://img.shields.io/badge/Blink.cmp-Completion-yellow?style=for-the-badge)
 
-![Stars](https://img.shields.io/github/stars/abx/nvim?style=social)
+![Stars](https://img.shields.io/github/stars/AbiXnash/nvim?style=social)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
 A modern, production-ready Neovim configuration featuring comprehensive language support, smart tooling, and a clean modular architecture.
@@ -367,7 +367,7 @@ mv ~/.config/nvim ~/.config/nvim.backup
 mv ~/.local/share/nvim ~/.local/share/nvim.backup
 
 # 2. Clone this configuration
-git clone https://github.com/yourusername/nvim ~/.config/nvim
+git clone https://github.com/AbiXnash/nvim ~/.config/nvim
 
 # 3. Launch Neovim (plugins auto-install)
 nvim
