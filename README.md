@@ -548,7 +548,7 @@ vim.cmd.colorscheme "kanagawa"    -- Alternative
 | `lua/abx/init.lua` | Bootstrap & lazy setup | ~70 |
 | `lua/abx/configs/options.lua` | vim.opt settings | ~140 |
 | `lua/abx/configs/remaps.lua` | Key mappings | ~90 |
-| `lua/abx/configs/autocmd.lua` | Autocommands | ~40 |
+| `lua/abx/configs/autocmd.lua` | Autocommands | ~77 |
 
 ### LSP Files
 
