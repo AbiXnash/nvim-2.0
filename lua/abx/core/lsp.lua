@@ -7,6 +7,7 @@ vim.lsp.enable({
     "astro",         -- Astro language server
     "gopls",         -- Go language server
     "basedpyright",
+    "jdtls",         -- Java language server
 })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
