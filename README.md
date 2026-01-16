@@ -349,17 +349,89 @@ plugins/
 
 ### Prerequisites
 
-| Requirement | Description |
-|-------------|-------------|
-| **Neovim 0.10+** | Latest stable recommended |
-| **Git** | For plugin management |
-| **Ripgrep** (`rg`) | Telescope search functionality |
-| **Node.js & npm** | Web development tools |
-| **Python 3+** | Python debugging (debugpy) |
-| **Go** | Go development support |
-| **Java 21+** | Java development (JDTLS) |
+#### Universal Requirements
+
+| Requirement | Description | Platform |
+|-------------|-------------|----------|
+| **Neovim 0.10+** | Latest stable recommended | All |
+| **Git** | For plugin management | All |
+| **Ripgrep** (`rg`) | Telescope search functionality | All |
+| **Node.js & npm** | Web development tools | All |
+| **Python 3.8+** | Python debugging (debugpy) | All |
+| **Nerd Font** | Icons and symbols | All |
+
+#### Linux (Ubuntu/Debian)
+
+```bash
+# Install Neovim
+sudo apt update
+sudo apt install neovim git ripgrep nodejs npm python3 python3-pip
+
+# Install Java 21 (for JDTLS)
+sudo apt install openjdk-21-jdk
+
+# Install Go
+wget https://go.dev/dl/go1.21.5.linux-amd64.tar.gz
+sudo rm -rf /usr/local/go
+sudo tar -C /usr/local -xzf go1.21.5.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+```
+
+#### macOS
+
+```bash
+# Using Homebrew
+brew install neovim git ripgrep node python go
+
+# Install Java 21
+brew install openjdk@21
+
+# Neovim from nightly (optional)
+brew install --cask neovim-nightly
+```
+
+#### Windows (WSL2 Recommended)
+
+**Option 1: WSL2 (Recommended)**
+
+```powershell
+# Install WSL2 and Ubuntu
+wsl --install -d Ubuntu
+
+# Inside WSL Ubuntu
+sudo apt update && sudo apt install neovim git ripgrep nodejs npm python3 python3-pip
+```
+
+**Option 2: Windows Native**
+
+```powershell
+# Install winget (Windows Package Manager)
+winget install Neovim.Neovim
+winget install Git.Git
+winget install Microsoft.NodejsLTS
+
+# Install Python
+winget install Python.Python.3
+
+# Install Go
+winget install GoLang.Go
+
+# Install Java (Eclipse Temurin)
+winget install EclipseAdoptium.Temurin.21.JDK
+```
+
+#### Additional Requirements by Language
+
+| Language | Requirement | Install Command |
+|----------|-------------|-----------------|
+| Go | Go 1.21+ | [Download](https://go.dev/dl/) |
+| Python | debugpy | `pip install debugpy` |
+| Java | JDK 21+ | [Eclipse Temurin](https://adoptium.net/) |
+| TypeScript | npm packages | Auto-installed by Mason |
 
 ### Installation
+
+#### Linux & macOS
 
 ```bash
 # 1. Backup existing configuration
@@ -373,13 +445,44 @@ git clone https://github.com/AbiXnash/nvim-2.0 ~/.config/nvim
 nvim
 ```
 
+#### Windows (WSL2)
+
+```bash
+# 1. Backup existing configuration
+mv ~/.config/nvim ~/.config/nvim.backup
+mv ~/.local/share/nvim ~/.local/share/nvim.backup
+
+# 2. Clone this configuration
+git clone https://github.com/AbiXnash/nvim-2.0 ~/.config/nvim
+
+# 3. Launch Neovim
+nvim
+```
+
+#### Windows (Native PowerShell)
+
+```powershell
+# 1. Backup existing configuration
+Move-Item $env:LOCALAPPDATA\nvim $env:LOCALAPPDATA\nvim.backup
+Move-Item $env:USERPROFILE\AppData\Local\nvim-data $env:USERPROFILE\AppData\Local\nvim-data.backup
+
+# 2. Clone this configuration
+git clone https://github.com/AbiXnash/nvim-2.0 $env:USERPROFILE\AppData\Local\nvim
+
+# 3. Launch Neovim
+nvim
+```
+
 ### Install Language Servers
 
 ```bash
 # In Neovim
 :Mason
 
-# Or via command line
+# Or via command line (Linux/macOS/WSL)
+nvim --headless -c "MasonInstall jdtls gopls basedpyright" -c "qa"
+
+# Windows PowerShell
 nvim --headless -c "MasonInstall jdtls gopls basedpyright" -c "qa"
 ```
 

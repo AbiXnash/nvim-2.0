@@ -150,7 +150,7 @@ Add to `lua/abx/plugins/[category]/init.lua`:
 
 ### Commit Messages
 
-Follow [Conventional Commits](https://www.conventionalcommits.org/):
+Follow [Conventional Commits](https://www.conventionalcomments.org/):
 
 ```
 type(scope): description
@@ -161,25 +161,37 @@ docs(readme): update keybindings table
 refactor(plugins): reorganize category structure
 ```
 
-### Types
+### Cross-Platform Testing
 
-| Type | Description |
-|------|-------------|
-| `feat` | New feature |
-| `fix` | Bug fix |
-| `docs` | Documentation changes |
-| `style` | Code style changes |
-| `refactor` | Code refactoring |
-| `perf` | Performance improvements |
-| `test` | Adding tests |
-| `chore` | Maintenance tasks |
+Test your changes on:
+
+| Platform | Terminal | Notes |
+|----------|----------|-------|
+| Linux | Alacritty, Kitty, WezTerm | Primary development platform |
+| macOS | iTerm2, Alacritty | May need `reattach-to-user-namespace` for clipboard |
+| Windows WSL2 | Windows Terminal | Recommended for Windows users |
+| Windows Native | Windows Terminal, Alacritty | Some plugins may behave differently |
 
 ### Pull Request Guidelines
 
 1. **Describe changes** - What did you change and why?
 2. **Test locally** - Verify everything works
-3. **Update docs** - Keep documentation in sync
-4. **Keep focused** - One PR per feature/fix
+3. **Test cross-platform** - Especially for path-related changes
+4. **Update docs** - Keep documentation in sync
+5. **Keep focused** - One PR per feature/fix
+
+### Windows-Specific Notes
+
+- Use `vim.fn.expand("$HOME")` instead of `~` for paths
+- Path separators: Use `vim.fs.joinpath` or `path:gsub("/", "\\")`
+- Line endings: Configure `vim.o.fileformat = "dos"` for Windows compatibility
+- Shell: PowerShell or WSL bash
+
+Example Windows-safe path handling:
+```lua
+local config_path = vim.fn.stdpath("config")
+local data_path = vim.fn.stdpath("data")
+```
 
 ---
 
