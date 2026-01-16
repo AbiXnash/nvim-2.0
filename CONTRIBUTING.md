@@ -185,8 +185,8 @@ refactor(plugins): reorganize category structure
 
 ## ❓ Getting Help
 
-- Open an [Issue](https://github.com/AbiXnash/nvim/issues)
-- Check existing [Discussions](https://github.com/AbiXnash/nvim/discussions)
+- Open an [Issue](https://github.com/AbiXnash/nvim-2.0/issues)
+- Check existing [Discussions](https://github.com/AbiXnash/nvim-2.0/discussions)
 - Reference [README.md](README.md)
 
 ---

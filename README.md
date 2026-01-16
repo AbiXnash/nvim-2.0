@@ -367,7 +367,7 @@ mv ~/.config/nvim ~/.config/nvim.backup
 mv ~/.local/share/nvim ~/.local/share/nvim.backup
 
 # 2. Clone this configuration
-git clone https://github.com/AbiXnash/nvim ~/.config/nvim
+git clone https://github.com/AbiXnash/nvim-2.0 ~/.config/nvim
 
 # 3. Launch Neovim (plugins auto-install)
 nvim
