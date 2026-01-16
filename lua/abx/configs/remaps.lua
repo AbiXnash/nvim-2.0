@@ -1,45 +1,132 @@
--- Disable keymaps
-local disable = {
-    "<left>",
-    "<right>",
-    "<up>",
-    "<down>",
-}
+-- =============================================================================
+-- Key Mappings Configuration
+-- =============================================================================
+-- Custom keybindings for improved workflow
+-- All mappings use <leader> (space) as prefix
+-- =============================================================================
 
-for _, key in ipairs(disable) do
-    vim.keymap.set("n", key, '<cmd> echo "Disabled! you **VIM Motions**"<CR>')
-end
+-- =============================================================================
+-- Escape Mappings
+-- =============================================================================
+-- Quick ways to exit modes or clear search
+-- =============================================================================
 
--- <Esc> to exit search mode
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+-- <Esc> to clear search highlights
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", {
+    desc = "Clear search highlight"
+})
 
--- Remap <Esc>
-vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true })
+-- jk to exit insert mode (faster than reaching for Esc)
+vim.keymap.set("i", "jk", "<Esc>", {
+    noremap = true,
+    silent = true,
+    desc = "Exit insert mode"
+})
 
--- Move lines
-vim.keymap.set("v", ",", ":m '>+1<CR>gv=gv", { desc = "Move line down" })
-vim.keymap.set("v", ".", ":m '<-2<CR>gv=gv", { desc = "Move line up" })
+-- =============================================================================
+-- Line Movement
+-- =============================================================================
+-- Move lines up/down in visual mode with proper indentation
+-- =============================================================================
 
--- Stay at the middle when scrolling/searching
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Page down and center" })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Page up and center" })
-vim.keymap.set("n", "n", "nzzzv", { desc = "Next search result and center" })
-vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search result and center" })
+-- Move selected line(s) down
+vim.keymap.set("v", ",", ":m '>+1<CR>gv=gv", {
+    desc = "Move line down"
+})
 
--- Window switch
-vim.keymap.set("n", "<C-h>", "<C-w>h") -- Left
-vim.keymap.set("n", "<C-l>", "<C-w>l") -- Right
-vim.keymap.set("n", "<C-j>", "<C-w>j") -- Down
-vim.keymap.set("n", "<C-k>", "<C-w>k") -- Up
+-- Move selected line(s) up
+vim.keymap.set("v", ".", ":m '<-2<CR>gv=gv", {
+    desc = "Move line up"
+})
 
--- System clipboard
-vim.keymap.set("v", "<C-c>", '"+y', { desc = "Copy to system clipboard" })
+-- =============================================================================
+-- Centered Scrolling
+-- =============================================================================
+-- Keep cursor centered when scrolling through search results or pages
+-- =============================================================================
 
--- File Tree
-vim.keymap.set("n", "<leader>pv", "<cmd>Explore<CR>", { desc = "File tree" })
-vim.keymap.set("n", "<C-up>", "<cmd>Sexplore<CR>", { desc = "Split explore above" })
-vim.keymap.set("n", "<C-down>", "<cmd>Hexplore<CR>", { desc = "Horizontal explore below" })
-vim.keymap.set("n", "<C-left>", "<cmd>Vexplore<CR>", { desc = "Vertical explore left" })
+-- Page down and center cursor
+vim.keymap.set("n", "<C-d>", "<C-d>zz", {
+    desc = "Page down and center"
+})
 
--- Git
-vim.keymap.set("n", "<leader>g", "<cmd>G<CR>", { desc = "Git status (Fugitive)" })
+-- Page up and center cursor
+vim.keymap.set("n", "<C-u>", "<C-u>zz", {
+    desc = "Page up and center"
+})
+
+-- Next search result and center
+vim.keymap.set("n", "n", "nzzzv", {
+    desc = "Next search result and center"
+})
+
+-- Previous search result and center
+vim.keymap.set("n", "N", "Nzzzv", {
+    desc = "Previous search result and center"
+})
+
+-- =============================================================================
+-- Window Navigation
+-- =============================================================================
+-- Navigate between windows with Ctrl + arrow keys
+-- =============================================================================
+
+-- Window left
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+
+-- Window right
+vim.keymap.set("n", "<C-l>", "<C-w>l")
+
+-- Window down
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+
+-- Window up
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+
+-- =============================================================================
+-- System Clipboard
+-- =============================================================================
+-- Copy to system clipboard from visual mode
+-- =============================================================================
+
+-- Copy to system clipboard (works across applications)
+vim.keymap.set("v", "<C-c>", '"+y', {
+    desc = "Copy to system clipboard"
+})
+
+-- =============================================================================
+-- File Explorer (NETRW)
+-- =============================================================================
+-- File tree and split navigation
+-- =============================================================================
+
+-- Open file tree
+vim.keymap.set("n", "<leader>pv", "<cmd>Explore<CR>", {
+    desc = "File tree"
+})
+
+-- Split explore above
+vim.keymap.set("n", "<C-up>", "<cmd>Sexplore<CR>", {
+    desc = "Split explore above"
+})
+
+-- Horizontal explore below
+vim.keymap.set("n", "<C-down>", "<cmd>Hexplore<CR>", {
+    desc = "Horizontal explore below"
+})
+
+-- Vertical explore left
+vim.keymap.set("n", "<C-left>", "<cmd>Vexplore<CR>", {
+    desc = "Vertical explore left"
+})
+
+-- =============================================================================
+-- Git Integration
+-- =============================================================================
+-- Quick access to git status via Fugitive
+-- =============================================================================
+
+-- Show git status
+vim.keymap.set("n", "<leader>g", "<cmd>G<CR>", {
+    desc = "Git status (Fugitive)"
+})
