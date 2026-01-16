@@ -3,7 +3,7 @@ return {
         "nvim-lualine/lualine.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
-            local transparent_premium = {
+            local catppuccin = {
                 normal = {
                     a = { fg = "#cdd6f4", bg = "NONE", gui = "bold" },
                     b = { fg = "#a6adc8", bg = "NONE" },
@@ -21,26 +21,31 @@ return {
 
             require("lualine").setup({
                 options = {
-                    theme = transparent_premium,
+                    theme = catppuccin,
                     globalstatus = true,
                     component_separators = "",
                     section_separators = "",
                     disabled_filetypes = {
-                        statusline = { "NvimTree", "help", "qf", "Trouble" },
+                        statusline = { "NvimTree", "help", "qf", "Trouble", "lazy" },
                     },
                 },
 
                 sections = {
-                    -- LEFT (quiet, flowing)
                     lualine_a = { "mode" },
-                    lualine_b = { "branch" },
-                    lualine_c = { "filename" },
+                    lualine_b = { "branch", "diff" },
+                    lualine_c = {
+                        { "filename", path = 1 },
+                        {
+                            "lsp_progress",
+                            display_components = { "lsp_client_name", "spinner" },
+                            separator = { "", "" },
+                        },
+                    },
 
-                    -- RIGHT (signals only)
                     lualine_x = {
                         {
                             "diagnostics",
-                            sources = { 'nvim_lsp', 'nvim_diagnostic', 'nvim_workspace_diagnostic', 'coc', 'ale', 'vim_lsp' },
+                            sources = { 'nvim_lsp', 'nvim_diagnostic' },
                             sections = { 'error', 'warn', 'info', 'hint' },
                             symbols = {
                                 error = " ",
@@ -51,13 +56,24 @@ return {
                             colored = true,
                             update_in_insert = false,
                         },
+                        "filetype",
                     },
-                    lualine_y = { "filetype" },
-                    lualine_z = { "location" },
+                    lualine_y = { "encoding", "fileformat" },
+                    lualine_z = { "location", "progress" },
                 },
 
                 inactive_sections = {
-                    lualine_c = { "filename" },
+                    lualine_c = { { "filename", path = 1 } },
+                    lualine_x = { "filetype" },
+                },
+
+                tabline = {
+                    lualine_a = { "tabs" },
+                    lualine_b = { "buffers" },
+                    lualine_c = {},
+                    lualine_x = {},
+                    lualine_y = {},
+                    lualine_z = { "hostname" },
                 },
             })
         end,

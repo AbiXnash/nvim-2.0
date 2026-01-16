@@ -1,27 +1,29 @@
 return {
+    -- Color highlighting for CSS colors, hex codes, etc.
     { 'brenoprata10/nvim-highlight-colors', opts = {} },
+
+    -- JSON schema integration
     { "b0o/schemastore.nvim" },
+
+    -- Auto-close tags for HTML/JSX/TSX
     {
         "windwp/nvim-ts-autotag",
         ft = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
         config = true,
     },
-    { "b0o/schemastore.nvim" },
-    -- ~/.config/nvim/lua/plugins/lsp.lua
-    -- 1. TypeScript & JavaScript LSP (replaces tsserver + extras)
+
+    -- TypeScript & JavaScript LSP with enhanced features
     {
         "pmizio/typescript-tools.nvim",
         ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
         dependencies = { "nvim-lua/plenary.nvim" },
         opts = {
-            -- Enable JSDoc support via tsserver
             settings = {
                 tsserver = {
                     implicitProjectConfiguration = {
-                        checkJs = true, -- Enable type checking in .js
+                        checkJs = true,
                         strictNullChecks = true,
                     },
-                    -- JSDoc: Full support via tsserver (no extra plugin needed)
                     inlayHints = {
                         includeInlayParameterNameHints = "all",
                         includeInlayFunctionLikeReturnTypeHints = true,
@@ -52,18 +54,6 @@ return {
                     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
                 end
             end,
-        },
-    },
-
-    -- 2. Optional: Mason for automatic server install
-    {
-        "williamboman/mason.nvim",
-        opts = {
-            ensure_installed = {
-                "typescript-language-server",
-                "prettierd",
-                "eslint_d",
-            },
         },
     },
 }

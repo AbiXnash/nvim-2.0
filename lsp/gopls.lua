@@ -1,10 +1,13 @@
 return {
-    cmd = { "gopls" },                                          -- Command to start the language server
-    filetypes = { "go", "gomod", "gowork", "gotmpl", "gosum" }, -- File types that this server will handle
-    root_markers = { "go.mod", "go.work", ".git" },             -- Markers to identify the root of the project
-    settings = {                                                -- Settings for the language server
+    cmd = { "gopls" },
+    filetypes = { "go", "gomod", "gowork", "gotmpl", "gosum" },
+    root_markers = { "go.mod", "go.work", ".git" },
+    settings = {
         gopls = {
+            -- Use gofumpt for formatting
             gofumpt = true,
+
+            -- Code lens for common operations
             codelenses = {
                 gc_details = true,
                 generate = true,
@@ -15,6 +18,8 @@ return {
                 upgrade_dependency = true,
                 vendor = true,
             },
+
+            -- Inlay hints configuration
             hints = {
                 assignVariableTypes = true,
                 compositeLiteralFields = true,
@@ -24,73 +29,31 @@ return {
                 parameterNames = true,
                 rangeVariableTypes = true,
             },
+
+            -- Static analysis
             analyses = {
+                -- Core analysis rules
                 nilness = true,
                 unusedparams = true,
                 unusedwrite = true,
                 useany = true,
                 unreachable = true,
-                modernize = true,
-                stylecheck = true,
-                appends = true,
-                asmdecl = true,
-                assign = true,
-                atomic = true,
-                bools = true,
-                buildtag = true,
-                cgocall = true,
-                composite = true,
-                contextcheck = true,
-                deba = true,
-                atomicalign = true,
-                composites = true,
-                copylocks = true,
-                deepequalerrors = true,
-                defers = true,
-                deprecated = true,
-                directive = true,
-                embed = true,
-                errorsas = true,
-                fillreturns = true,
-                framepointer = true,
-                gofix = true,
-                hostport = true,
-                infertypeargs = true,
-                lostcancel = true,
-                httpresponse = true,
-                ifaceassert = true,
-                loopclosure = true,
-                nilfunc = true,
-                nonewvars = true,
-                noresultvalues = true,
-                printf = true,
+                staticcheck = true,
                 shadow = true,
-                shift = true,
-                sigchanyzer = true,
-                simplifycompositelit = true,
-                simplifyrange = true,
-                simplifyslice = true,
-                slog = true,
-                sortslice = true,
-                stdmethods = true,
-                stdversion = true,
-                stringintconv = true,
-                structtag = true,
-                testinggoroutine = true,
-                tests = true,
-                timeformat = true,
-                unmarshal = true,
-                unsafeptr = true,
-                unusedfunc = true,
-                unusedresult = true,
-                waitgroup = true,
-                yield = true,
-                unusedvariable = true,
+
+                -- Style checks
+                stylecheck = true,
+                checks = { "all" },
             },
-            usePlaceholders = false,
+
+            -- Completion settings
+            usePlaceholders = true,
             completeUnimported = true,
-            staticcheck = true,
-            directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+
+            -- Directory filtering
+            directoryFilters = { "-.git", "-.vscode", "-.idea", "-node_modules" },
+
+            -- Semantic tokens for enhanced syntax highlighting
             semanticTokens = true,
         },
     },

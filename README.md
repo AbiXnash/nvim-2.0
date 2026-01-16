@@ -23,13 +23,13 @@ A modern, production-ready Neovim configuration featuring comprehensive language
 | Lua | lua_ls | LazyDev integration |
 
 ### Development Tools
-- **Telescope** - Fuzzy finder (files, grep, buffers)
+- **Telescope** - Fuzzy finder (files, grep, buffers, diagnostics)
 - **Trouble** - Diagnostics panel
 - **Git** - Gitsigns, Fugitive, diffview
 - **Treesitter** - Syntax highlighting
 - **Conform** - Auto-format on save
 - **Neotest** - Test runner (Go, Python, Java)
-- **nvim-dap** - Debugger support
+- **nvim-dap** - Debugger support (Go, Python, Java)
 - **Sessions** - Auto-save/restore workspace
 
 ---

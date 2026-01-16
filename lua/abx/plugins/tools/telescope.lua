@@ -10,33 +10,47 @@ return {
         require("telescope").setup({
             defaults = {
                 layout_strategy = 'bottom_pane',
+                file_ignore_patterns = { "node_modules", ".git/", "target" },
             },
-            file_ignore_patterns = { "node_modules", ".git/", "target" },
+            extensions = {
+                fzf = {
+                    fuzzy = true,
+                    override_generic_sorter = true,
+                    override_file_sorter = true,
+                    case_mode = "smart_case",
+                },
+            },
         })
 
-        -- Find Files from parent directory
+        require("telescope").load_extension("fzf")
+
+        -- Keybindings
         vim.keymap.set("n", "<leader><leader>", function()
             require('telescope.builtin').find_files()
-        end)
+        end, { desc = "Find files" })
 
-        -- Find words from parent directory
         vim.keymap.set("n", "<leader>fs", function()
             require('telescope.builtin').live_grep()
-        end)
+        end, { desc = "Live grep search" })
 
-        -- Find git files
         vim.keymap.set("n", "<leader>fg", function()
             require('telescope.builtin').git_files()
-        end)
+        end, { desc = "Find git files" })
 
-        -- Find by current buffers
         vim.keymap.set("n", "<leader>fb", function()
             require('telescope.builtin').buffers()
-        end)
+        end, { desc = "Find buffers" })
 
-        
-    end
+        vim.keymap.set("n", "<leader>fd", function()
+            require('telescope.builtin').diagnostics()
+        end, { desc = "Find diagnostics" })
 
+        vim.keymap.set("n", "<leader>fh", function()
+            require('telescope.builtin').help_tags()
+        end, { desc = "Find help tags" })
 
-
+        vim.keymap.set("n", "<leader>fr", function()
+            require('telescope.builtin').oldfiles()
+        end, { desc = "Find recent files" })
+    end,
 }

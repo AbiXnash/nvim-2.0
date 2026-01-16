@@ -9,23 +9,47 @@ return {
             }
         },
         ensure_installed = {
-            -- Go tools
-            "gofumpt",        -- Go formatter
-            "golangci-lint",   -- Go linter  
-            "gopls",          -- Go LSP
-            "delve",          -- Go debugger
-            
-            -- Additional language tools
-            "astro-language-server", -- Astro LSP
-            "svelte-language-server", -- Svelte LSP
-            "typescript-language-server", -- TypeScript LSP
+            -- Go
+            "gopls",
+            "gofumpt",
+            "golangci-lint",
+            "delve",
+
+            -- Web (TypeScript/JavaScript)
+            "typescript-language-server",
+            "prettierd",
+            "eslint_d",
+
+            -- Frameworks
+            "svelte-language-server",
+            "astro-language-server",
+
+            -- Python
+            "basedpyright",
+            "black",
+            "debugpy",
+
+            -- Lua
+            "lua-language-server",
+            "stylua",
+
+            -- Rust
+            "rust-analyzer",
+            "rustfmt",
 
             -- Java
-            "jdtls",         -- Java LSP
-            "java-test",     -- Java test runner
-            "java-debug-adapter", -- Java debugger
-            "google-java-format", -- Java formatter
-            "checkstyle",    -- Java linter
+            "jdtls",
+            "java-test",
+            "java-debug-adapter",
+            "google-java-format",
+            "checkstyle",
+
+            -- Other
+            "json-lsp",
+            "yaml-language-server",
+            "markdownlint",
+            "shellcheck",
+            "shfmt",
         }
     }
 }
