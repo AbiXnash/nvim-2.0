@@ -43,7 +43,6 @@ return {
 
                 -- Style checks
                 stylecheck = true,
-                checks = { "all" },
             },
 
             -- Completion settings
