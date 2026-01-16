@@ -51,8 +51,6 @@ require("lazy").setup({
     spec = {
         -- Import all plugins from abx/plugins directory
         { import = "abx.plugins" },
-        -- Import individual plugin files if needed
-        -- { import = "abx.plugins.lang.java" },
     },
     -- Plugin checker disabled (manual updates)
     checker = { enabled = false },

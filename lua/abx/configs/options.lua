@@ -128,10 +128,9 @@ vim.g.netrw_banner = 0          -- Hide banner
 vim.g.netrw_winsize = 25        -- Default width = 25%
 
 -- =============================================================================
--- Filetype Detection
+-- Filetype Detection (Neovim default is enabled)
 -- =============================================================================
--- Enable filetype detection, plugins, and indentation
--- =============================================================================
-vim.opt.filetype = true         -- Enable filetype detection
-vim.opt.filetypeplugin = true   -- Enable filetype plugins
-vim.opt.filetypeindent = true   -- Enable filetype-specific indentation
+-- Note: filetype detection is enabled by default in Neovim
+-- vim.g.filetype_detect = true   -- Uncomment to enable (default)
+-- vim.g.filetype_plugin = true   -- Uncomment to enable filetype plugins
+-- vim.g.filetype_indent = true   -- Uncomment to enable filetype indentation

@@ -39,7 +39,13 @@ return {
             vim.keymap.set("n", "<leader>ds", dap.step_over, { desc = "Step over" })
             vim.keymap.set("n", "<leader>di", dap.step_into, { desc = "Step into" })
             vim.keymap.set("n", "<leader>do", dap.step_out, { desc = "Step out" })
-            vim.keymap.set("n", "<leader>de", dap.eval, { desc = "Evaluate expression" })
+            vim.keymap.set("n", "<leader>de", function()
+                vim.ui.input({ prompt = "Expression to evaluate: " }, function(input)
+                    if input then
+                        dap.eval(input)
+                    end
+                end)
+            end, { desc = "Evaluate expression" })
         end,
     },
 
