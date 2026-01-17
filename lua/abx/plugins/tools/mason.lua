@@ -49,6 +49,10 @@ return {
             "google-java-format",
             "checkstyle",
 
+            -- Kotlin
+            "kotlin-language-server",
+            "ktlint",
+
             -- Other
             "sql-language-server",
             "markdownlint",

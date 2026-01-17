@@ -35,6 +35,7 @@ return {
           tailwindcss = { "prettierd", "tailwindcss-formatter" },
           yaml = { "prettierd" },
           sql = { "sqlfluff" },
+          kotlin = { "ktlint" },
           astro = { "prettierd" },
           java = { "google-java-format" },
           rust = { "rustfmt" },

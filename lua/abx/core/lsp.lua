@@ -15,6 +15,7 @@ vim.lsp.enable({
     "htmx",          -- HTMX language server (ThePrimeagen)
     "xml",           -- XML language server
     "sqlls",         -- SQL language server
+    "kotlin_language_server",  -- Kotlin language server
 })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

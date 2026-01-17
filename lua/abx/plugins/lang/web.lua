@@ -69,6 +69,7 @@ return {
                 "svg",
                 "tmpl",
                 "sql",
+                "kotlin",
             },
             highlight = {
                 enable = true,
