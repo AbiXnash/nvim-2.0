@@ -8,6 +8,12 @@ vim.lsp.enable({
     "gopls",         -- Go language server
     "basedpyright",
     "jdtls",         -- Java language server
+    "marksman",      -- Markdown language server
+    "html",          -- HTML language server
+    "yamlls",        -- YAML language server
+    "tailwindcss",   -- Tailwind CSS language server
+    "htmx",          -- HTMX language server (ThePrimeagen)
+    "xml",           -- XML language server
 })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
