@@ -68,6 +68,7 @@ return {
                 "xsl",
                 "svg",
                 "tmpl",
+                "sql",
             },
             highlight = {
                 enable = true,

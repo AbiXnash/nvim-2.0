@@ -14,6 +14,7 @@ vim.lsp.enable({
     "tailwindcss",   -- Tailwind CSS language server
     "htmx",          -- HTMX language server (ThePrimeagen)
     "xml",           -- XML language server
+    "sqlls",         -- SQL language server
 })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

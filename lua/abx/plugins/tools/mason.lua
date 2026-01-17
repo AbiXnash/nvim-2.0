@@ -50,6 +50,7 @@ return {
             "checkstyle",
 
             -- Other
+            "sql-language-server",
             "markdownlint",
             "marksman",
             "shellcheck",
