@@ -1,18 +1,14 @@
 return {
-    -- Color highlighting for CSS colors, hex codes, etc.
     { 'brenoprata10/nvim-highlight-colors', opts = {} },
 
-    -- JSON schema integration
     { "b0o/schemastore.nvim" },
 
-    -- Auto-close tags for HTML/JSX/TSX
     {
         "windwp/nvim-ts-autotag",
-        ft = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+        ft = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact", "htmx" },
         config = true,
     },
 
-    -- TypeScript & JavaScript LSP with enhanced features
     {
         "pmizio/typescript-tools.nvim",
         ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
@@ -33,7 +29,6 @@ return {
                 jsx_close_tag = { enable = true },
             },
             on_attach = function(client, bufnr)
-                -- Disable formatting (use conform.nvim / prettier)
                 client.server_capabilities.documentFormattingProvider = false
 
                 local buf = vim.lsp.buf
@@ -49,11 +44,55 @@ return {
                 key("n", "<leader>ai", ":TSToolsAddMissingImports<CR>")
                 key("n", "<leader>ru", ":TSToolsRemoveUnused<CR>")
 
-                -- Enable inlay hints (Neovim 0.11+)
                 if vim.lsp.inlay_hint then
                     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
                 end
             end,
+        },
+    },
+
+    {
+        "nvim-treesitter/nvim-treesitter",
+        opts = {
+            ensure_installed = {
+                "html",
+                "css",
+                "scss",
+                "less",
+                "javascript",
+                "typescript",
+                "tsx",
+                "htmx",
+                "tailwind",
+                "xml",
+                "xsl",
+                "svg",
+                "tmpl",
+            },
+            highlight = {
+                enable = true,
+                additional_vim_regex_highlighting = false,
+            },
+            indent = {
+                enable = true,
+            },
+        },
+    },
+
+    {
+        "mrshmllow/document-color.nvim",
+        ft = { "css", "scss", "less", "html", "htmx" },
+        opts = {
+            mode = "foreground",
+        },
+    },
+
+    {
+        "c0r73x/neotags.lua",
+        ft = { "html", "htmx", "css", "javascript", "typescript" },
+        opts = {
+            update = true,
+            current_buffer_only = false,
         },
     },
 }
