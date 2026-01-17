@@ -15,10 +15,15 @@ return {
             "golangci-lint",
             "delve",
 
-            -- Web (TypeScript/JavaScript)
+            -- Web (TypeScript/JavaScript/HTML/CSS/YAML/JSON)
             "typescript-language-server",
             "prettierd",
             "eslint_d",
+            "html-lsp",
+            "yaml-language-server",
+            "json-lsp",
+            "tailwindcss-language-server",
+            "htmx-lsp",
 
             -- Frameworks
             "svelte-language-server",
@@ -45,11 +50,11 @@ return {
             "checkstyle",
 
             -- Other
-            "json-lsp",
-            "yaml-language-server",
             "markdownlint",
+            "marksman",
             "shellcheck",
             "shfmt",
+            "lemminx",
         }
     }
 }
