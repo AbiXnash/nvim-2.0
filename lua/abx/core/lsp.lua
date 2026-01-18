@@ -33,7 +33,18 @@ capabilities = vim.tbl_deep_extend("force", capabilities, {
 -- =============================================================================
 -- Diagnostic Configuration
 -- =============================================================================
-vim.diagnostic.config(C.lsp.diagnostics)
+vim.diagnostic.config({
+    signs = {
+        priority = 20,
+        text = {
+            [vim.diagnostic.severity.ERROR] = "X",
+            [vim.diagnostic.severity.WARN] = "!",
+            [vim.diagnostic.severity.INFO] = "i",
+            [vim.diagnostic.severity.HINT] = "?",
+        },
+    },
+    severity_sort = true,
+})
 
 -- =============================================================================
 -- LSP Attach Autocmd
