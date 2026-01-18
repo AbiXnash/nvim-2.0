@@ -103,7 +103,7 @@ return {
                         draw = {
                             components = {
                                 kind_icon = {
-                                    width = 1,
+                                    width = { max = 1 },
                                     padding = { left = 0, right = 1 },
                                 },
                                 label = {
