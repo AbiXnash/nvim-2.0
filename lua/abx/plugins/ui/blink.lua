@@ -74,13 +74,13 @@ return {
                         draw = {
                             columns = {
                                 { "kind_icon" },
-                                { "label", "label_description", gap = 1 },
+                                { "label",    "label_description", gap = 1 },
                             },
                         },
                     },
                     documentation = {
                         auto_show = true,
-                        auto_show_delay = 200,
+                        auto_show_delay_ms = 200,
                         window = {
                             border = "none",
                             winblend = 0,
@@ -89,9 +89,6 @@ return {
                     ghost_text = {
                         enabled = true,
                     },
-                },
-                fuzzy = {
-                    max_items = 200,
                 },
                 keymap = {
                     preset = "enter",
