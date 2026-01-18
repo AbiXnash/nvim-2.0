@@ -84,8 +84,6 @@ return {
                 },
                 custom_highlights = {
                     -- ThePrimeagen-style custom highlights
-                    CursorLine = { bg = "#313244" },
-                    CursorLineNr = { fg = "#f9e2af", bold = true },
                     LineNr = { fg = "#6c7086" },
                     Visual = { bg = "#45475a" },
                     Search = { bg = "#fab387", fg = "#1e1e2e" },
@@ -118,8 +116,6 @@ return {
                     GitSignsDelete = { fg = "#f38ba8" },
                     Folded = { fg = "#6c7086", bg = "NONE" },
                     FoldColumn = { fg = "#6c7086", bg = "NONE" },
-                    CursorLine = { bg = "#313244" },
-                    CursorLineNr = { fg = "#f9e2af", bg = "NONE", bold = true },
                 },
                 default_integrations = true,
                 auto_integrations = true,
@@ -145,8 +141,6 @@ return {
                 callback = function()
                     vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "NONE" })
                     vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = "NONE" })
-                    vim.api.nvim_set_hl(0, "CursorLine", { bg = "#313244" })
-                    vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#f9e2af", bg = "NONE", bold = true })
                 end,
             })
         end

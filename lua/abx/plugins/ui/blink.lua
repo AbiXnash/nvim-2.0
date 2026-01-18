@@ -91,8 +91,6 @@ return {
                     },
                 },
                 fuzzy = {
-                    implementation = "fzy",
-                    preproc = "prefix",
                     max_items = 200,
                     threshold = 0.3,
                 },
