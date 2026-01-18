@@ -1,3 +1,11 @@
+-- =============================================================================
+-- Blink.cmp Configuration
+-- =============================================================================
+-- Modern completion plugin with LSP integration
+-- =============================================================================
+
+local C = require("abx.config")
+
 return {
     { "L3MON4D3/LuaSnip", keys = {} },
 
@@ -13,24 +21,27 @@ return {
 
     {
         "saghen/blink.cmp",
-        event = "InsertEnter", -- capital I is correct
+        event = "InsertEnter",
         dependencies = {
             "rafamadriz/friendly-snippets",
         },
         version = "*",
         config = function()
-            require("blink.cmp").setup({
-                snippets = { preset = "luasnip" },
-                signature = { enabled = true },
+            local blink = require("blink.cmp")
 
+            blink.setup({
+                snippets = {
+                    preset = "luasnip",
+                },
+                signature = {
+                    enabled = true,
+                },
                 appearance = {
                     use_nvim_cmp_as_default = false,
                     nerd_font_variant = "normal",
                 },
-
                 sources = {
                     default = { "lazydev", "lsp", "path", "snippets" },
-
                     providers = {
                         lazydev = {
                             name = "LazyDev",
@@ -39,29 +50,32 @@ return {
                         },
                     },
                 },
-
                 keymap = {
                     ["<CR>"] = { "accept", "fallback" },
+                    ["<Tab>"] = { "select_next", "fallback" },
+                    ["<S-Tab>"] = { "select_prev", "fallback" },
                 },
-
                 cmdline = {
                     enabled = false,
-                    completion = { menu = { auto_show = true } },
+                    completion = {
+                        menu = {
+                            auto_show = true,
+                        },
+                    },
                     keymap = {
                         ["<CR>"] = { "accept", "fallback" },
                     },
                 },
-
                 completion = {
                     menu = {
-                        auto_show = true,
+                        auto_show = C.ui.blink.auto_show,
                         border = nil,
-                        scrolloff = 1,
+                        scrolloff = C.ui.blink.scrolloff,
                         scrollbar = false,
                         draw = {
                             columns = {
                                 { "kind_icon" },
-                                { "label",      "label_description", gap = 1 },
+                                { "label", "label_description", gap = 1 },
                                 { "kind" },
                                 { "source_name" },
                             },
@@ -71,10 +85,10 @@ return {
                         window = {
                             border = nil,
                             scrollbar = false,
-                            winhighlight = 'Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,EndOfBuffer:BlinkCmpDoc',
+                            winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,EndOfBuffer:BlinkCmpDoc",
                         },
-                        auto_show = true,
-                        auto_show_delay_ms = 500,
+                        auto_show = C.ui.blink.auto_show,
+                        auto_show_delay_ms = C.ui.blink.auto_show_delay_ms,
                     },
                 },
             })
