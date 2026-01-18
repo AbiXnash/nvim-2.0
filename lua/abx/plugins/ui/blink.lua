@@ -1,9 +1,3 @@
--- =============================================================================
--- Blink.cmp Configuration
--- =============================================================================
--- Modern completion plugin with LSP integration
--- =============================================================================
-
 local C = require("abx.config")
 
 return {
@@ -35,10 +29,40 @@ return {
                 },
                 signature = {
                     enabled = true,
+                    window = {
+                        border = "single",
+                        winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,EndOfBuffer:BlinkCmpDoc",
+                    },
                 },
                 appearance = {
                     use_nvim_cmp_as_default = false,
                     nerd_font_variant = "normal",
+                    kind_icons = {
+                        Text = "T",
+                        Method = "M",
+                        Function = "F",
+                        Constructor = "C",
+                        Variable = "V",
+                        Class = "C",
+                        Interface = "I",
+                        Module = "M",
+                        Property = "P",
+                        Unit = "U",
+                        Value = "V",
+                        Enum = "E",
+                        Keyword = "K",
+                        Snippet = "S",
+                        Color = "C",
+                        File = "F",
+                        Reference = "R",
+                        Folder = "D",
+                        EnumMember = "E",
+                        Constant = "C",
+                        Struct = "S",
+                        Event = "E",
+                        Operator = "O",
+                        TypeParameter = "T",
+                    },
                 },
                 sources = {
                     default = { "lazydev", "lsp", "path", "snippets" },
@@ -54,6 +78,10 @@ return {
                     ["<CR>"] = { "accept", "fallback" },
                     ["<Tab>"] = { "select_next", "fallback" },
                     ["<S-Tab>"] = { "select_prev", "fallback" },
+                    ["<C-n>"] = { "select_next", "fallback" },
+                    ["<C-p>"] = { "select_prev", "fallback" },
+                    ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+                    ["<C-f>"] = { "scroll_documentation_down", "fallback" },
                 },
                 cmdline = {
                     enabled = false,
@@ -69,26 +97,38 @@ return {
                 completion = {
                     menu = {
                         auto_show = C.ui.blink.auto_show,
-                        border = nil,
+                        border = "single",
                         scrolloff = C.ui.blink.scrolloff,
                         scrollbar = false,
                         draw = {
-                            columns = {
-                                { "kind_icon" },
-                                { "label", "label_description", gap = 1 },
-                                { "kind" },
-                                { "source_name" },
+                            components = {
+                                kind_icon = {
+                                    width = 1,
+                                    padding = { left = 0, right = 1 },
+                                },
+                                label = {
+                                    width = 40,
+                                    text = function(item)
+                                        return item.label .. (item.label_description and (" " .. item.label_description) or "")
+                                    end,
+                                    match = function(item, context)
+                                        return item.label:lower():find(context.input:lower(), 1, true) or item.label_description:lower():find(context.input:lower(), 1, true)
+                                    end,
+                                },
                             },
                         },
                     },
                     documentation = {
                         window = {
-                            border = nil,
+                            border = "single",
                             scrollbar = false,
                             winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,EndOfBuffer:BlinkCmpDoc",
                         },
                         auto_show = C.ui.blink.auto_show,
                         auto_show_delay_ms = C.ui.blink.auto_show_delay_ms,
+                    },
+                    list = {
+                        selection = { preselect = false, auto_insert = true },
                     },
                 },
             })
