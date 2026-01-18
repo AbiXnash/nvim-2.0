@@ -218,6 +218,49 @@ Add to `lua/abx/plugins/[category]/init.lua`:
 
 ---
 
+## Theme Customization
+
+This configuration uses Catppuccin Mocha with ThePrimeagen-style minimal UI.
+
+### Colors
+
+Edit `lua/abx/plugins/ui/colorscheme.lua`:
+
+```lua
+color_overrides = {
+    base = "#1e1e2e",
+    mantle = "#181825",
+    crust = "#11111b",
+}
+```
+
+### CursorLine
+
+The cursor line uses `#313244` background. Change in `lua/abx/config.lua`:
+
+```lua
+Config.editor = {
+    cursorlineopt = "both",  -- Highlights entire line
+}
+```
+
+### Diagnostic Signs
+
+Change diagnostic icons in `lua/abx/config.lua`:
+
+```lua
+Config.lsp = {
+    diagnostic_signs = {
+        error = "",
+        warn = "",
+        info = "",
+        hint = "󰌵",
+    },
+}
+```
+
+---
+
 ## Submitting Changes
 
 ### Commit Messages
