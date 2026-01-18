@@ -68,7 +68,7 @@ nvim/
 ├── lazy-lock.json                    # Pinned plugin versions
 │
 └── lua/abx/                          # Main configuration namespace
-    ├── config.lua                    # Centralized configuration (NEW)
+    ├── config.lua                    # Centralized configuration
     ├── init.lua                      # Bootstrap & lazy.nvim setup
     │
     ├── configs/                      # Core editor settings
@@ -82,12 +82,12 @@ nvim/
     │   ├── lsp-keymaps.lua           # LSP keymaps
     │   └── lsp-commands.lua          # Custom LSP commands
     │
-    ├── lsp/servers/                  # LSP server configurations (UPDATED)
+    ├── lsp/servers/                  # LSP server configurations
     │   ├── astro.lua
     │   ├── basedpyright.lua
     │   ├── gopls.lua
     │   ├── jdtls.lua
-    │   ├── json_ls.lua
+    │   ├── jsonls.lua
     │   ├── lua_ls.lua
     │   ├── rust_analyzer.lua
     │   ├── svelte.lua
@@ -137,34 +137,6 @@ nvim/
 | `plugins/lang/` | Language tools | LSPs, debuggers, test runners |
 | `plugins/ui/` | Visual plugins | Colors, completion, comments |
 | `plugins/tools` | Dev utilities | Search, git, format, diagnostics |
-
-### Configuration Module
-
-The `config.lua` file centralizes all hardcoded values:
-
-```lua
-Config = {
-    editor = {
-        leader_key = " ",
-        tabstop = 4,
-        scrolloff = 20,
-        -- ...
-    },
-    lsp = {
-        servers = { "lua_ls", "gopls", ... },
-        format_timeout = 2000,
-    },
-    -- ...
-}
-```
-
-**Utility Functions:**
-
-| Function | Purpose |
-|----------|---------|
-| `C.safe_require(module)` | Safely require with error handling |
-| `C.create_augroup(name, autocmds)` | Create autocmd groups |
-| `C.cmd_exists(cmd)` | Check if command exists |
 
 ---
 
@@ -264,8 +236,6 @@ Config = {
 | `:LspCapabilities` | Show LSP capabilities |
 | `:LspDetails` | Comprehensive LSP info |
 | `:LspDiagnostics` | Diagnostic counts |
-| `:LspInstalled` | List installed servers |
-| `:LspList` | List all LSP details |
 | `:Mason` | Open package manager UI |
 
 ### Session Commands
@@ -353,7 +323,7 @@ Config.editor = {
         "author/plugin-name",
         event = "BufEnter",
         config = function()
-            require("plugin").setup({})
+            require("plugin-name").setup({})
         end,
     }
     ```
@@ -379,36 +349,25 @@ vim.cmd.colorscheme "kanagawa"    -- Alternative
 
 ---
 
-## File Reference
+## Theme
 
-### Core Files
+This configuration uses **Catppuccin Mocha** with a transparent background and ThePrimeagen-style minimal UI:
 
-| File | Purpose | Lines |
-|------|---------|-------|
-| `init.lua` | Entry point | 2 |
-| `lua/abx/config.lua` | Centralized configuration | ~220 |
-| `lua/abx/init.lua` | Bootstrap & lazy setup | ~60 |
-| `lua/abx/configs/options.lua` | vim.opt settings | ~75 |
-| `lua/abx/configs/remaps.lua` | Key mappings | ~85 |
-| `lua/abx/configs/autocmd.lua` | Autocommands | ~90 |
+- **CursorLine**: `#313244` background
+- **Diagnostics**: Colored circular indicators
+- **Statusline**: Minimal design with diagnostics
+- **Blink.cmp**: Transparent, borderless popup
 
-### LSP Files
+### Color Palette
 
-| File | Purpose |
-|------|---------|
-| `lua/abx/core/lsp.lua` | Main LSP config & capabilities |
-| `lua/abx/core/lsp-attach.lua` | Attach handlers & inlay hints |
-| `lua/abx/core/lsp-keymaps.lua` | LSP keymaps |
-| `lua/abx/core/lsp-commands.lua` | Custom LSP commands |
-| `lua/abx/lsp/servers/*.lua` | Server-specific settings |
-
-### Plugin Categories
-
-| Category | Path | Files |
-|----------|------|-------|
-| Language | `plugins/lang/` | 5 |
-| UI | `plugins/ui/` | 5 |
-| Tools | `plugins/tools/` | 10 |
+| Color | Hex | Usage |
+|-------|-----|-------|
+| Rosewater | `#f5e0dc` | UI accents |
+| Red | `#f38ba8` | Errors |
+| Yellow | `#f9e2af` | Warnings |
+| Green | `#a6e3a1` | Success |
+| Blue | `#89b4fa` | Info |
+| Surface | `#313244` | CursorLine |
 
 ---
 

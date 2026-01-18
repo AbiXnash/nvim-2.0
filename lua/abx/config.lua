@@ -20,6 +20,7 @@ Config.editor = {
 
     -- Cursor
     cursorline = true,
+    cursorlineopt = "both",
     guicursor = "",
 
     -- Search
@@ -31,7 +32,7 @@ Config.editor = {
     -- UI
     signcolumn = "yes",
     scrolloff = 20,
-    updatetime = 10,
+    updatetime = 50,
 
     -- Indentation
     tabstop = 4,
@@ -48,6 +49,34 @@ Config.editor = {
     undofile = true,
     swapfile = false,
     backup = false,
+
+    -- Additional preferences
+    mouse = "",
+    clipboard = "unnamedplus",
+    hidden = true,
+    history = 1000,
+    wildmenu = true,
+    wildmode = "longest:full,full",
+    splitright = true,
+    splitbelow = true,
+    termguicolors = true,
+    timeoutlen = 300,
+    ttimeoutlen = -1,
+    redrawtime = 10000,
+    conceallevel = 0,
+    laststatus = 3,
+    showmode = false,
+    inccommand = "split",
+    writebackup = false,
+
+    -- List chars
+    listchars = {
+        tab = "│ ",
+        trail = "·",
+        nbsp = "␣",
+        extends = "»",
+        precedes = "«",
+    },
 }
 
 -- =============================================================================
@@ -56,6 +85,14 @@ Config.editor = {
 Config.lsp = {
     -- Format timeout (ms)
     format_timeout = 4000,
+
+    -- Diagnostic signs
+    diagnostic_signs = {
+        error = "",
+        warn = "",
+        info = "",
+        hint = "󰌵",
+    },
 
     -- Diagnostic settings
     diagnostics = {
