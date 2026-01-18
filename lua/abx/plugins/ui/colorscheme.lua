@@ -101,9 +101,9 @@ return {
                     WinSeparator = { bg = "NONE", fg = "#313244" },
                     StatusLine = { bg = "NONE" },
                     StatusLineNC = { bg = "NONE", fg = "#6c7086" },
-                    Pmenu = { bg = "#313244" },
-                    PmenuSel = { bg = "#45475a" },
-                    PmenuSbar = { bg = "#1e1e2e" },
+                    Pmenu = { bg = "NONE" },
+                    PmenuSel = { bg = "#313244" },
+                    PmenuSbar = { bg = "NONE" },
                     PmenuThumb = { bg = "#585b70" },
                     DiagnosticVirtualTextError = { fg = "#f38ba8", bg = "NONE" },
                     DiagnosticVirtualTextWarn = { fg = "#f9e2af", bg = "NONE" },
@@ -143,6 +143,18 @@ return {
             })
 
             vim.cmd.colorscheme "catppuccin"
+
+            vim.api.nvim_create_autocmd("ColorScheme", {
+                pattern = "catppuccin",
+                callback = function()
+                    vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "NONE" })
+                    vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = "#6c7086", bg = "NONE" })
+                    vim.api.nvim_set_hl(0, "BlinkCmpMenuCursorLine", { bg = "#313244" })
+                    vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = "NONE" })
+                    vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { fg = "#6c7086", bg = "NONE" })
+                    vim.api.nvim_set_hl(0, "BlinkCmpDocCursorLine", { bg = "#313244" })
+                end,
+            })
         end
     }
 }
