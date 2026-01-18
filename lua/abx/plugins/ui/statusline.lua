@@ -78,39 +78,6 @@ return {
                     lualine_y = {},
                     lualine_z = {},
                 },
-
-                tabline = {
-                    lualine_a = {
-                        {
-                            "tabs",
-                            mode = 1,
-                            tabs_color = {
-                                active = { fg = "#cdd6f4", gui = "bold" },
-                                inactive = { fg = "#6c7086" },
-                            },
-                        }
-                    },
-                    lualine_b = {},
-                    lualine_c = {},
-                    lualine_x = {},
-                    lualine_y = {},
-                    lualine_z = { "hostname" },
-                },
-
-                winbar = {
-                    lualine_a = {},
-                    lualine_b = {},
-                    lualine_c = {
-                        {
-                            "filename",
-                            path = 1,
-                            symbols = { modified = " ●", readonly = " ", unnamed = " [No Name]" }
-                        }
-                    },
-                    lualine_x = {},
-                    lualine_y = {},
-                    lualine_z = {},
-                },
             })
         end,
     },
