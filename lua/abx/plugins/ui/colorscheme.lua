@@ -118,12 +118,8 @@ return {
                     GitSignsDelete = { fg = "#f38ba8" },
                     Folded = { fg = "#6c7086", bg = "NONE" },
                     FoldColumn = { fg = "#6c7086", bg = "NONE" },
-                    BlinkCmpMenu = { bg = "NONE" },
-                    BlinkCmpMenuBorder = { fg = "#6c7086", bg = "NONE" },
-                    BlinkCmpMenuCursorLine = { bg = "#313244" },
-                    BlinkCmpDoc = { bg = "NONE" },
-                    BlinkCmpDocBorder = { fg = "#6c7086", bg = "NONE" },
-                    BlinkCmpDocCursorLine = { bg = "#313244" },
+                    CursorLine = { bg = "#313244" },
+                    CursorLineNr = { fg = "#f9e2af", bg = "NONE", bold = true },
                 },
                 default_integrations = true,
                 auto_integrations = true,
@@ -137,7 +133,7 @@ return {
                         indentscope_color = "",
                     },
                     blink_cmp = {
-                        style = 'bordered',
+                        style = 'none',
                     }
                 },
             })
@@ -148,11 +144,9 @@ return {
                 pattern = "catppuccin",
                 callback = function()
                     vim.api.nvim_set_hl(0, "BlinkCmpMenu", { bg = "NONE" })
-                    vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = "#6c7086", bg = "NONE" })
-                    vim.api.nvim_set_hl(0, "BlinkCmpMenuCursorLine", { bg = "#313244" })
                     vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = "NONE" })
-                    vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { fg = "#6c7086", bg = "NONE" })
-                    vim.api.nvim_set_hl(0, "BlinkCmpDocCursorLine", { bg = "#313244" })
+                    vim.api.nvim_set_hl(0, "CursorLine", { bg = "#313244" })
+                    vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#f9e2af", bg = "NONE", bold = true })
                 end,
             })
         end

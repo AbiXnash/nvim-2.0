@@ -63,14 +63,14 @@ return {
                 completion = {
                     menu = {
                         auto_show = C.ui.blink.auto_show,
-                        border = "single",
+                        border = "none",
                         scrolloff = C.ui.blink.scrolloff,
                         scrollbar = false,
                         winblend = 0,
                     },
                     documentation = {
                         window = {
-                            border = "single",
+                            border = "none",
                             scrollbar = false,
                             winblend = 0,
                         },
