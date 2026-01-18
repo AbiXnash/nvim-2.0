@@ -66,11 +66,13 @@ return {
                         border = "single",
                         scrolloff = C.ui.blink.scrolloff,
                         scrollbar = false,
+                        winhighlight = "Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuCursorLine",
                     },
                     documentation = {
                         window = {
                             border = "single",
                             scrollbar = false,
+                            winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder",
                         },
                         auto_show = C.ui.blink.auto_show,
                         auto_show_delay_ms = C.ui.blink.auto_show_delay_ms,
