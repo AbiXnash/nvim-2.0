@@ -107,7 +107,7 @@ return {
                                     padding = { left = 0, right = 1 },
                                 },
                                 label = {
-                                    width = 40,
+                                    width = { max = 40 },
                                     text = function(item)
                                         return item.label .. (item.label_description and (" " .. item.label_description) or "")
                                     end,
