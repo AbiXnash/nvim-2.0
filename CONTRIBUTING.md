@@ -2,14 +2,15 @@
 
 Thank you for your interest in contributing! This document outlines the guidelines for contributing.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Code Style](#-code-style)
+- [Centralized Configuration](#-centralized-configuration)
 - [Adding New Plugins](#-adding-new-plugins)
 - [Adding Language Support](#-adding-language-support)
 - [Submitting Changes](#-submitting-changes)
 
-## 🎨 Code Style
+## Code Style
 
 ### Lua Code
 
@@ -17,6 +18,8 @@ Thank you for your interest in contributing! This document outlines the guidelin
 - Add **comments** to explain complex configurations
 - Use **descriptive variable names**
 - Follow **lazy.nvim spec format** for plugins
+- Use `C = require("abx.config")` for centralized values
+- Use `C.safe_require()` for optional dependencies
 
 ### Example Plugin Structure
 
@@ -52,6 +55,8 @@ return {
 -- =============================================================================
 -- Description of what these keymaps do
 -- =============================================================================
+local C = require("abx.config")
+
 vim.keymap.set("n", "<leader>key", "<cmd>Command<CR>", {
     desc = "Clear and concise description",
     silent = true,
@@ -59,7 +64,67 @@ vim.keymap.set("n", "<leader>key", "<cmd>Command<CR>", {
 })
 ```
 
-## ➕ Adding New Plugins
+---
+
+## Centralized Configuration
+
+All hardcoded values are centralized in `lua/abx/config.lua`.
+
+### Configuration Sections
+
+| Section | Purpose |
+|---------|---------|
+| `Config.editor` | Editor options (tabstop, scrolloff, etc.) |
+| `Config.lsp` | LSP servers, format timeout, diagnostics |
+| `Config.telescope` | Telescope patterns, layout strategy |
+| `Config.treesitter` | Languages, max file size |
+| `Config.formatters` | Formatter args, format on save |
+| `Config.ui` | UI settings, blink, netrw |
+| `Config.keymaps` | Keymapping groups |
+
+### Utility Functions
+
+```lua
+local C = require("abx.config")
+
+-- Safe require with error handling
+local conform = C.safe_require("conform")
+
+-- Create autocmd groups
+C.create_augroup("my-group", {
+    { event = "BufEnter", opts = { ... } },
+})
+
+-- Check if command exists
+if C.cmd_exists("rg") then
+    -- use ripgrep
+end
+```
+
+### Modifying Config Values
+
+Edit `lua/abx/config.lua`:
+
+```lua
+Config.editor = {
+    tabstop = 4,           -- Tab width
+    scrolloff = 20,        -- Lines of context
+    wrap = false,          -- Disable wrapping
+}
+
+Config.lsp = {
+    format_timeout = 2000, -- Format timeout (ms)
+    servers = {            -- LSP servers to enable
+        "lua_ls",
+        "gopls",
+        -- add your server
+    },
+}
+```
+
+---
+
+## Adding New Plugins
 
 ### Step 1: Choose the Right Category
 
@@ -75,6 +140,8 @@ Create a new file in the appropriate category:
 
 ```lua
 -- lua/abx/plugins/[category]/my-plugin.lua
+local C = require("abx.config")
+
 return {
     "author/plugin-name",
     -- Load when entering a buffer
@@ -101,62 +168,67 @@ Add to `lua/abx/plugins/[category]/init.lua`:
 - Update `README.md` with new keybindings
 - Add plugin to `PLUGINS.md` if it's a significant addition
 
-## 🌐 Adding Language Support
+---
+
+## Adding Language Support
 
 ### Complete Language Setup Checklist
 
-1. **LSP Server** - Add to `lua/abx/core/lsp.lua`:
-   ```lua
-   vim.lsp.enable({ "your-server" })
-   ```
+1. **Centralized Config** - Add to `lua/abx/config.lua`:
+    ```lua
+    Config.lsp.servers = { ..., "your-server" }
+    ```
 
-2. **Server Config** - Create `lsp/your_server.lua`:
-   ```lua
-   return {
-       cmd = { "your-server" },
-       filetypes = { "your-lang" },
-       root_markers = { "your-marker" },
-       settings = {},
-   }
-   ```
+2. **LSP Server Config** - Create `lua/abx/lsp/servers/your_server.lua`:
+    ```lua
+    return {
+        cmd = { "your-server" },
+        filetypes = { "your-lang" },
+        root_markers = { "your-marker" },
+        settings = {},
+    }
+    ```
 
 3. **Plugin File** - Create `lua/abx/plugins/lang/your-lang.lua`:
-   ```lua
-   return {
-       -- LSP, dap, neotest, etc.
-   }
-   ```
+    ```lua
+    return {
+        -- LSP, dap, neotest, etc.
+    }
+    ```
 
 4. **Mason** - Add to `lua/abx/plugins/tools/mason.lua`:
-   ```lua
-   "your-server",  -- in ensure_installed
-   ```
+    ```lua
+    ensure_installed = {
+        ...
+        "your-server",  -- add here
+    }
+    ```
 
 5. **Formatter** - Add to `lua/abx/plugins/tools/formatters.lua`:
-   ```lua
-   your_lang = { "your-formatter" },
-   ```
+    ```lua
+    your_lang = { "your-formatter" },
+    ```
 
-6. **Treesitter** - Add to `lua/abx/plugins/tools/treesitter.lua`:
-   ```lua
-   ensure_installed = { ..., "your-lang" },
-   ```
+6. **Treesitter** - Add to `lua/abx/config.lua`:
+    ```lua
+    Config.treesitter.ensure_installed = { ..., "your-lang" }
+    ```
 
-7. **Keybindings** - Add to `README.md`
+7. **Keybindings** - Add to `lua/abx/configs/remaps.lua` and `README.md`
 
-8. **Documentation** - Document in `PLUGINS.md`
+---
 
-## 📝 Submitting Changes
+## Submitting Changes
 
 ### Commit Messages
 
-Follow [Conventional Commits](https://www.conventionalcomments.org/):
+Follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```
 type(scope): description
 
-feat(core): add new LSP command
-fix(config): resolve filetype option error
+feat(config): add new centralized setting
+fix(core): resolve LSP attach issue
 docs(readme): update keybindings table
 refactor(plugins): reorganize category structure
 ```
@@ -195,7 +267,7 @@ local data_path = vim.fn.stdpath("data")
 
 ---
 
-## ❓ Getting Help
+## Getting Help
 
 - Open an [Issue](https://github.com/AbiXnash/nvim-2.0/issues)
 - Check existing [Discussions](https://github.com/AbiXnash/nvim-2.0/discussions)
@@ -203,4 +275,4 @@ local data_path = vim.fn.stdpath("data")
 
 ---
 
-Thank you for contributing! 🎉
+Thank you for contributing!

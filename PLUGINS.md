@@ -4,7 +4,7 @@ Complete list of all plugins used in this Neovim configuration.
 
 ---
 
-## 📦 Plugin Index
+## Plugin Index
 
 | # | Plugin | Category | Description |
 |---|--------|----------|-------------|
@@ -51,12 +51,12 @@ Complete list of all plugins used in this Neovim configuration.
 
 ---
 
-## 🔧 Core Plugins
+## Core Plugins
 
 ### [lazy.nvim](https://github.com/folke/lazy.nvim)
 
-**Category:** core  
-**Purpose:** Fast, feature-rich plugin manager  
+**Category:** core
+**Purpose:** Fast, feature-rich plugin manager
 **Configuration:** `lua/abx/init.lua`
 
 ```lua
@@ -68,12 +68,12 @@ require("lazy").setup({
 
 ---
 
-## 🎨 UI Plugins
+## UI Plugins
 
 ### [blink.cmp](https://github.com/Saghen/blink.cmp)
 
-**Category:** ui  
-**Purpose:** Blazing fast code completion  
+**Category:** ui
+**Purpose:** Blazing fast code completion
 **File:** `lua/abx/plugins/ui/blink.lua`
 
 Features:
@@ -91,8 +91,8 @@ Keymaps:
 
 ### [LuaSnip](https://github.com/L3MON4D3/LuaSnip)
 
-**Category:** ui  
-**Purpose:** Snippet engine  
+**Category:** ui
+**Purpose:** Snippet engine
 **File:** `lua/abx/plugins/ui/blink.lua`
 
 Loaded with friendly-snippets for VS Code-style snippets.
@@ -101,11 +101,11 @@ Loaded with friendly-snippets for VS Code-style snippets.
 
 ### [catppuccin](https://github.com/catppuccin/nvim)
 
-**Category:** ui  
-**Purpose:** Beautiful colorscheme  
+**Category:** ui
+**Purpose:** Beautiful colorscheme
 **File:** `lua/abx/plugins/ui/colorscheme.lua`
 
-Flavor: Mocha  
+Flavor: Mocha
 Features:
 - Transparent background
 - LSP integration
@@ -116,8 +116,8 @@ Features:
 
 ### [kanagawa](https://github.com/rebelot/kanagawa.nvim)
 
-**Category:** ui  
-**Purpose:** Alternative colorscheme  
+**Category:** ui
+**Purpose:** Alternative colorscheme
 **File:** `lua/abx/plugins/ui/colorscheme.lua`
 
 Themes: Dragon (dark), Lotus (light)
@@ -126,8 +126,8 @@ Themes: Dragon (dark), Lotus (light)
 
 ### [lualine](https://github.com/nvim-lualine/lualine.nvim)
 
-**Category:** ui  
-**Purpose:** Status line  
+**Category:** ui
+**Purpose:** Status line
 **File:** `lua/abx/plugins/ui/statusline.lua`
 
 Components:
@@ -142,8 +142,8 @@ Components:
 
 ### [Comment.nvim](https://github.com/numToStr/Comment.nvim)
 
-**Category:** ui  
-**Purpose:** Smart commenting  
+**Category:** ui
+**Purpose:** Smart commenting
 **File:** `lua/abx/plugins/ui/comments.lua`
 
 Keymaps:
@@ -158,8 +158,8 @@ Keymaps:
 
 ### [codesnap](https://github.com/mistricky/codesnap.nvim)
 
-**Category:** ui  
-**Purpose:** Code screenshots  
+**Category:** ui
+**Purpose:** Code screenshots
 **File:** `lua/abx/plugins/ui/codesnap.lua`
 
 Keymaps:
@@ -170,12 +170,12 @@ Keymaps:
 
 ---
 
-## 🛠️ Development Tools
+## Development Tools
 
 ### [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 
-**Category:** tools  
-**Purpose:** Fuzzy finder  
+**Category:** tools
+**Purpose:** Fuzzy finder
 **File:** `lua/abx/plugins/tools/telescope.lua`
 
 Extensions: fzf-native
@@ -195,8 +195,8 @@ Keymaps:
 
 ### [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
 
-**Category:** tools  
-**Purpose:** Syntax highlighting and parsing  
+**Category:** tools
+**Purpose:** Syntax highlighting and parsing
 **File:** `lua/abx/plugins/tools/treesitter.lua`
 
 Features:
@@ -205,7 +205,7 @@ Features:
 - Indentation
 - Incremental selection
 
-Installed languages:
+Installed languages (from `lua/abx/config.lua`):
 - lua, vimdoc, java, jsdoc
 - python, rust, javascript, typescript
 - json, yaml, toml, css, html
@@ -216,8 +216,8 @@ Installed languages:
 
 ### [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)
 
-**Category:** tools  
-**Purpose:** Git signs and actions  
+**Category:** tools
+**Purpose:** Git signs and actions
 **File:** `lua/abx/plugins/tools/git.lua`
 
 Features:
@@ -239,8 +239,8 @@ Keymaps:
 
 ### [vim-fugitive](https://github.com/tpope/vim-fugitive)
 
-**Category:** tools  
-**Purpose:** Git commands  
+**Category:** tools
+**Purpose:** Git commands
 **File:** `lua/abx/plugins/tools/git.lua`
 
 Keymaps:
@@ -260,8 +260,8 @@ Commands:
 
 ### [diffview.nvim](https://github.com/sindrets/diffview.nvim)
 
-**Category:** tools  
-**Purpose:** Git diff viewer in tabs  
+**Category:** tools
+**Purpose:** Git diff viewer in tabs
 **File:** `lua/abx/plugins/tools/git.lua`
 
 Commands:
@@ -275,8 +275,8 @@ Commands:
 
 ### [conform.nvim](https://github.com/stevearc/conform.nvim)
 
-**Category:** tools  
-**Purpose:** Code formatting  
+**Category:** tools
+**Purpose:** Code formatting
 **File:** `lua/abx/plugins/tools/formatters.lua`
 
 Features:
@@ -295,12 +295,20 @@ Formatters by filetype:
 | rust | rustfmt |
 | json/markdown/html/css | prettierd |
 
+Configuration in `lua/abx/config.lua`:
+```lua
+Config.formatters = {
+    prettier_args = { "--tab-width", "4", "--use-tabs", "false" },
+    format_on_save = { timeout_ms = 500, lsp_fallback = true },
+}
+```
+
 ---
 
 ### [none-ls.nvim](https://github.com/nvimtools/none-ls.nvim)
 
-**Category:** tools  
-**Purpose:** LSP formatter and linter  
+**Category:** tools
+**Purpose:** LSP formatter and linter
 **File:** `lua/abx/plugins/tools/formatters.lua`
 
 Sources:
@@ -311,8 +319,8 @@ Sources:
 
 ### [mason.nvim](https://github.com/williamboman/mason.nvim)
 
-**Category:** tools  
-**Purpose:** LSP package manager  
+**Category:** tools
+**Purpose:** LSP package manager
 **File:** `lua/abx/plugins/tools/mason.lua`
 
 Command: `:Mason`
@@ -327,8 +335,8 @@ Installed tools:
 
 ### [trouble.nvim](https://github.com/folke/trouble.nvim)
 
-**Category:** tools  
-**Purpose:** Diagnostics panel  
+**Category:** tools
+**Purpose:** Diagnostics panel
 **File:** `lua/abx/plugins/tools/trouble.lua`
 
 Keymaps:
@@ -343,8 +351,8 @@ Keymaps:
 
 ### [persistence](https://github.com/folke/persistence.nvim)
 
-**Category:** tools  
-**Purpose:** Session management  
+**Category:** tools
+**Purpose:** Session management
 **File:** `lua/abx/plugins/tools/sessions.lua`
 
 Features:
@@ -363,8 +371,8 @@ Keymaps:
 
 ### [undotree](https://github.com/mbbill/undotree)
 
-**Category:** tools  
-**Purpose:** Visual undo history  
+**Category:** tools
+**Purpose:** Visual undo history
 **File:** `lua/abx/plugins/tools/undotree.lua`
 
 Keymaps:
@@ -376,20 +384,20 @@ Keymaps:
 
 ### [tiny-inline-diagnostic](https://github.com/xxnity/tiny-inline-diagnostic.nvim)
 
-**Category:** tools  
-**Purpose:** Inline diagnostics  
+**Category:** tools
+**Purpose:** Inline diagnostics
 **File:** `lua/abx/plugins/tools/inline-diagnostics.lua`
 
 Replaces virtual text diagnostics with inline messages.
 
 ---
 
-## 🌍 Language Plugins
+## Language Plugins
 
 ### [typescript-tools.nvim](https://github.com/pmizio/typescript-tools.nvim)
 
-**Category:** lang  
-**Purpose:** TypeScript/JavaScript LSP  
+**Category:** lang
+**Purpose:** TypeScript/JavaScript LSP
 **File:** `lua/abx/plugins/lang/web.lua`
 
 Features:
@@ -410,8 +418,8 @@ Keymaps:
 
 ### [structrue-go.nvim](https://github.com/crusj/structrue-go.nvim)
 
-**Category:** lang  
-**Purpose:** Go struct handling  
+**Category:** lang
+**Purpose:** Go struct handling
 **File:** `lua/abx/plugins/lang/go-dev.lua`
 
 Features:
@@ -423,8 +431,8 @@ Features:
 
 ### [neotest-go](https://github.com/nvim-neotest/neotest-go)
 
-**Category:** lang  
-**Purpose:** Go test runner  
+**Category:** lang
+**Purpose:** Go test runner
 **File:** `lua/abx/plugins/lang/go-dev.lua`
 
 Keymaps:
@@ -439,8 +447,8 @@ Keymaps:
 
 ### [nvim-dap-python](https://github.com/mfussenegger/nvim-dap-python)
 
-**Category:** lang  
-**Purpose:** Python debugger  
+**Category:** lang
+**Purpose:** Python debugger
 **File:** `lua/abx/plugins/lang/python.lua`
 
 Setup: Auto-detects Python (conda, venv, system)
@@ -449,8 +457,8 @@ Setup: Auto-detects Python (conda, venv, system)
 
 ### [venv-selector](https://github.com/linux-cultist/venv-selector.nvim)
 
-**Category:** lang  
-**Purpose:** Python virtual environment selector  
+**Category:** lang
+**Purpose:** Python virtual environment selector
 **File:** `lua/abx/plugins/lang/python.lua`
 
 Keymaps:
@@ -462,8 +470,8 @@ Keymaps:
 
 ### [jupytext](https://github.com/GCBallesteros/jupytext.nvim)
 
-**Category:** lang  
-**Purpose:** Jupyter notebook integration  
+**Category:** lang
+**Purpose:** Jupyter notebook integration
 **File:** `lua/abx/plugins/lang/jupytxt.lua`
 
 Converts notebooks to Python scripts.
@@ -472,8 +480,8 @@ Converts notebooks to Python scripts.
 
 ### [nvim-dap-java](https://github.com/mfussenegger/nvim-dap-java)
 
-**Category:** lang  
-**Purpose:** Java debugger  
+**Category:** lang
+**Purpose:** Java debugger
 **File:** `lua/abx/plugins/lang/java.lua`
 
 Configuration: Auto-configured for JDTLS
@@ -489,7 +497,33 @@ Keymaps:
 
 ---
 
-## 📚 Resources
+## LSP Server Configurations
+
+LSP server configurations are located in `lua/abx/lsp/servers/`:
+
+| File | Server | Language |
+|------|--------|----------|
+| `lua_ls.lua` | lua-language-server | Lua |
+| `gopls.lua` | gopls | Go |
+| `basedpyright.lua` | basedpyright | Python |
+| `jdtls.lua` | jdtls | Java |
+| `rust_analyzer.lua` | rust-analyzer | Rust |
+| `typescript.lua` | typescript-language-server | TypeScript |
+| `svelte.lua` | svelte-language-server | Svelte |
+| `astro.lua` | astro-language-server | Astro |
+| `json_ls.lua` | json-lsp | JSON |
+| `html.lua` | html-lsp | HTML |
+| `yamlls.lua` | yaml-language-server | YAML |
+| `tailwindcss.lua` | tailwindcss-language-server | Tailwind CSS |
+| `htmx.lua` | htmx-lsp | HTMX |
+| `xml.lua` | lemminx | XML |
+| `sql.lua` | sql-language-server | SQL |
+| `marksman.lua` | marksman | Markdown |
+| `kotlin.lua` | kotlin-language-server | Kotlin |
+
+---
+
+## Resources
 
 - [Awesome Neovim](https://github.com/rockerBOO/awesome-neovim)
 - [Neovim Plugins](https://neovim.io/doc/user/usr_05.html#plugin)
