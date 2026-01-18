@@ -31,52 +31,87 @@ return {
                     enabled = true,
                 },
                 appearance = {
-                    use_nvim_cmp_as_default = false,
+                    use_nvim_cmp_as_default = true,
                     nerd_font_variant = "normal",
                 },
                 sources = {
-                    default = { "lazydev", "lsp", "path", "snippets" },
+                    default = { "lazydev", "lsp", "path", "snippets", "buffer" },
                     providers = {
                         lazydev = {
                             name = "LazyDev",
                             module = "lazydev.integrations.blink",
                             score_offset = 100,
                         },
-                    },
-                },
-                keymap = {
-                    ["<CR>"] = { "accept", "fallback" },
-                    ["<Tab>"] = { "select_next", "fallback" },
-                    ["<S-Tab>"] = { "select_prev", "fallback" },
-                },
-                cmdline = {
-                    enabled = false,
-                    completion = {
-                        menu = {
-                            auto_show = true,
+                        lsp = {
+                            name = "LSP",
+                            score_offset = 60,
                         },
-                    },
-                    keymap = {
-                        ["<CR>"] = { "accept", "fallback" },
+                        path = {
+                            name = "Path",
+                            score_offset = 40,
+                        },
+                        snippets = {
+                            name = "Snippets",
+                            score_offset = 30,
+                        },
+                        buffer = {
+                            name = "Buffer",
+                            score_offset = 10,
+                        },
                     },
                 },
                 completion = {
+                    accept = {
+                        auto_brackets = {
+                            enabled = true,
+                        },
+                    },
                     menu = {
-                        auto_show = C.ui.blink.auto_show,
+                        auto_show = true,
                         border = "none",
-                        scrolloff = C.ui.blink.scrolloff,
                         scrollbar = false,
                         winblend = 0,
+                        draw = {
+                            columns = {
+                                { "kind_icon" },
+                                { "label", "label_description", gap = 1 },
+                            },
+                        },
                     },
                     documentation = {
+                        auto_show = true,
+                        auto_show_delay = 200,
                         window = {
                             border = "none",
-                            scrollbar = false,
                             winblend = 0,
                         },
-                        auto_show = C.ui.blink.auto_show,
-                        auto_show_delay_ms = C.ui.blink.auto_show_delay_ms,
                     },
+                    ghost_text = {
+                        enabled = true,
+                    },
+                },
+                fuzzy = {
+                    implementation = "fzy",
+                    preproc = "prefix",
+                    max_items = 200,
+                    threshold = 0.3,
+                },
+                keymap = {
+                    preset = "enter",
+                    ["<Tab>"] = { "select_next", "fallback" },
+                    ["<S-Tab>"] = { "select_prev", "fallback" },
+                    ["<C-n>"] = { "select_next", "fallback" },
+                    ["<C-p>"] = { "select_prev", "fallback" },
+                    ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+                    ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+                    ["<C-space>"] = { "show", "fallback" },
+                    ["<C-e>"] = { "hide", "fallback" },
+                    ["<CR>"] = { "accept", "fallback" },
+                    ["<C-j>"] = { "select_next", "fallback" },
+                    ["<C-k>"] = { "select_prev", "fallback" },
+                },
+                cmdline = {
+                    enabled = false,
                 },
             })
 
