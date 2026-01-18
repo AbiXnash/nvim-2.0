@@ -116,6 +116,8 @@ return {
                     GitSignsDelete = { fg = "#f38ba8" },
                     Folded = { fg = "#6c7086", bg = "NONE" },
                     FoldColumn = { fg = "#6c7086", bg = "NONE" },
+                    NormalDoc = { bg = "#1e1e2e" },
+                },
                 },
                 default_integrations = true,
                 auto_integrations = true,
