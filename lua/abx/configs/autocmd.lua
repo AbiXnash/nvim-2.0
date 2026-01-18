@@ -2,75 +2,139 @@
 -- Autocommands Configuration
 -- =============================================================================
 -- Automatic commands that trigger on specific events
--- Each autocmd is grouped for easy management
+-- Groups are created for easy management and cleanup
 -- =============================================================================
+
+local C = require("abx.config")
 
 -- =============================================================================
 -- Yank Highlight
 -- =============================================================================
 -- Visual feedback when yanking (copying) text
--- Highlights the yanked text briefly
--- =============================================================================
-vim.api.nvim_create_autocmd("TextYankPost", {
-    -- Create new augroup, clearing any existing settings
-    group = vim.api.nvim_create_augroup("yank-highlight", { clear = true }),
-    callback = function()
-        -- Built-in Neovim function to highlight yank
-        vim.hl.on_yank()
-    end,
+C.create_augroup("yank-highlight", {
+    {
+        event = "TextYankPost",
+        opts = {
+            callback = function()
+                vim.hl.on_yank()
+            end,
+        },
+    },
 })
 
 -- =============================================================================
 -- Python Auto-Format
 -- =============================================================================
--- Automatically format Python files on save using conform.nvim
--- Uses configured formatters (black, isort, etc.)
--- =============================================================================
-vim.api.nvim_create_autocmd("BufWritePre", {
-    -- Create new augroup for format settings
-    group = vim.api.nvim_create_augroup("ConformAutoFormat", { clear = true }),
-    -- Only trigger for Python files
-    pattern = "*.py",
-    callback = function(args)
-        -- Format the current buffer using conform
-        require("conform").format({ bufnr = args.buf })
-    end,
+C.create_augroup("ConformAutoFormat", {
+    {
+        event = "BufWritePre",
+        opts = {
+            pattern = "*.py",
+            callback = function(args)
+                local conform = C.safe_require("conform")
+                if conform then
+                    conform.format({ bufnr = args.buf })
+                end
+            end,
+        },
+    },
 })
-
 
 -- =============================================================================
 -- Go Auto-Format
 -- =============================================================================
--- Automatically format Go files on save using LSP formatting
--- Uses gopls for formatting and import organization via code actions
--- Note: goimports formatting is also handled by conform.nvim (see formatters.lua)
--- =============================================================================
-vim.api.nvim_create_autocmd("BufWritePre", {
-    -- Create new augroup for Go format settings
-    group = vim.api.nvim_create_augroup("GoAutoFormat", { clear = true }),
-    -- Only trigger for Go files
-    pattern = "*.go",
-    callback = function()
-        -- Format using LSP (uses gopls configured in lsp/gopls.lua)
-        vim.lsp.buf.format({ timeout_ms = 1000 })
-    end,
+C.create_augroup("GoAutoFormat", {
+    {
+        event = "BufWritePre",
+        opts = {
+            pattern = "*.go",
+            callback = function()
+                vim.lsp.buf.format({ timeout_ms = C.lsp.format_timeout })
+            end,
+        },
+    },
 })
 
+-- =============================================================================
+-- Restore Cursor Position
+-- =============================================================================
+-- Remember last cursor position in files
+C.create_augroup("restore-cursor", {
+    {
+        event = "BufReadPost",
+        opts = {
+            pattern = "*",
+            callback = function()
+                local bufnr = vim.api.nvim_get_current_buf()
+                local ok, last_pos = pcall(vim.api.nvim_buf_get_var, bufnr, "last_cursor_pos")
+                if ok and type(last_pos) == "table" then
+                    vim.api.nvim_win_set_cursor(0, last_pos)
+                end
+            end,
+        },
+    },
+    {
+        event = "BufWinLeave",
+        opts = {
+            pattern = "*",
+            callback = function()
+                local ok, _ = pcall(vim.api.nvim_buf_del_var, vim.api.nvim_get_current_buf(), "last_cursor_pos")
+                if ok then
+                    local pos = vim.api.nvim_win_get_cursor(0)
+                    vim.api.nvim_buf_set_var(vim.api.nvim_get_current_buf(), "last_cursor_pos", pos)
+                end
+            end,
+        },
+    },
+})
 
-function nvim_create_augroups(definitions)
-    -- Utility function to create autocmd groups from a definitions table
-    -- Used for defining multiple autocommands in a structured way
-    -- @param definitions Table of group names to autocmd definitions
-    for group_name, definition in pairs(definitions) do
-        -- Create each augroup
-        vim.api.nvim_command('augroup ' .. group_name)
-        vim.api.nvim_command('autocmd!')
-        -- Add each autocmd definition to the group
-        for _, def in ipairs(definition) do
-            local command = table.concat(vim.tbl_flatten { 'autocmd', def }, ' ')
-            vim.api.nvim_command(command)
-        end
-        -- End the augroup definition
-        vim.api.nvim_command('augroup END')
-    end
-end
+-- =============================================================================
+-- Highlight on Yank (Extended)
+-- =============================================================================
+C.create_augroup("yank-highlight-ext", {
+    {
+        event = "TextYankPost",
+        opts = {
+            pattern = "*",
+            callback = function()
+                vim.highlight.on_yank({
+                    higroup = "IncSearch",
+                    timeout = 300,
+                })
+            end,
+        },
+    },
+})
+
+-- =============================================================================
+-- Auto-resize splits
+-- =============================================================================
+C.create_augroup("auto-resize-splits", {
+    {
+        event = "VimResized",
+        opts = {
+            pattern = "*",
+            callback = function()
+                vim.cmd("tabdo wincmd =")
+            end,
+        },
+    },
+})
+
+-- =============================================================================
+-- Enter terminal mode improvements
+-- =============================================================================
+C.create_augroup("terminal-improvements", {
+    {
+        event = "TermOpen",
+        opts = {
+            pattern = "*",
+            callback = function()
+                vim.opt_local.number = false
+                vim.opt_local.relativenumber = false
+                vim.opt_local.signcolumn = "no"
+                vim.cmd("startinsert")
+            end,
+        },
+    },
+})

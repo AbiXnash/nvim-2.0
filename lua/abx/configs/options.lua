@@ -2,135 +2,95 @@
 -- Editor Options Configuration
 -- =============================================================================
 -- Global Neovim settings using vim.opt
--- These settings control the core editor behavior
+-- All values are centralized in abx/config.lua
 -- =============================================================================
+
+local C = require("abx.config")
 
 -- =============================================================================
 -- Key Mappings Setup
 -- =============================================================================
--- Define leader keys for keybindings
--- <Space> is the main leader key for custom mappings
--- =============================================================================
-vim.g.mapleader = " "           -- Main leader key
-vim.g.maplocalleader = " "      -- Local leader for file-type specific mappings
+vim.g.mapleader = C.editor.leader_key
+vim.g.maplocalleader = C.editor.localleader_key
 
 -- =============================================================================
 -- Nerd Font Configuration
 -- =============================================================================
--- Enable Nerd Font icons for plugins and UI elements
--- =============================================================================
-vim.g.have_nerd_font = true     -- Required for plugin icons to display
+vim.g.have_nerd_font = C.ui.have_nerd_font
 
 -- =============================================================================
 -- Cursor Configuration
 -- =============================================================================
--- Configure cursor appearance in different modes
--- Empty string = use terminal cursor
--- =============================================================================
-vim.opt.guicursor = ""          -- Use terminal cursor settings
+vim.opt.guicursor = C.editor.guicursor
 
 -- =============================================================================
 -- Line Numbers
 -- =============================================================================
--- Enable absolute line numbers with relative numbering for motion
--- =============================================================================
-vim.opt.number = true           -- Show absolute line numbers
-vim.opt.relativenumber = true   -- Show relative line numbers for easier jumps
+vim.opt.number = C.editor.number
+vim.opt.relativenumber = C.editor.relativenumber
 
 -- =============================================================================
 -- Cursor Line
 -- =============================================================================
--- Highlight the current line for better visibility
--- =============================================================================
-vim.opt.cursorline = true       -- Highlight current line
+vim.opt.cursorline = C.editor.cursorline
 
 -- =============================================================================
 -- Undo History
 -- =============================================================================
--- Enable persistent undo history across sessions
--- Files are stored in ~/.local/share/nvim/undo/
--- =============================================================================
-vim.opt.undofile = true         -- Persist undo history
+vim.opt.undofile = C.editor.undofile
 
 -- =============================================================================
 -- Swap and Backup Files
 -- =============================================================================
--- Disable swap files and backups for cleaner workflow
--- =============================================================================
-vim.opt.swapfile = false        -- No swap files
-vim.opt.backup = false          -- No backup files
+vim.opt.swapfile = C.editor.swapfile
+vim.opt.backup = C.editor.backup
 
 -- =============================================================================
 -- Search Behavior
 -- =============================================================================
--- Configure search highlighting and incremental search
--- =============================================================================
-vim.opt.hlsearch = true         -- Highlight search results
-vim.opt.incsearch = true        -- Incremental search as you type
-vim.opt.ignorecase = true       -- Ignore case in searches
-vim.opt.smartcase = true        -- Smart case (ignore case if all lowercase)
+vim.opt.hlsearch = C.editor.hlsearch
+vim.opt.incsearch = C.editor.incsearch
+vim.opt.ignorecase = C.editor.ignorecase
+vim.opt.smartcase = C.editor.smartcase
 
 -- =============================================================================
 -- Sign Column
 -- =============================================================================
--- Always show sign column (for LSP diagnostics, git signs, etc.)
--- =============================================================================
-vim.opt.signcolumn = "yes"      -- Always show sign column
+vim.opt.signcolumn = C.editor.signcolumn
 
 -- =============================================================================
 -- Command Preview
 -- =============================================================================
--- Show command substitutions in real-time
--- =============================================================================
-vim.opt.inccommand = "split"    -- Show :s substitutions in split
+vim.opt.inccommand = "split"
 
 -- =============================================================================
 -- Scrolloff
 -- =============================================================================
--- Keep context visible when scrolling
--- =============================================================================
-vim.opt.scrolloff = 20          -- Keep 20 lines visible above/below
+vim.opt.scrolloff = C.editor.scrolloff
 
 -- =============================================================================
 -- Line Wrapping
 -- =============================================================================
--- Disable automatic line wrapping for cleaner code editing
--- =============================================================================
-vim.opt.wrap = false            -- No wrap (horizontal scroll)
-vim.opt.textwidth = 0           -- No auto-wrap at specific width
+vim.opt.wrap = C.editor.wrap
+vim.opt.textwidth = C.editor.textwidth
 
 -- =============================================================================
 -- Indentation
 -- =============================================================================
--- Configure tab and indentation behavior
--- Uses 4 spaces for all languages
--- =============================================================================
-vim.opt.tabstop = 4             -- Tab width = 4 spaces
-vim.opt.shiftwidth = 4          -- Indent/deindent = 4 spaces
-vim.opt.expandtab = true        -- Expand tabs to spaces
-vim.opt.smartindent = true      -- Smart auto-indent
-vim.opt.softtabstop = 4         -- Backspace deletes 4 spaces
+vim.opt.tabstop = C.editor.tabstop
+vim.opt.shiftwidth = C.editor.shiftwidth
+vim.opt.expandtab = C.editor.expandtab
+vim.opt.smartindent = C.editor.smartindent
+vim.opt.softtabstop = C.editor.softtabstop
 
 -- =============================================================================
 -- Update Time
 -- =============================================================================
--- Faster updates for better responsiveness
--- =============================================================================
-vim.opt.updatetime = 10         -- ms delay before triggering events
+vim.opt.updatetime = C.editor.updatetime
 
 -- =============================================================================
 -- NETRW File Explorer
 -- =============================================================================
--- Configure built-in file explorer behavior
--- =============================================================================
-vim.g.netrw_browse_split = 0    -- Open in same window
-vim.g.netrw_banner = 0          -- Hide banner
-vim.g.netrw_winsize = 25        -- Default width = 25%
-
--- =============================================================================
--- Filetype Detection (Neovim default is enabled)
--- =============================================================================
--- Note: filetype detection is enabled by default in Neovim
--- vim.g.filetype_detect = true   -- Uncomment to enable (default)
--- vim.g.filetype_plugin = true   -- Uncomment to enable filetype plugins
--- vim.g.filetype_indent = true   -- Uncomment to enable filetype indentation
+vim.g.netrw_browse_split = C.ui.netrw.browse_split
+vim.g.netrw_banner = C.ui.netrw.banner
+vim.g.netrw_winsize = C.ui.netrw.winsize
