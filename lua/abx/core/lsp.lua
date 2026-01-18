@@ -1,25 +1,26 @@
+-- =============================================================================
 -- Main LSP Configuration
-vim.lsp.enable({
-    "lua_ls",        -- Lua language server
-    "rust_analyzer", -- Rust language server
-    "jsonls",        -- JSON language server
-    "svelte",        -- Svelte language server
-    "astro",         -- Astro language server
-    "gopls",         -- Go language server
-    "basedpyright",
-    "jdtls",         -- Java language server
-    "marksman",      -- Markdown language server
-    "html",          -- HTML language server
-    "yamlls",        -- YAML language server
-    "tailwindcss",   -- Tailwind CSS language server
-    "htmx",          -- HTMX language server (ThePrimeagen)
-    "xml",           -- XML language server
-    "sqlls",         -- SQL language server
-    "kotlin_language_server",  -- Kotlin language server
-})
+-- =============================================================================
+-- Centralized LSP setup with proper capabilities and diagnostics
+-- =============================================================================
 
+local C = require("abx.config")
+
+-- =============================================================================
+-- Enable LSP Servers
+-- =============================================================================
+vim.lsp.enable(C.lsp.servers)
+
+-- =============================================================================
+-- Configure Capabilities
+-- =============================================================================
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities({}, false))
+
+local blink = C.safe_require("blink.cmp")
+if blink then
+    capabilities = vim.tbl_deep_extend("force", capabilities, blink.get_lsp_capabilities({}, false))
+end
+
 capabilities = vim.tbl_deep_extend("force", capabilities, {
     textDocument = {
         foldingRange = {
@@ -29,27 +30,45 @@ capabilities = vim.tbl_deep_extend("force", capabilities, {
     },
 })
 
+-- =============================================================================
+-- Diagnostic Configuration
+-- =============================================================================
+vim.diagnostic.config(C.lsp.diagnostics)
+
+-- =============================================================================
+-- LSP Attach Autocmd
+-- =============================================================================
 vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(env)
-        local client = vim.lsp.get_client_by_id(env.data.client_id)
-        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
+    group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
+    callback = function(args)
+        local bufnr = args.buf
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+        if not client then return end
+
+        client.offset_encoding = { "utf-16" }
+
+        -- Setup completion
+        if client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
             vim.opt.completeopt = { "menu", "menuone", "noinsert", "fuzzy", "popup" }
-            vim.lsp.completion.enable(true, client.id, env.buf, { autotrigger = true })
+            vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+        end
+
+        -- Setup buffer keymaps
+        require("abx.core.lsp-keymaps").setup_keymaps(bufnr)
+
+        -- Setup buffer options
+        vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+
+        -- Enable inlay hints if supported
+        if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
         end
     end,
 })
 
-vim.diagnostic.config({
-    signs = true,
-    severity_sort = true,
-})
-
--- Load LSP modules
+-- =============================================================================
+-- Load LSP Modules
+-- =============================================================================
 require("abx.core.lsp-attach")
 require("abx.core.lsp-commands")
-
--- ============================================================================
--- LSP Server Definitions
--- ============================================================================
--- Each server config is loaded from lsp/<server-name>.lua
--- These configs are automatically managed by Mason (see lua/plugins/mason.lua)

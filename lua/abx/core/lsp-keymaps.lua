@@ -1,53 +1,126 @@
--- LSP Keymaps module
-local function setup_keymaps(bufnr)
-    local function map(mode, lhs, rhs, desc)
-        vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = "LSP: " .. desc, silent = true })
-    end
+-- =============================================================================
+-- LSP Keymaps Module
+-- =============================================================================
+-- Standard LSP keybindings organized by category
+-- =============================================================================
 
-    -- Navigation
-    map("n", "gd", vim.lsp.buf.definition, "Go to definition")
-    map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
-    map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
-    map("n", "gr", vim.lsp.buf.references, "Go to references")
-    map("n", "gt", vim.lsp.buf.type_definition, "Go to type definition")
+local C = require("abx.config")
 
-    -- Information
-    map("n", "K", vim.lsp.buf.hover, "Hover documentation")
-    map("n", "<C-k>", vim.lsp.buf.signature_help, "Signature help")
-    map("i", "<C-k>", vim.lsp.buf.signature_help, "Signature help")
+local M = {}
 
-    -- Code actions
-    map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code action")
-    map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
-    map("n", "<leader>cf", function() vim.lsp.buf.format({ async = true }) end, "Format buffer")
-
-    -- Diagnostics
-    map("n", "[d", vim.diagnostic.goto_prev, "Previous diagnostic")
-    map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
-    map("n", "<leader>cd", vim.diagnostic.open_float, "Show diagnostic")
-    map("n", "<leader>cl", vim.diagnostic.setloclist, "Diagnostics to loclist")
-    map("n", "gl", vim.diagnostic.open_float, "Open Diagnostic Float")
-
-    -- Workspace
-    map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, "Add workspace folder")
-    map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove workspace folder")
-    map("n", "<leader>wl", function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, "List workspace folders")
-
-    -- Additional mappings
-    map("n", "gs", vim.lsp.buf.signature_help, "Signature Documentation")
-    map("n", "<leader>la", vim.lsp.buf.code_action, "Code Action")
-    map("n", "<leader>lr", vim.lsp.buf.rename, "Rename all references")
-    map("n", "<leader>lf", vim.lsp.buf.format, "Format")
-    map("n", "<leader>v", "<cmd>vsplit | lua vim.lsp.buf.definition()<cr>", "Goto Definition in Vertical Split")
-
-    -- Telescope-specific LSP mappings (if telescope is available)
-    local ok, telescope = pcall(require, 'telescope.builtin')
-    if ok then
-        map("n", "<leader>D", telescope.lsp_type_definitions, "Type definitions")
-        map("n", "<leader>ds", telescope.lsp_document_symbols, "Document symbols")
-    end
+-- =============================================================================
+-- Keymap Helper
+-- =============================================================================
+local function map(mode, lhs, rhs, desc, opts)
+    local default_opts = {
+        buffer = nil,
+        silent = true,
+        noremap = true,
+    }
+    vim.keymap.set(mode, lhs, rhs, vim.tbl_deep_extend("force", default_opts, opts or {}, { desc = "LSP: " .. desc }))
 end
 
-return { setup_keymaps = setup_keymaps }
+local function nmap(lhs, rhs, desc, opts)
+    map("n", lhs, rhs, desc, opts)
+end
+
+local function imap(lhs, rhs, desc, opts)
+    map("i", lhs, rhs, desc, opts)
+end
+
+local function vmap(lhs, rhs, desc, opts)
+    map({ "n", "v" }, lhs, rhs, desc, opts)
+end
+
+-- =============================================================================
+-- Navigation Keymaps
+-- =============================================================================
+function M.setup_navigation(bufnr)
+    map("n", "gd", vim.lsp.buf.definition, "Go to definition", { buffer = bufnr })
+    map("n", "gD", vim.lsp.buf.declaration, "Go to declaration", { buffer = bufnr })
+    map("n", "gi", vim.lsp.buf.implementation, "Go to implementation", { buffer = bufnr })
+    map("n", "gr", vim.lsp.buf.references, "Go to references", { buffer = bufnr })
+    map("n", "gt", vim.lsp.buf.type_definition, "Go to type definition", { buffer = bufnr })
+end
+
+-- =============================================================================
+-- Information Keymaps
+-- =============================================================================
+function M.setup_information(bufnr)
+    map("n", "K", vim.lsp.buf.hover, "Hover documentation", { buffer = bufnr })
+    map("n", "<C-k>", vim.lsp.buf.signature_help, "Signature help", { buffer = bufnr })
+    map("i", "<C-k>", vim.lsp.buf.signature_help, "Signature help", { buffer = bufnr })
+    map("n", "gs", vim.lsp.buf.signature_help, "Signature documentation", { buffer = bufnr })
+end
+
+-- =============================================================================
+-- Code Actions Keymaps
+-- =============================================================================
+function M.setup_code_actions(bufnr)
+    vmap("<leader>ca", vim.lsp.buf.code_action, "Code action", { buffer = bufnr })
+    nmap("<leader>la", vim.lsp.buf.code_action, "Code action (alt)", { buffer = bufnr })
+    nmap("<leader>rn", vim.lsp.buf.rename, "Rename symbol", { buffer = bufnr })
+    nmap("<leader>lr", vim.lsp.buf.rename, "Rename all references", { buffer = bufnr })
+    nmap("<leader>cf", function()
+        vim.lsp.buf.format({ async = true })
+    end, "Format buffer", { buffer = bufnr })
+    nmap("<leader>lf", vim.lsp.buf.format, "Format (alt)", { buffer = bufnr })
+end
+
+-- =============================================================================
+-- Diagnostics Keymaps
+-- =============================================================================
+function M.setup_diagnostics(bufnr)
+    nmap("[d", vim.diagnostic.goto_prev, "Previous diagnostic", { buffer = bufnr })
+    nmap("]d", vim.diagnostic.goto_next, "Next diagnostic", { buffer = bufnr })
+    nmap("<leader>cd", vim.diagnostic.open_float, "Show diagnostic", { buffer = bufnr })
+    nmap("<leader>cl", vim.diagnostic.setloclist, "Diagnostics to loclist", { buffer = bufnr })
+    nmap("gl", vim.diagnostic.open_float, "Open diagnostic float", { buffer = bufnr })
+end
+
+-- =============================================================================
+-- Workspace Keymaps
+-- =============================================================================
+function M.setup_workspace(bufnr)
+    nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "Add workspace folder", { buffer = bufnr })
+    nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove workspace folder", { buffer = bufnr })
+    nmap("<leader>wl", function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, "List workspace folders", { buffer = bufnr })
+end
+
+-- =============================================================================
+-- Telescope Integration
+-- =============================================================================
+function M.setup_telescope(bufnr)
+    local telescope = C.safe_require("telescope.builtin")
+    if not telescope then return end
+
+    nmap("<leader>D", telescope.lsp_type_definitions, "Type definitions", { buffer = bufnr })
+    nmap("<leader>ds", telescope.lsp_document_symbols, "Document symbols", { buffer = bufnr })
+end
+
+-- =============================================================================
+-- Vertical Split Definition
+-- =============================================================================
+function M.setup_vsplit(bufnr)
+    nmap("<leader>v", function()
+        vim.cmd("vsplit")
+        vim.lsp.buf.definition()
+    end, "Go to definition in vertical split", { buffer = bufnr })
+end
+
+-- =============================================================================
+-- Setup All Keymaps
+-- =============================================================================
+function M.setup_keymaps(bufnr)
+    M.setup_navigation(bufnr)
+    M.setup_information(bufnr)
+    M.setup_code_actions(bufnr)
+    M.setup_diagnostics(bufnr)
+    M.setup_workspace(bufnr)
+    M.setup_telescope(bufnr)
+    M.setup_vsplit(bufnr)
+end
+
+return M
