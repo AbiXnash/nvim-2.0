@@ -54,7 +54,6 @@ return {
                     },
                 },
                 color_overrides = {
-                    -- ThePrimeagen-style contrast tweaks
                     rosewater = "#f5e0dc",
                     flamingo = "#f2cdcd",
                     pink = "#f5c2e7",
@@ -83,7 +82,6 @@ return {
                     crust = "#11111b",
                 },
                 custom_highlights = {
-                    -- ThePrimeagen-style custom highlights
                     LineNr = { fg = "#6c7086" },
                     Visual = { bg = "#45475a" },
                     Search = { bg = "#fab387", fg = "#1e1e2e" },
@@ -118,7 +116,6 @@ return {
                     FoldColumn = { fg = "#6c7086", bg = "NONE" },
                     NormalDoc = { bg = "#1e1e2e" },
                 },
-                },
                 default_integrations = true,
                 auto_integrations = true,
                 integrations = {
@@ -131,8 +128,8 @@ return {
                         indentscope_color = "",
                     },
                     blink_cmp = {
-                        style = 'none',
-                    }
+                        style = "none",
+                    },
                 },
             })
 
@@ -145,6 +142,6 @@ return {
                     vim.api.nvim_set_hl(0, "BlinkCmpDoc", { bg = "NONE" })
                 end,
             })
-        end
-    }
+        end,
+    },
 }

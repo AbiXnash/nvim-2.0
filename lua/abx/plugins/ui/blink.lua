@@ -85,9 +85,7 @@ return {
                             border = "none",
                             winblend = 0,
                             max_height = 35,
-                            min_height = 15,
                             max_width = 100,
-                            min_width = 50,
                         },
                     },
                     ghost_text = {
