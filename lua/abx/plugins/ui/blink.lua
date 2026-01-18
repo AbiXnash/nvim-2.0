@@ -93,7 +93,6 @@ return {
                     },
                 },
                 fuzzy = {
-                    max_items = 200,
                 },
                 keymap = {
                     preset = "enter",
