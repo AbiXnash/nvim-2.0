@@ -52,17 +52,16 @@ return {
                     lualine_x = {
                         {
                             "diagnostics",
-                            sources = { 'nvim_lsp', 'nvim_diagnostic' },
+                            sources = { 'nvim_lsp' },
                             sections = { 'error', 'warn', 'info', 'hint' },
                             symbols = {
-                                error = " ",
-                                warn  = " ",
-                                info  = " ",
-                                hint  = "󰌵 ",
+                                error = "X ",
+                                warn = "! ",
+                                info = "i ",
+                                hint = "? ",
                             },
-                            colored = false,
+                            colored = true,
                             update_in_insert = false,
-                            always_visible = false,
                         },
                         "filetype",
                     },

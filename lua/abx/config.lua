@@ -55,7 +55,7 @@ Config.editor = {
 -- =============================================================================
 Config.lsp = {
     -- Format timeout (ms)
-    format_timeout = 2000,
+    format_timeout = 4000,
 
     -- Diagnostic settings
     diagnostics = {
