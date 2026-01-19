@@ -13,11 +13,12 @@ Complete list of all plugins used in this Neovim configuration.
 | 3 | LuaSnip | ui | Snippet engine |
 | 4 | friendly-snippets | ui | Pre-built snippets |
 | 5 | vim-startify | ui | Dashboard / Start screen |
-| 6 | lspconfig | tools | LSP configuration |
-| 6 | nvim-lspconfig | tools | LSP configurations |
-| 7 | mason.nvim | tools | Package manager |
-| 8 | telescope.nvim | tools | Fuzzy finder |
-| 9 | telescope-fzf-native | tools | FZF sorter |
+| 6 | vim-surround | ui | Surround manipulation |
+| 7 | lspconfig | tools | LSP configuration |
+| 8 | nvim-lspconfig | tools | LSP configurations |
+| 9 | mason.nvim | tools | Package manager |
+| 10 | telescope.nvim | tools | Fuzzy finder |
+| 11 | telescope-fzf-native | tools | FZF sorter |
 | 10 | telescope-file-browser | tools | File browser |
 | 11 | oil.nvim | tools | File manager |
 | 12 | nvim-treesitter | tools | Syntax highlighting |
@@ -130,6 +131,33 @@ vim.g.startify_bookmarks = {
 vim.g.startify_files_number = 10
 vim.g.startify_session_persistence = 1
 ```
+
+---
+
+### [vim-surround](https://github.com/tpope/vim-surround)
+
+**Category:** ui
+**Purpose:** Manipulate surrounding pairs
+**File:** `lua/abx/plugins/ui/surround.lua`
+
+Features:
+- Add, change, delete surrounding characters
+- Works with quotes, brackets, tags
+- Supports motion and text objects
+
+Keymaps:
+| Key | Mode | Description |
+|-----|------|-------------|
+| `cs` | Normal | Change surrounding |
+| `ds` | Normal | Delete surrounding |
+| `ys` | Normal | Add surrounding |
+| `S` | Visual | Surround selection |
+
+Examples:
+- `cs"'` - Change double quotes to single quotes
+- `ds)` - Delete surrounding parentheses
+- `ysiw]` - Add brackets around word
+- `yst<em>` - Add `<em>` tags around word
 
 ---
 
