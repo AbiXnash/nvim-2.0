@@ -1,9 +1,4 @@
 -- =============================================================================
--- ABX Neovim Configuration
--- =============================================================================
--- A modern, modular Neovim configuration built for Neovim 0.10+
--- Features: LSP, completion, debugging, testing, and more
--- =============================================================================
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 

@@ -6,6 +6,9 @@ return {
     -- Dashboard (start screen)
     { import = "abx.plugins.ui.dashboard" },
 
+    -- Surround (quotes, brackets manipulation)
+    { import = "abx.plugins.ui.surround" },
+
     -- Colorscheme (catppuccin, kanagawa)
     { import = "abx.plugins.ui.colorscheme" },
 
