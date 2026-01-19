@@ -98,6 +98,13 @@ nvim/
 | `<Esc>` | Normal | Clear search |
 | `<C-c>` | Visual | Copy to clipboard |
 
+### Dashboard
+
+| Key | Action |
+|-----|--------|
+| `q` | Quit from dashboard |
+| `<CR>` | Open selected entry |
+
 ### File & Window
 
 | Key | Action |
@@ -166,10 +173,9 @@ color_overrides = {
 
 | Category | Plugins |
 |----------|---------|
-| UI | Catppuccin, Blink.cmp, Lualine, Comment |
+| UI | Catppuccin, Blink.cmp, Lualine, Comment, Startify |
+| Dashboard | vim-startify |
 | File Manager | Oil.nvim |
-| Search | Telescope, FZF, telescope-file-browser |
-| Completion | Blink.cmp, LuaSnip |
 | LSP | Native LSP, lspconfig, mason |
 | Syntax | Treesitter |
 | Format | Conform, none-ls |
