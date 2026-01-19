@@ -105,6 +105,15 @@ nvim/
 | `q` | Quit from dashboard |
 | `<CR>` | Open selected entry |
 
+### Surround
+
+| Key | Mode | Action |
+|-----|------|--------|
+| `cs` | Normal | Change surrounding |
+| `ds` | Normal | Delete surrounding |
+| `ys` | Normal | Add surrounding |
+| `S` | Visual | Surround selection |
+
 ### File & Window
 
 | Key | Action |
