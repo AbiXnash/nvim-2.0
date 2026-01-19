@@ -12,7 +12,8 @@ Complete list of all plugins used in this Neovim configuration.
 | 2 | blink.cmp | ui | Code completion |
 | 3 | LuaSnip | ui | Snippet engine |
 | 4 | friendly-snippets | ui | Pre-built snippets |
-| 5 | lspconfig | tools | LSP configuration |
+| 5 | vim-startify | ui | Dashboard / Start screen |
+| 6 | lspconfig | tools | LSP configuration |
 | 6 | nvim-lspconfig | tools | LSP configurations |
 | 7 | mason.nvim | tools | Package manager |
 | 8 | telescope.nvim | tools | Fuzzy finder |
@@ -97,6 +98,38 @@ Keymaps:
 **File:** `lua/abx/plugins/ui/blink.lua`
 
 Loaded with friendly-snippets for VS Code-style snippets.
+
+---
+
+### [vim-startify](https://github.com/mhinz/vim-startify)
+
+**Category:** ui
+**Purpose:** Dashboard / Start screen
+**File:** `lua/abx/plugins/ui/dashboard.lua`
+
+Features:
+- Shows recently used files
+- Persistent sessions
+- Bookmarked directories
+- Custom header/footer
+
+Keymaps:
+| Key | Description |
+|-----|-------------|
+| `q` | Quit from dashboard |
+| `<CR>` | Open selected entry |
+| `s` | Open session |
+| `x` | Close entry |
+
+Configuration:
+```lua
+vim.g.startify_bookmarks = {
+    { c = "~/.config/nvim" },
+    { d = "~/Downloads" },
+}
+vim.g.startify_files_number = 10
+vim.g.startify_session_persistence = 1
+```
 
 ---
 
