@@ -3,6 +3,9 @@ return {
     -- Code completion (blink.cmp)
     { import = "abx.plugins.ui.blink" },
 
+    -- Dashboard (start screen)
+    { import = "abx.plugins.ui.dashboard" },
+
     -- Colorscheme (catppuccin, kanagawa)
     { import = "abx.plugins.ui.colorscheme" },
 
