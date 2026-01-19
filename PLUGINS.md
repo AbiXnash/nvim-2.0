@@ -17,37 +17,38 @@ Complete list of all plugins used in this Neovim configuration.
 | 7 | mason.nvim | tools | Package manager |
 | 8 | telescope.nvim | tools | Fuzzy finder |
 | 9 | telescope-fzf-native | tools | FZF sorter |
-| 10 | nvim-treesitter | tools | Syntax highlighting |
-| 11 | gitsigns.nvim | tools | Git signs |
-| 12 | vim-fugitive | tools | Git commands |
-| 13 | diffview.nvim | tools | Git diff viewer |
-| 14 | nvim-dap | lang | Debug adapter protocol |
-| 15 | neotest | tools | Test runner |
-| 16 | conform.nvim | tools | Formatter |
-| 17 | none-ls.nvim | tools | LSP formatter/linter |
-| 18 | catppuccin | ui | Colorscheme |
-| 19 | kanagawa | ui | Colorscheme |
-| 20 | lualine | ui | Status line |
-| 21 | Comment.nvim | ui | Comment toggling |
-| 22 | trouble.nvim | tools | Diagnostics panel |
-| 23 | undotree | tools | Undo history |
-| 24 | persistence | tools | Session management |
-| 25 | lazydev | lang | Lua development |
-| 26 | typescript-tools | lang | TypeScript LSP |
-| 27 | jupytext | lang | Jupyter notebooks |
-| 28 | structrue-go | lang | Go struct handling |
-| 29 | neotest-go | lang | Go test runner |
-| 30 | nvim-dap-python | lang | Python debugger |
-| 31 | nvim-dap-java | lang | Java debugger |
-| 32 | venv-selector | lang | Python venv selector |
-| 33 | nvim-ts-autotag | lang | Auto-close tags |
-| 34 | nvim-highlight-colors | lang | Color highlighting |
-| 35 | schemastore | lang | JSON schemas |
-| 36 | tiny-inline-diagnostic | tools | Inline diagnostics |
-| 37 | codesnap | ui | Code screenshots |
-| 38 | eyeliner | ui | Keyword highlighting |
-| 39 | todo-comments | ui | TODO highlighting |
-| 40 | vim-sleuth | ui | Auto-indentation |
+| 10 | telescope-file-browser | tools | File browser |
+| 11 | oil.nvim | tools | File manager |
+| 12 | nvim-treesitter | tools | Syntax highlighting |
+| 13 | gitsigns.nvim | tools | Git signs |
+| 14 | vim-fugitive | tools | Git commands |
+| 15 | diffview.nvim | tools | Git diff viewer |
+| 16 | nvim-dap | lang | Debug adapter protocol |
+| 17 | neotest | tools | Test runner |
+| 18 | conform.nvim | tools | Formatter |
+| 19 | none-ls.nvim | tools | LSP formatter/linter |
+| 20 | catppuccin | ui | Colorscheme |
+| 21 | kanagawa | ui | Colorscheme |
+| 22 | lualine | ui | Status line |
+| 23 | Comment.nvim | ui | Comment toggling |
+| 24 | trouble.nvim | tools | Diagnostics panel |
+| 25 | undotree | tools | Undo history |
+| 26 | persistence | tools | Session management |
+| 27 | lazydev | lang | Lua development |
+| 28 | typescript-tools | lang | TypeScript LSP |
+| 29 | structrue-go | lang | Go struct handling |
+| 30 | neotest-go | lang | Go test runner |
+| 31 | nvim-dap-python | lang | Python debugger |
+| 32 | nvim-dap-java | lang | Java debugger |
+| 33 | venv-selector | lang | Python venv selector |
+| 34 | nvim-ts-autotag | lang | Auto-close tags |
+| 35 | nvim-highlight-colors | lang | Color highlighting |
+| 36 | schemastore | lang | JSON schemas |
+| 37 | tiny-inline-diagnostic | tools | Inline diagnostics |
+| 38 | codesnap | ui | Code screenshots |
+| 39 | eyeliner | ui | Keyword highlighting |
+| 40 | todo-comments | ui | TODO highlighting |
+| 41 | vim-sleuth | ui | Auto-indentation |
 
 ---
 
@@ -178,7 +179,7 @@ Keymaps:
 **Purpose:** Fuzzy finder
 **File:** `lua/abx/plugins/tools/telescope.lua`
 
-Extensions: fzf-native
+Extensions: fzf-native, file_browser
 
 Keymaps:
 | Key | Description |
@@ -190,6 +191,72 @@ Keymaps:
 | `<leader>fd` | Diagnostics |
 | `<leader>fh` | Help tags |
 | `<leader>fr` | Recent files |
+
+---
+
+### [telescope-file-browser](https://github.com/nvim-telescope/telescope-file-browser.nvim)
+
+**Category:** tools
+**Purpose:** File browser for telescope
+**File:** `lua/abx/plugins/tools/telescope.lua`
+
+Features:
+- File/folder browser with telescope UI
+- Create, delete, rename, move files
+- Toggle hidden files
+- LSP integration for file operations
+
+Keymaps:
+| Key | Description |
+|-----|-------------|
+| `<leader>e` | Open file browser |
+| `<CR>` | Select file |
+| `-` | Go to parent |
+| `h` | Toggle hidden |
+| `c` | Create file/folder |
+| `d` | Delete |
+| `r` | Rename |
+| `m` | Move |
+
+---
+
+### [oil.nvim](https://github.com/stevearc/oil.nvim)
+
+**Category:** tools
+**Purpose:** File manager with native Neovim UI
+**File:** `lua/abx/plugins/tools/oil.lua`
+
+Features:
+- Native Neovim buffer (no external tools)
+- Edit filesystem directly
+- Navigate directories
+- Create, delete, rename, move files
+- Copy/paste files
+- Supports symlinks
+
+Keymaps:
+| Key | Description |
+|-----|-------------|
+| `<leader>pv` / `<leader>e` | Open oil |
+| `<CR>` | Open file/enter directory |
+| `-` | Go to parent |
+| `_` | Go to cwd |
+| `~` | Go to home |
+| `gx` | Open external |
+| `g.` | Toggle hidden |
+| `c` | Copy |
+| `d` | Delete |
+| `r` | Rename |
+| `x` | Cut |
+| `p` | Paste |
+
+Configuration in `lua/abx/plugins/tools/oil.lua`:
+```lua
+columns = { "icon" },
+theme = "float",
+popup_border = "single",
+show_hidden = false,
+```
 
 ---
 
@@ -465,16 +532,6 @@ Keymaps:
 | Key | Description |
 |-----|-------------|
 | `<leader>dv` | Select venv |
-
----
-
-### [jupytext](https://github.com/GCBallesteros/jupytext.nvim)
-
-**Category:** lang
-**Purpose:** Jupyter notebook integration
-**File:** `lua/abx/plugins/lang/jupytxt.lua`
-
-Converts notebooks to Python scripts.
 
 ---
 

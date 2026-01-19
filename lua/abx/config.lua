@@ -58,7 +58,7 @@ Config.editor = {
     wildmenu = true,
     wildmode = "longest:full,full",
     splitright = true,
-    splitbelow = true,
+    splitbelow = false,
     termguicolors = true,
     timeoutlen = 300,
     ttimeoutlen = -1,
@@ -182,9 +182,9 @@ Config.ui = {
 
     -- NETRW
     netrw = {
-        browse_split = 0,
+        browse_split = 0, -- Reuse window, no split
         banner = 0,
-        winsize = 25,
+        winsize = 30,
     },
 }
 

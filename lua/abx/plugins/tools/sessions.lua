@@ -34,18 +34,6 @@ return {
                     end
                 end,
             })
-
-            -- Restore session on startup if available
-            vim.api.nvim_create_autocmd('VimEnter', {
-                group = vim.api.nvim_create_augroup('SessionAutoLoad', { clear = true }),
-                callback = function()
-                    -- Only restore if no file was specified on launch
-                    if vim.fn.argc() == 0 then
-                        require('persistence').load()
-                    end
-                end,
-                once = true,
-            })
         end,
     },
 }

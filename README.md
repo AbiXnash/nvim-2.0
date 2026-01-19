@@ -102,7 +102,7 @@ nvim/
 
 | Key | Action |
 |-----|--------|
-| `<leader>pv` | File tree |
+| `<leader>pv` / `<leader>e` | File manager (oil.nvim) |
 | `<C-h/j/k/l>` | Navigate windows |
 
 ### LSP
@@ -167,7 +167,8 @@ color_overrides = {
 | Category | Plugins |
 |----------|---------|
 | UI | Catppuccin, Blink.cmp, Lualine, Comment |
-| Search | Telescope, FZF |
+| File Manager | Oil.nvim |
+| Search | Telescope, FZF, telescope-file-browser |
 | Completion | Blink.cmp, LuaSnip |
 | LSP | Native LSP, lspconfig, mason |
 | Syntax | Treesitter |

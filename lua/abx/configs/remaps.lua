@@ -62,9 +62,6 @@ vmap("<C-c>", '"+y', { desc = "Copy to system clipboard" })
 -- File Explorer (NETRW)
 -- =============================================================================
 nmap("<leader>pv", "<cmd>Explore<CR>", { desc = "File tree" })
-nmap("<C-up>", "<cmd>Sexplore<CR>", { desc = "Split explore above" })
-nmap("<C-down>", "<cmd>Hexplore<CR>", { desc = "Horizontal explore below" })
-nmap("<C-left>", "<cmd>Vexplore<CR>", { desc = "Vertical explore left" })
 
 -- =============================================================================
 -- Git Integration

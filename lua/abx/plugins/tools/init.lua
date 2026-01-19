@@ -29,4 +29,7 @@ return {
 
     -- Inline diagnostics (tiny-inline-diagnostic)
     { import = "abx.plugins.tools.inline-diagnostics" },
+
+    -- File manager (oil.nvim)
+    { import = "abx.plugins.tools.oil" },
 }

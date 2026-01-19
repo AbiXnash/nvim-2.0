@@ -26,6 +26,10 @@ local function telescope_setup()
                 override_file_sorter = true,
                 case_mode = "smart_case",
             },
+            file_browser = {
+                theme = "ivy",
+                hijack_netrw = false,
+            },
         },
     })
 
@@ -33,6 +37,8 @@ local function telescope_setup()
     if fzf then
         telescope.load_extension("fzf")
     end
+
+    telescope.load_extension("file_browser")
 end
 
 local function setup_keymaps()
@@ -45,6 +51,10 @@ local function setup_keymaps()
     vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Find diagnostics" })
     vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help tags" })
     vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { desc = "Find recent files" })
+
+    vim.keymap.set("n", "<leader>e", function()
+    require("telescope").extensions.file_browser.file_browser()
+end, { desc = "File browser" })
 end
 
 return {
@@ -54,6 +64,7 @@ return {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+        "nvim-telescope/telescope-file-browser.nvim",
     },
     config = function()
         telescope_setup()
