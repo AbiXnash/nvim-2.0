@@ -11,7 +11,4 @@ return {
 
     -- Web development (TypeScript, Svelte, Astro)
     { import = "abx.plugins.lang.web" },
-
-    -- Jupyter notebook integration
-    { import = "abx.plugins.lang.jupytxt" },
 }

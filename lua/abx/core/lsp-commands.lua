@@ -198,7 +198,15 @@ vim.api.nvim_create_user_command("LspDetails", function()
         print(string.format("Client: %s", client.name))
         print(string.format("  ID: %d", client.id))
         print(string.format("  Root dir: %s", client.config.root_dir or "Not set"))
-        print(string.format("  Command: %s", table.concat(client.config.cmd or {}, " ")))
+        local cmd = client.config.cmd
+        if type(cmd) == "function" then
+            cmd = tostring(cmd)
+        elseif type(cmd) == "table" then
+            cmd = table.concat(cmd, " ")
+        else
+            cmd = tostring(cmd or "N/A")
+        end
+        print(string.format("  Command: %s", cmd))
         print(string.format("  Filetypes: %s", table.concat(client.config.filetypes or {}, ", ")))
         print(string.format("  Status: %s", client.is_stopped() and "Stopped" or "Running"))
 
