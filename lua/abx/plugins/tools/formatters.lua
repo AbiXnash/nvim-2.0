@@ -39,7 +39,16 @@ local function conform_setup()
         },
         formatters = {
             prettierd = {
-                args = C.formatters.prettier_args,
+                args = function(ctx)
+                    if ctx.filename then
+                        return vim.list_extend(
+                            C.formatters.prettier_args,
+                            { "--stdin-filepath", vim.fs.basename(ctx.filename) }
+                        )
+                    else
+                        return C.formatters.prettier_args
+                    end
+                end,
             },
             google_java_format = {
                 args = C.formatters.google_java_format_args,
