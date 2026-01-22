@@ -28,8 +28,8 @@ vim.opt.rtp:prepend(lazypath)
 -- Load Core Configurations
 -- =============================================================================
 require("abx.configs.options")
-require("abx.configs.remaps")
 require("abx.configs.autocmd")
+require("abx.keymaps")
 
 -- =============================================================================
 -- Initialize Plugin Manager
