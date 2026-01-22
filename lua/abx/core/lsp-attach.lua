@@ -36,17 +36,17 @@ end
 function M.setup_document_highlight(bufnr, client)
     if not client.server_capabilities.documentHighlightProvider then return end
 
-    local highlight_group = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
+    local group_id = vim.api.nvim_create_augroup("lsp-highlight-" .. bufnr, { clear = false })
 
     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
         buffer = bufnr,
-        group = highlight_group,
+        group = group_id,
         callback = vim.lsp.buf.document_highlight,
     })
 
     vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
         buffer = bufnr,
-        group = highlight_group,
+        group = group_id,
         callback = vim.lsp.buf.clear_references,
     })
 end
@@ -69,8 +69,8 @@ function M.setup_cleanup(bufnr)
         group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
         callback = function(event)
             vim.lsp.buf.clear_references()
-            vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = event.buf })
-            vim.api.nvim_clear_autocmds({ group = "LspFormatOnSave", buffer = event.buf })
+            vim.api.nvim_clear_autocmds({ buffer = event.buf })
+            vim.api.nvim_clear_autocmds({ buffer = event.buf })
         end,
     })
 end
