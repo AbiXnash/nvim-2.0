@@ -32,4 +32,7 @@ return {
 
     -- File manager (oil.nvim)
     { import = "abx.plugins.tools.oil" },
+
+    -- Quick file navigation (harpoon2)
+    { import = "abx.plugins.tools.harpoon" },
 }
