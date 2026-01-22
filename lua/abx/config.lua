@@ -52,7 +52,7 @@ Config.editor = {
 
     -- Additional preferences
     mouse = "",
-    clipboard = "unnamedplus",
+    clipboard = "",
     hidden = true,
     history = 1000,
     wildmenu = true,
@@ -71,7 +71,6 @@ Config.editor = {
 
     -- List chars
     listchars = {
-        tab = "│ ",
         trail = "·",
         nbsp = "␣",
         extends = "»",
@@ -126,7 +125,7 @@ Config.lsp = {
 -- =============================================================================
 Config.telescope = {
     -- File patterns to ignore
-    ignore_patterns = { "node_modules", ".git/", "target" },
+    ignore_patterns = { "node_modules", ".git/", "target", "build" },
 
     -- Layout strategy
     layout_strategy = "bottom_pane",
