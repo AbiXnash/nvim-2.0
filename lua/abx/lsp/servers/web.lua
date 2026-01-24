@@ -15,7 +15,7 @@ return {
     {
         "tailwindcss",
         cmd = { "tailwindcss-language-server", "--stdio" },
-        filetypes = { "html", "htmx", "css", "scss", "svelte", "typescriptreact", "vue", "astro" },
+        filetypes = { "html", "css", "scss", "svelte", "typescriptreact", "vue", "astro" },
         settings = {
             tailwindcss = {
                 validate = true,

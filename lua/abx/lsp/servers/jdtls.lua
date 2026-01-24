@@ -1,6 +1,8 @@
 return {
     cmd = {
         "jdtls",
+        "--java-executable",
+        vim.fn.expand("$HOME") .. "/.sdkman/candidates/java/current/bin/java",
         "--jvm-arg=-Xmx4g",
         "--jvm-arg=-XX:+UseG1GC",
         "--jvm-arg=-XX:+UseStringDeduplication",

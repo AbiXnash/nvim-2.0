@@ -38,6 +38,25 @@ C.create_augroup("ConformAutoFormat", {
             end,
         },
     },
+    {
+        event = "BufWritePre",
+        opts = {
+            pattern = "*.templ",
+            callback = function(args)
+                -- Use templ fmt directly
+                local bufnr = args.buf
+                local filename = vim.api.nvim_buf_get_name(bufnr)
+                local cmd = { "templ", "fmt", filename }
+                vim.fn.jobstart(cmd, {
+                    on_exit = function(_, exit_code)
+                        if exit_code == 0 then
+                            vim.cmd("edit!")
+                        end
+                    end,
+                })
+            end,
+        },
+    },
 })
 
 -- =============================================================================

@@ -116,4 +116,4 @@ vim.opt.ttimeoutlen = C.editor.ttimeoutlen
 vim.opt.redrawtime = C.editor.redrawtime
 vim.opt.conceallevel = C.editor.conceallevel
 vim.opt.listchars = C.editor.listchars
-vim.opt.list = true
+vim.opt.list = C.editor.list

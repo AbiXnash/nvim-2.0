@@ -3,7 +3,6 @@ return {
         cmd = { "tailwindcss-language-server", "--stdio" },
         filetypes = {
             "html",
-            "htmx",
             "css",
             "scss",
             "less",

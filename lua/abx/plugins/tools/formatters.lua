@@ -11,14 +11,14 @@ local function conform_setup()
 
     conform.setup({
         formatters_by_ft = {
-            lua = { "prettierd" },
+            lua = { "stylua" },
             javascript = { "prettierd" },
             typescript = { "prettierd" },
             svelte = { "prettierd" },
             javascriptreact = { "prettierd" },
             typescriptreact = { "prettierd" },
             python = { "black" },
-            go = { "gofumpt", "goimports" },
+            go = {},
             json = { "prettierd" },
             jsonc = { "prettierd" },
             markdown = { "prettierd" },
@@ -27,7 +27,7 @@ local function conform_setup()
             css = { "prettierd" },
             scss = { "prettierd" },
             less = { "prettierd" },
-            tailwindcss = { "prettierd", "tailwindcss-formatter" },
+            tailwindcss = { "prettierd" },
             yaml = { "prettierd" },
             sql = { "sqlfluff" },
             kotlin = { "ktlint" },
@@ -36,6 +36,7 @@ local function conform_setup()
             rust = { "rustfmt" },
             c = { "clang-format" },
             cpp = { "clang-format" },
+            templ = { "templ" },
         },
         formatters = {
             prettierd = {
@@ -49,6 +50,11 @@ local function conform_setup()
                         return C.formatters.prettier_args
                     end
                 end,
+            },
+            templ = {
+                command = "templ",
+                args = { "fmt", "-stdout" },
+                stdin = true,
             },
             google_java_format = {
                 args = C.formatters.google_java_format_args,
