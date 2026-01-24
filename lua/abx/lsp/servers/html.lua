@@ -2,6 +2,14 @@ return {
     html = {
         cmd = { "vscode-html-language-server", "--stdio" },
         filetypes = { "html", "htm", "htmx" },
+        root_dir = vim.fs.root(0, {
+            "package.json",
+            ".git",
+            "index.html",
+            "templates/",
+            "static/",
+            "_includes/",
+        }),
         settings = {
             html = {
                 format = {

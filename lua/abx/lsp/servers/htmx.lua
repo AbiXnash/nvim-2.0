@@ -1,9 +1,17 @@
-return {
-    htmx = {
-        cmd = { "htmx-lsp", "--stdio" },
-        filetypes = { "htmx", "html" },
-        settings = {
-            htmx = {},
-        },
-    },
-}
+-- return {
+--     htmx = {
+--         cmd = { "htmx-lsp", "--stdio" },
+--         filetypes = { "htmx", "html" },
+--         root_dir = vim.fs.root(0, {
+--             "htmx.min.js",
+--             "htmx.js",
+--             "_includes/head.html",
+--             "_includes/header.html",
+--             "templates/",
+--             "static/",
+--         }),
+--         settings = {
+--             htmx = {},
+--         },
+--     },
+-- }

@@ -72,23 +72,7 @@ return {
             },
         },
     },
-    {
-        "pmizio/typescript-tools.nvim",
-        ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
-        opts = {
-            on_attach = function(client, bufnr)
-                client.server_capabilities.documentFormattingProvider = false
-                if vim.lsp.inlay_hint then vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end
-            end,
-            settings = {
-                tsserver = {
-                    checkJs = true,
-                    strictNullChecks = true,
-                    inlayHints = { includeInlayParameterNameHints = "all" },
-                },
-            },
-        },
-    },
+
     {
         "svelte",
         cmd = { "svelteserver", "--stdio" },
