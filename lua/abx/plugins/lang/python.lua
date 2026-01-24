@@ -12,15 +12,6 @@ return {
         event = "VeryLazy",
     },
 
-    -- Jupyter notebook integration
-    {
-        "GCBallesteros/jupytext.nvim",
-        opts = {
-            custom_language_formatting = { python = { extension = "py", style = "percent" } },
-        },
-    },
-    { "goerz/jupytext.vim", lazy = false },
-
     -- Python debugging
     {
         "mfussenegger/nvim-dap-python",
