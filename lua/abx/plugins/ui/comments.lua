@@ -4,7 +4,6 @@ return {
     { "folke/todo-comments.nvim", opts = {} },
     {
         "numToStr/Comment.nvim",
-        dependencies = { "JoosepAlviste/nvim-ts-context-commentstring" },
         config = function()
             require("Comment").setup({
                 padding = true,
@@ -27,7 +26,16 @@ return {
                     basic = true,
                     extra = true,
                 },
-                pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+                pre_hook = function(ctx)
+                    local U = require "Comment.utils"
+                    local commentstring = vim.bo.commentstring
+
+                    if ctx.ctype == U.ctype.line then
+                        return commentstring:gsub("%s*%%s%s*", "")
+                    else
+                        return commentstring
+                    end
+                end,
                 post_hook = function() end,
             })
 
@@ -45,16 +53,6 @@ return {
                 "<Esc><Cmd>lua require('Comment.api').locked('toggle.linewise')(vim.fn.visualmode())<CR>",
                 { desc = "Toggle comment (visual)" }
             )
-        end,
-    },
-    {
-        "JoosepAlviste/nvim-ts-context-commentstring",
-        config = function()
-            require("ts_context_commentstring").setup({
-                enable_autocmd = false,
-            })
-            -- Fix Treesitter's deprecated module
-            vim.g.skip_ts_context_commentstring_module = true
         end,
     },
 }

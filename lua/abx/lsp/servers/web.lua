@@ -11,7 +11,6 @@ return {
             },
         },
     },
-    { "htmx",     cmd = { "htmx-lsp", "--stdio" }, filetypes = { "htmx", "html" } },
     {
         "yamlls",
         cmd = { "yaml-language-server", "--stdio" },

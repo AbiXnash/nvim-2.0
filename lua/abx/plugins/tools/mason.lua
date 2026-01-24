@@ -23,6 +23,7 @@ return {
                     "delve",
 
                     -- web (typescript/javascript/html/css/yaml/json)
+                    "vtsls",
                     "typescript-language-server",
                     "prettierd",
                     "eslint_d",

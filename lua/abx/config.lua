@@ -106,11 +106,9 @@ Config.lsp = {
 		"marksman",
 		"html",
 		"yamlls",
-		"htmx",
-		"xml",
+		"lemminx",
 		"sqlls",
 		"kotlin_language_server",
-		"templ",
 	},
 }
 
@@ -142,7 +140,6 @@ Config.treesitter = {
 		"rust",
 		"javascript",
 		"typescript",
-		"jsx",
 		"tsx",
 		"json",
 		"yaml",

@@ -57,7 +57,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         if not client then return end
 
-        local excluded_clients = { "html", "htmx", "tailwindcss" }
+        local excluded_clients = { "html", "tailwindcss" }
         local filetype = vim.bo[bufnr].filetype
         if vim.tbl_contains(excluded_clients, client.name) and filetype == "templ" then
             vim.schedule(function()
