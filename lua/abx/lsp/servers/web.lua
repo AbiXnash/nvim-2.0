@@ -2,7 +2,7 @@ return {
     {
         "html",
         cmd = { "vscode-html-language-server", "--stdio" },
-        filetypes = { "html", "htm", "htmx" },
+        filetypes = { "html", "htm" },
         settings = {
             html = {
                 format = { enable = true, wrapLineLength = 120 },
@@ -11,35 +11,21 @@ return {
             },
         },
     },
-    { "htmx", cmd = { "htmx-lsp", "--stdio" }, filetypes = { "htmx", "html" }, settings = { htmx = {} } },
-    {
-        "tailwindcss",
-        cmd = { "tailwindcss-language-server", "--stdio" },
-        filetypes = { "html", "css", "scss", "svelte", "typescriptreact", "vue", "astro" },
-        settings = {
-            tailwindcss = {
-                validate = true,
-                experimental = { classRegex = { { "tw`([^`]*)`" }, { 'className:\\s*["\']([^"\']+)["\']' } } },
-            },
-        },
-    },
-    {
-        "jsonls",
-        filetypes = { "json", "jsonc" },
-        settings = {
-            json = {
-                validate = { enable = true },
-                schemas = require("schemastore").json.schemas(),
-            },
-        },
-    },
+    { "htmx",     cmd = { "htmx-lsp", "--stdio" }, filetypes = { "htmx", "html" } },
     {
         "yamlls",
         cmd = { "yaml-language-server", "--stdio" },
         filetypes = { "yaml", "yml" },
-        settings = { yaml = { validate = true, schemaStore = { enable = true }, schemas = require("schemastore").yaml.schemas() } },
+        settings = {
+            yaml = { validate = true, schemaStore = { enable = true }, schemas = require("schemastore").yaml.schemas() },
+        },
     },
-    { "xml", cmd = { "lemminx", "--stdio" }, filetypes = { "xml", "xsl", "svg" }, settings = { xml = { validation = { schemaValidation = "warning" }, autoCloseTags = true } } },
+    {
+        "xml",
+        cmd = { "lemminx", "--stdio" },
+        filetypes = { "xml", "xsl", "svg" },
+        settings = { xml = { validation = { schemaValidation = "warning" }, autoCloseTags = true } },
+    },
     { "marksman", filetypes = { "markdown", "md" } },
     {
         "sqlls",

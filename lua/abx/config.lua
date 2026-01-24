@@ -97,16 +97,15 @@ Config.lsp = {
 	servers = {
 		"lua_ls",
 		"rust_analyzer",
-		"jsonls",
 		"svelte",
 		"astro",
+		"vtsls",
 		"gopls",
 		"basedpyright",
 		"jdtls",
 		"marksman",
 		"html",
 		"yamlls",
-		"tailwindcss",
 		"htmx",
 		"xml",
 		"sqlls",
@@ -134,7 +133,7 @@ Config.treesitter = {
 	max_file_size = 100 * 1024,
 
 	-- Languages to ensure are installed
-		ensure_installed = {
+	ensure_installed = {
 		"lua",
 		"vimdoc",
 		"java",
@@ -143,6 +142,7 @@ Config.treesitter = {
 		"rust",
 		"javascript",
 		"typescript",
+		"jsx",
 		"tsx",
 		"json",
 		"yaml",

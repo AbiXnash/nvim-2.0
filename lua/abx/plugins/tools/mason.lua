@@ -1,65 +1,72 @@
 return {
-    "mason-org/mason.nvim",
-    opts = {
-        ui = {
-            icons = {
-                package_installed = "✓",
-                package_pending = "➜",
-                package_uninstalled = "✗"
-            }
+    {
+        "mason-org/mason.nvim",
+        opts = {
+            ui = {
+                icons = {
+                    package_installed = "✓",
+                    package_pending = "➜",
+                    package_uninstalled = "✗",
+                },
+            },
         },
-        ensure_installed = {
-            -- Go
-            "gopls",
-            "gofumpt",
-            "golangci-lint",
-            "delve",
+    },
+    {
+        "WhoIsSethDaniel/mason-tool-installer",
+        config = function()
+            require("mason-tool-installer").setup({
+                ensure_installed = {
+                    -- go
+                    -- "gopls", -- temporarily disabled
+                    "gofumpt",
+                    "golangci-lint",
+                    "delve",
 
-            -- Web (TypeScript/JavaScript/HTML/CSS/YAML/JSON)
-            "typescript-language-server",
-            "prettierd",
-            "eslint_d",
-            "html-lsp",
-            "yaml-language-server",
-            "json-lsp",
-            "tailwindcss-language-server",
-            "htmx-lsp",
+                    -- web (typescript/javascript/html/css/yaml/json)
+                    "typescript-language-server",
+                    "prettierd",
+                    "eslint_d",
+                    "html-lsp",
+                    "yaml-language-server",
+                    "json-lsp",
 
-            -- Frameworks
-            "svelte-language-server",
-            "astro-language-server",
+                    -- frameworks
+                    "svelte-language-server",
+                    "astro-language-server",
 
-            -- Python
-            "basedpyright",
-            "black",
-            "debugpy",
+                    -- python
+                    "basedpyright",
+                    "black",
+                    "debugpy",
 
-            -- Lua
-            "lua-language-server",
-            "stylua",
+                    -- lua
+                    "lua-language-server",
+                    "stylua",
 
-            -- Rust
-            "rust-analyzer",
-            "rustfmt",
+                    -- rust
+                    "rust-analyzer",
+                    "rustfmt",
 
-            -- Java
-            "jdtls",
-            "java-test",
-            "java-debug-adapter",
-            "google-java-format",
-            "checkstyle",
+                    -- java
+                    "jdtls",
+                    "java-test",
+                    "java-debug-adapter",
+                    "google-java-format",
+                    "checkstyle",
 
-            -- Kotlin
-            "kotlin-language-server",
-            "ktlint",
+                    -- kotlin
+                    "kotlin-language-server",
+                    "ktlint",
 
-            -- Other
-            "sql-language-server",
-            "markdownlint",
-            "marksman",
-            "shellcheck",
-            "shfmt",
-            "lemminx",
-        }
-    }
+                    -- other
+                    "sqlls",
+                    "markdownlint",
+                    "marksman",
+                    "shellcheck",
+                    "shfmt",
+                    "lemminx",
+                },
+            })
+        end,
+    },
 }
