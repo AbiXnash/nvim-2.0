@@ -28,6 +28,7 @@ Thank you for your interest in contributing! This document outlines the guidelin
 -- Plugin Name
 -- =============================================================================
 -- Description of what this plugin does and why it's included
+-- Recent updates: Add version notes if applicable
 -- =============================================================================
 return {
     "author/plugin-name",
@@ -181,11 +182,15 @@ Add to `lua/abx/plugins/[category]/init.lua`:
 
 2. **LSP Server Config** - Create `lua/abx/lsp/servers/your_server.lua`:
     ```lua
+    -- =============================================================================
+    -- Your Language Server Configuration
+    -- =============================================================================
     return {
         cmd = { "your-server" },
         filetypes = { "your-lang" },
         root_markers = { "your-marker" },
         settings = {},
+        -- Note: Modern LSP configs use vim.lsp.enable instead of lspconfig setup
     }
     ```
 
