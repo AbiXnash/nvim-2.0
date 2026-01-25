@@ -51,10 +51,16 @@ Config.lsp = {
 
 | Indicator | Meaning |
 |-----------|---------|
-| **●** (red) | Error |
-| **●** (yellow) | Warning |
-| **●** (blue) | Info |
-| **●** (grey) | Hint |
+| **** (red) | Error |
+| **** (yellow) | Warning |
+| **** (blue) | Info |
+| **󰌵** (grey) | Hint |
+
+### Inline Diagnostics
+
+- Tiny inline diagnostic display replaces virtual text
+- Shows diagnostic messages directly inline with code
+- Cleaner, less intrusive error display
 
 ---
 
@@ -128,6 +134,11 @@ nvim/
 | `gd` | Go to definition |
 | `K` | Hover docs |
 | `<leader>ca` | Code action |
+| `<leader>rn` | Rename symbol |
+| `<leader>cf` | Format buffer |
+| `gD` | Go to declaration |
+| `gi` | Go to implementation |
+| `gr` | Find references |
 
 ### Telescope
 
@@ -135,6 +146,12 @@ nvim/
 |-----|--------|
 | `<leader><leader>` | Find files |
 | `<leader>fs` | Live grep |
+| `<leader>fg` | Git files |
+| `<leader>fb` | Buffers |
+| `<leader>fd` | Diagnostics |
+| `<leader>fh` | Help tags |
+| `<leader>fr` | Recent files |
+| `<leader>e` | File browser |
 
 ### Diagnostics
 
@@ -142,6 +159,9 @@ nvim/
 |-----|--------|
 | `[d` / `]d` | Prev/Next diagnostic |
 | `<leader>xx` | Open Trouble |
+| `<leader>xX` | Buffer diagnostics |
+| `<leader>cs` | LSP symbols |
+| `<leader>cl` | LSP references |
 
 ---
 
@@ -182,13 +202,14 @@ color_overrides = {
 
 | Category | Plugins |
 |----------|---------|
-| UI | Catppuccin, Blink.cmp, Lualine, Comment, Startify |
+| UI | Catppuccin, Blink.cmp, Lualine, Comment, Startify, Codesnap |
 | Dashboard | vim-startify |
-| File Manager | Oil.nvim |
-| LSP | Native LSP, lspconfig, mason |
-| Syntax | Treesitter |
+| File Manager | Oil.nvim, Telescope File Browser |
+| LSP | Native LSP, lspconfig, mason, fidget.nvim |
+| Syntax | Treesitter, nvim-highlight-colors |
 | Format | Conform, none-ls |
-| Git | Fugitive, gitsigns |
+| Git | Fugitive, gitsigns, Diffview |
+| Utilities | Undotree, Trouble, Persistence, Todo-comments |
 
 ---
 
@@ -211,10 +232,18 @@ color_overrides = {
 | Python | basedpyright | ✅ |
 | Go | gopls | ✅ |
 | Java | jdtls | ✅ |
-| TypeScript | typescript-tools | ✅ |
+| TypeScript | vtsls | ✅ |
+| JavaScript | vtsls | ✅ |
 | Lua | lua_ls | ✅ |
 | Svelte | svelte-language-server | ✅ |
 | Astro | astro-language-server | ✅ |
+| HTML | html-lsp | ✅ |
+| HTMX | htmx-lsp | ✅ |
+| JSON | json-lsp | ✅ |
+| YAML | yamlls | ✅ |
+| SQL | sql-language-server | ✅ |
+| Markdown | marksman | ✅ |
+| XML | lemminx | ✅ |
 | Kotlin | kotlin_language_server | ✅ |
 
 ---
