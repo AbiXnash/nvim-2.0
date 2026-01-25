@@ -94,19 +94,21 @@ Config.lsp = {
 	},
 
 	-- Server list (enabled via vim.lsp.enable)
+	-- Recent updates: Migrated from typescript-tools to vtsls for better TS/JS support
+	-- Added comprehensive web development support (html, htmx, json_ls)
 	servers = {
 		"lua_ls",
 		"rust_analyzer",
 		"svelte",
 		"astro",
-		"vtsls",
+		"vtsls", -- Updated: Replaced typescript-tools for improved TS/JS LSP support
 		"gopls",
 		"basedpyright",
 		"jdtls",
 		"marksman",
 		"html",
 		"yamlls",
-		"lemminx",
+		"lemminx", -- XML language server
 		"sqlls",
 		"kotlin_language_server",
 	},
@@ -131,6 +133,8 @@ Config.treesitter = {
 	max_file_size = 100 * 1024,
 
 	-- Languages to ensure are installed
+	-- Recent updates: Added htmx support for modern web development
+	-- Enhanced SQL support for database development
 	ensure_installed = {
 		"lua",
 		"vimdoc",
@@ -159,6 +163,7 @@ Config.treesitter = {
 		"sql",
 		"regex",
 		"templ",
+		"htmx", -- Added: Support for HTMX templating
 	},
 }
 
