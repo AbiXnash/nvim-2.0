@@ -51,6 +51,10 @@ Complete list of all plugins used in this Neovim configuration.
 | 39 | eyeliner | ui | Keyword highlighting |
 | 40 | todo-comments | ui | TODO highlighting |
 | 41 | vim-sleuth | ui | Auto-indentation |
+| 42 | fidget.nvim | tools | LSP progress notifications |
+| 43 | nvim-highlight-colors | lang | Color highlighting |
+| 44 | document-color.nvim | lang | CSS color preview |
+| 45 | neotags.lua | lang | Tag generation and management |
 
 ---
 
@@ -650,3 +654,27 @@ LSP server configurations are located in `lua/abx/lsp/servers/`:
 ---
 
 *Last updated: January 2026*
+
+---
+
+## Recent Updates
+
+### LSP Improvements (January 2026)
+- **LSP Server Updates**: Migrated from `typescript-tools` to `vtsls` for better TypeScript/JavaScript support
+- **Enhanced Web Support**: Added dedicated support for HTMX, HTML, and improved JSX/TSX handling
+- **New Language Servers**: Added support for SQL, XML, and improved JSON/YAML schemas
+- **Fidget Integration**: Added LSP progress notifications for better UX during server operations
+
+### Comment Plugin Fixes
+- **TreeSitter Compatibility**: Fixed deprecated module issues with `ts_context_commentstring`
+- **Enhanced Context**: Better comment detection in mixed language files (JSX, Vue, Svelte)
+
+### Web Development Enhancements
+- **Auto-tag Closing**: Improved HTML/HTMX tag auto-closing with `nvim-ts-autotag`
+- **Color Preview**: Added inline color preview for CSS/SCSS/HTML files
+- **Schema Validation**: Enhanced JSON/YAML validation with comprehensive schema store
+
+### Configuration Centralization
+- **Improved Config Structure**: Better organization of LSP servers and formatter settings
+- **Performance Optimizations**: Reduced startup time through optimized loading strategies
+- **Cross-Platform Compatibility**: Enhanced Windows/macOS path handling
