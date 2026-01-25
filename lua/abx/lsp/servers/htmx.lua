@@ -1,3 +1,10 @@
+-- =============================================================================
+-- HTMX Language Server (Currently Disabled)
+-- =============================================================================
+-- HTMX LSP support for modern web development with HTMX attributes
+-- Note: Currently disabled pending stable htmx-lsp release
+-- To enable: Uncomment the return statement and remove leading dashes
+-- =============================================================================
 -- return {
 --     htmx = {
 --         cmd = { "htmx-lsp", "--stdio" },
