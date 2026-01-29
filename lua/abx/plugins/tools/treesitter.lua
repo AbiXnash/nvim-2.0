@@ -53,6 +53,7 @@ end
 
 return {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master",
     build = ":TSUpdate",
     config = treesitter_setup,
 }

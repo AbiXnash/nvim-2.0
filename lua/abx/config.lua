@@ -163,7 +163,6 @@ Config.treesitter = {
 		"sql",
 		"regex",
 		"templ",
-		"htmx", -- Added: Support for HTMX templating
 	},
 }
 
