@@ -8,10 +8,12 @@ A minimalist Neovim configuration with ThePrimeagen-inspired styling and Catppuc
 [![Lua](https://img.shields.io/badge/Lua-5.1-blue?style=for-the-badge&logo=lua&logoColor=white)](https://www.lua.org/)
 [![Catppuccin](https://img.shields.io/badge/Catppuccin-Mocha-pink?style=for-the-badge&logo=windowsterminal)](https://github.com/catppuccin/nvim)
 [![Blink.cmp](https://img.shields.io/badge/Blink.cmp-yellow?style=for-the-badge&logo=neovim)](https://github.com/Saghen/blink.cmp)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/AbiXnash/nvim?style=for-the-badge&logo=github)](https://github.com/AbiXnash/nvim-2.0/stargazers)
+[![Stars](https://img.shields.io/github/stars/AbiXnash/nvim-2.0?style=for-the-badge&logo=github)](https://github.com/AbiXnash/nvim-2.0/stargazers)
 
 </div>
+
+> **Older config, kept for reference.** My current Neovim setup is [AbiXnash/nvim](https://github.com/AbiXnash/nvim)
+> (Neovim 0.12, lazy.nvim, the [Hell Pine](https://github.com/abxengg/hell-pine.nvim) colorscheme).
 
 ---
 
@@ -80,10 +82,11 @@ nvim
 ## File Structure
 
 ```
-nvim/
+nvim-2.0/
 ├── init.lua              # Entry point
 ├── README.md             # This file
-├── LICENSE               # MIT License
+├── PLUGINS.md            # Plugin list
+├── CONTRIBUTING.md
 │
 └── lua/abx/              # Main configuration
     ├── config.lua        # ← Centralized settings
@@ -254,12 +257,6 @@ color_overrides = {
 |---------|-------------|
 | `:LspRestart` | Restart LSP |
 | `:Mason` | Package manager |
-
----
-
-## License
-
-MIT License - see [LICENSE](LICENSE)
 
 ---
 
